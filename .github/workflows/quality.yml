@@ -28,6 +28,6 @@ jobs:
       - name: Note when the report dataset is absent
         if: ${{ hashFiles('Datasets/Data_Pengangguran_Clean_Audited_8_Sep_2026.csv') == '' }}
         run: echo "::notice::Dataset absent; notebook execution is skipped."
-      - name: Execute report notebook
+      - name: Execute report notebooks
         if: ${{ hashFiles('Datasets/Data_Pengangguran_Clean_Audited_8_Sep_2026.csv') != '' }}
-        run: uv run jupyter nbconvert --to notebook --execute --output-dir /tmp notebooks/01_eksplorasi_data.ipynb
+        run: uv run jupyter nbconvert --to notebook --execute --output-dir /tmp notebooks/01_eksplorasi_data.ipynb notebooks/02_tabel_variabel.ipynb

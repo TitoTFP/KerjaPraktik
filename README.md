@@ -12,7 +12,7 @@ uv sync
 uv run jupyter lab
 ```
 
-Buka `notebooks/01_eksplorasi_data.ipynb` di JupyterLab. Dependensi, metadata proyek, dan konfigurasi Python dikelola di `pyproject.toml`; `uv.lock` mengunci versi dependensi untuk lingkungan yang dapat direproduksi. Tidak ada `requirements.txt` atau `setup.py`.
+Buka `notebooks/01_eksplorasi_data.ipynb` untuk eksplorasi dan `notebooks/02_tabel_variabel.ipynb` untuk tabel definisi variabel. Notebook kedua merender tiga DataFrame langsung di output Jupyter agar bisa dipilih dan disalin; tidak ada file tabel/gambar terpisah.
 
 ## Pemeriksaan lokal
 
@@ -20,7 +20,7 @@ Buka `notebooks/01_eksplorasi_data.ipynb` di JupyterLab. Dependensi, metadata pr
 uv run pytest
 uv run ruff check src tests
 # Opsional; memerlukan CSV sumber di Datasets/
-uv run jupyter nbconvert --to notebook --execute --output-dir /tmp notebooks/01_eksplorasi_data.ipynb
+uv run jupyter nbconvert --to notebook --execute --output-dir /tmp notebooks/01_eksplorasi_data.ipynb notebooks/02_tabel_variabel.ipynb
 ```
 
 ## Struktur

@@ -12,7 +12,7 @@
    uv run pytest
    uv run ruff check src tests
    if test -f Datasets/Data_Pengangguran_Clean_Audited_8_Sep_2026.csv; then
-       uv run jupyter nbconvert --to notebook --execute --output-dir /tmp notebooks/01_eksplorasi_data.ipynb
+       uv run jupyter nbconvert --to notebook --execute --output-dir /tmp notebooks/01_eksplorasi_data.ipynb notebooks/02_tabel_variabel.ipynb
    else
        echo "Eksekusi notebook dilewati: CSV sumber tidak tersedia."
    fi
