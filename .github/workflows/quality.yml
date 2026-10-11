@@ -1,0 +1,33 @@
+name: Quality checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install project and locked dependencies
+        run: uv sync --locked
+      - name: Lint Python
+        run: uv run ruff check src tests
+      - name: Test data helpers
+        run: uv run pytest
+      - name: Note when the report dataset is absent
+        if: ${{ hashFiles('Datasets/Data_Pengangguran_Clean_Audited_8_Sep_2026.csv') == '' }}
+        run: echo "::notice::Dataset absent; notebook execution is skipped."
+      - name: Execute report notebook
+        if: ${{ hashFiles('Datasets/Data_Pengangguran_Clean_Audited_8_Sep_2026.csv') != '' }}
+        run: uv run jupyter nbconvert --to notebook --execute --output-dir /tmp notebooks/01_eksplorasi_data.ipynb

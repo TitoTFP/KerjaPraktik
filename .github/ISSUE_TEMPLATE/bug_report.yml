@@ -1,0 +1,26 @@
+name: Laporan masalah
+description: Laporkan masalah pada kode, notebook, dokumentasi, atau pipeline analisis.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Masalah
+      description: Jelaskan perilaku yang terjadi dan yang diharapkan.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Langkah reproduksi
+      description: Sertakan perintah atau sel notebook yang dijalankan.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Lingkungan
+      description: Versi Python, uv, dan sistem operasi.
+    validations:
+      required: false
