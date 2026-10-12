@@ -22,11 +22,22 @@ quarto render laporan
 
 Lihat [panduan Quarto, Pandoc, dan Zotero](docs/panduan-referensi.md) untuk instalasi, ekspor otomatis, gaya sitasi, dan format kutipan.
 
+## Reproduksi aset Bab IV
+
+Sembilan gambar analisis Bab IV (Gambar 4.1–4.9) dibuat ulang dari CSV pengangguran dan GeoJSON batas desa di `Datasets/`, termasuk peta Gambar 4.3, 4.7, dan 4.9. Lima tangkapan layar bagian 4.7 Dashboard tetap menggunakan `laporan/docx-media/media/image13.png`–`image17.png` dan tidak dibuat ulang oleh generator.
+
+```bash
+uv run python scripts/generate_bab4_assets.py
+quarto render laporan
+```
+
+Generator menulis sembilan gambar analisis ke `laporan/assets/bab-04/`. Peta 4.3, 4.7, dan 4.9 memakai lima kelas *Natural Breaks* dan label desa dari kolom `fid` CSV (bukan nama desa); data dan batas legenda dinyatakan dalam persen. Lebar peta di laporan ditingkatkan agar ID lebih terbaca. Tiap peta memuat legenda diskret, penunjuk utara, dan skala 10 km. Tangkapan layar Dashboard tetap bersumber dari `laporan/docx-media/`.
+
 ## Pemeriksaan lokal
 
 ```bash
 uv run pytest
-uv run ruff check src tests
+uv run ruff check src tests scripts
 # Opsional; memerlukan Quarto
 quarto render laporan
 ```
