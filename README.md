@@ -13,7 +13,7 @@ uv sync
 
 ## Menulis laporan
 
-Laporan kerja praktik disusun sebagai Quarto Book dengan satu berkas `.qmd` per bab: `laporan/index.qmd` berisi Bab I (nama `index.qmd` diperlukan oleh Quarto Book), lalu `bab-02-gambaran-umum.qmd` sampai `bab-05-penutup.qmd`. Berkas hanya mencakup Bab I–V; halaman awal, daftar pustaka, dan lampiran dari sumber DOCX tidak disertakan. Quarto merender HTML dan Word; DOCX gabungan tersimpan di `laporan/_output/laporan.docx`. Quarto menyertakan Pandoc untuk konversi dan sitasi. Siapkan Zotero serta Better BibTeX untuk ekspor referensi ke `laporan/references.bib`.
+Laporan kerja praktik disusun sebagai Quarto Book dengan `laporan/index.qmd` sebagai halaman awal (wajib untuk buku Quarto) dan Bab I–V di `laporan/bab/`, dari `bab-01-pendahuluan.qmd` sampai `bab-05-penutup.qmd`. Berkas hanya mencakup Bab I–V; bagian halaman awal, daftar pustaka, dan lampiran dari DOCX sumber tidak disertakan. Quarto merender HTML dan Word; DOCX gabungan tersimpan di `laporan/_output/laporan.docx`. Quarto menyertakan Pandoc untuk konversi dan sitasi. Siapkan Zotero serta Better BibTeX untuk ekspor referensi ke `laporan/references.bib`.
 
 ```bash
 quarto check
@@ -38,7 +38,7 @@ quarto render laporan
 ├── .github/                  # workflow CI dan templat kontribusi GitHub
 ├── Datasets/                 # CSV sumber dan batas wilayah GeoJSON
 ├── docs/                     # panduan referensi, kamus data, dan kerangka laporan
-├── laporan/                  # proyek Quarto, dokumen .qmd, dan ekspor references.bib
+├── laporan/                  # Quarto Book: index.qmd, bab/, references.bib
 ├── src/laporan_kerja_praktik/ # loader dan agregasi yang dapat digunakan ulang
 ├── tests/                    # uji perilaku loader dan agregasi
 ├── pyproject.toml            # metadata, dependensi, dan konfigurasi Python

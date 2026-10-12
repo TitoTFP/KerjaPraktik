@@ -12,13 +12,13 @@ EDA dilakukan untuk mengetahui karakteristik data pengangguran sebelum menentuka
 
 > Distribusi pada data perlu dilakukan pengecekan apakah berdistribusi normal atau tidak pada data TPT. Berikut adalah plot histogram dan boxplot yang disajikan pada Gambar 4.1.
 >
-> ![](docx-media/media/image4.png){width="3.2376902887139107in" height="1.1788035870516185in"}
+> ![](../docx-media/media/image4.png){width="3.2376902887139107in" height="1.1788035870516185in"}
 
-![**Gambar 4.1** Distribusi TPT Menurut Desa/Kelurahan](docx-media/media/image4.png){width="2.0751159230096237in" height="0.6485673665791776in"}
+![**Gambar 4.1** Distribusi TPT Menurut Desa/Kelurahan](../docx-media/media/image4.png){width="2.0751159230096237in" height="0.6485673665791776in"}
 
 > Berdasarkan Gambar 4.1, grafik histogram menunjukkan bahwa data TPT mendekati normal dan sedikit menceng ke kanan. Nilai rata-rata yang dihasilkan juga 30,72% yang mana lebih besar dari nilai median yang sekitar 30,63% artinya beberapa desa/kelurahan memiliki nilai TPT yang tinggi yang menaikkan nilai rata-rata tersebut. Grafik boxplot menunjukkan bahwa sebaran data tengah relatif tepat dan terlihat beberapa titik *outlier* di sisi kanan yang nilai TPT beberapa desa/kelurahan itu tinggi. Untuk menguji kesesuaian data terhadap distribusi normal, dilakukan pula analisis Q*-Q plot* yang disajikan Gambar 4.2 berikut.
 
-![**Gambar 4.2** Q-Q Plot TPT Menurut Desa/Kelurahan](docx-media/media/image5.png){width="3.2944444444444443in" height="2.8483727034120734in"}
+![**Gambar 4.2** Q-Q Plot TPT Menurut Desa/Kelurahan](../docx-media/media/image5.png){width="3.2944444444444443in" height="2.8483727034120734in"}
 
 > Berdasarkan Gambar 4.2, yang memperlihatkan bahwa sebagian besar titik data mengikuti garis referensi normal pada bagian tengah distribusi. Akan tetapi, terdapat penyimpangan pada kedua ujung distribusi, di mana titik-titik pada ekor kanan berada di atas garis referensi mengindikasikan ekor kanan yang lebih panjang (*heavy tail*) dan sejalan dengan cek *outlier* pada boxplot sementara titik-titik pada ekor kiri berada sedikit di bawah garis referensi.
 
@@ -26,7 +26,7 @@ EDA dilakukan untuk mengetahui karakteristik data pengangguran sebelum menentuka
 
 Adapun pemetaan variabel respon Tingkat Pengangguran Terbuka (TPT) untuk mengetahui daerah mana saja yang memiliki persentase rendah dan tinggi. Peta persentase tingkat pengangguran disajikan pada Gambar 4.3.
 
-> ![](docx-media/media/image6.png){width="3.665307305336833in" height="1.8787292213473317in"}
+> ![](../docx-media/media/image6.png){width="3.665307305336833in" height="1.8787292213473317in"}
 >
 > **Gambar 4.3** Peta TPT Menurut Desa/Kelurahan
 >
@@ -36,7 +36,7 @@ Adapun pemetaan variabel respon Tingkat Pengangguran Terbuka (TPT) untuk mengeta
 
 > Selanjutnya, pendidikan terakhir adalah profil pendidikan yang ditempuh terakhir oleh penganggur. Profil pendidikan yang ada di Kabupaten Tuban banyak, tapi dapat disajikan dalam Gambar 4.4 yang menampilkan 4 jumlah tertingginya dan keterangan dalam Tabel 4.1.
 
-![**Gambar 4.4** Profil Pendidikan Terakhir](docx-media/media/image7.png){width="3.6805555555555554in" height="1.8263888888888888in"}
+![**Gambar 4.4** Profil Pendidikan Terakhir](../docx-media/media/image7.png){width="3.6805555555555554in" height="1.8263888888888888in"}
 
   ----------------------------------------------------------------
   Kelompok Analisis      Kategori
@@ -56,23 +56,23 @@ Adapun pemetaan variabel respon Tingkat Pengangguran Terbuka (TPT) untuk mengeta
 >
 > Pola ini menunjukkan hubungan terbalik antara tingkat pendidikan dan jumlah penganggur: semakin tinggi jenjang pendidikan, semakin kecil persentase penganggurannya. Hal ini mengindikasikan bahwa pengangguran di Kabupaten Tuban masih banyak terjadi pada kelompok berpendidikan dasar/tanpa ijazah. Pembagian proporsi pendidikan dan beban absolut masing-masing desa/kecamatan dalam *scatterplot* pada Gambar 4.5
 
-![**Gambar 4.5** Beban Absolut dan Proporsi Pendidikan Per Desa/Kelurahan](docx-media/media/image8.png){width="3.359890638670166in" height="2.4724562554680665in"}
+![**Gambar 4.5** Beban Absolut dan Proporsi Pendidikan Per Desa/Kelurahan](../docx-media/media/image8.png){width="3.359890638670166in" height="2.4724562554680665in"}
 
 > Berdasarkan Gambar 4.5, sebagian besar desa memiliki kurang dari sekitar 400 penganggur pendidikan rendah. Hanya beberapa desa yang jauh di kanan dengan beban sekitar 600-1.400 orang sehingga jumlah sasaran tidak tersebar merata karena menampung beban absolut lebih besar. Sebagian besar titik berada di 55-80% yang mana banyak desa yang lebih dari nilai median, artinya banyak desa yang pendidikan rendah didominasi oleh penganggur. Pola sebaran titik melebar, menandakan desa dengan proporsi tinggi belum tentu memiliki beban absolut terbesar, dan sebaliknya. Desa dengan sekitar 150-250 penganggur bisa memiliki proporsi lebih dari 80%, sedangkan desa dengan lebih dari 1.200 penganggur proporsinya sekitar 50%. Hal ini menunjukkan jumlah sasaran dan intensitas masalah adalah dua hal yang berbeda dan dinilai secara terpisah.
 >
 > Adapun grafik untuk kontras pada pendidikan rendah dan tinggi di Kabupaten Tuban berdasarkan kecamatan yang ditampilkan pada Gambar 4.6.
 
-![**Gambar 4.6** Kontras Proporsi Pendidikan Per Kecamatan](docx-media/media/image9.png){width="3.5559601924759403in" height="2.504861111111111in"}
+![**Gambar 4.6** Kontras Proporsi Pendidikan Per Kecamatan](../docx-media/media/image9.png){width="3.5559601924759403in" height="2.504861111111111in"}
 
 > Berdasarkan Gambar 4.6, membandingkan proporsi penganggur berpendidikan rendah (merah) dan berpendidikan tinggi/D1 ke atas (biru) di tiap kecamatan. Hampir semua pola serupa, pendidikan rendah mendominasi 60-80% sementara pendidikan tinggi sangat kecil di bawah 10%, dengan kesenjangan terbesar di Grabagan, Kenduruan, Kerek, dan Montong. Adapun pemetaan kontras proporsi pendidikan rendah penganggur per desa/kelurahan pada Gambar 4.7
 
-![**Gambar 4.7** Peta Proporsi Pendidikan Rendah Menurut Desa/Kelurahan](docx-media/media/image10.png){width="3.650326990376203in" height="1.726418416447944in"}
+![**Gambar 4.7** Peta Proporsi Pendidikan Rendah Menurut Desa/Kelurahan](../docx-media/media/image10.png){width="3.650326990376203in" height="1.726418416447944in"}
 
 ### Jumlah Penyakit Kronis
 
 > Penyakit kronis disini merupakan profil penganggur dalam kondisi penyakit kronis. Pada penyakit kronis ini, terdapat 3 bagian kelompok untuk mengetahui profil dari penganggur yang disajikan dalam grafik histogram Gambar 4.8 berikut.
 
-![**Gambar 4.8** Profil Penyakit Kronis](docx-media/media/image11.png){width="3.711797900262467in" height="1.8454418197725284in"}
+![**Gambar 4.8** Profil Penyakit Kronis](../docx-media/media/image11.png){width="3.711797900262467in" height="1.8454418197725284in"}
 
 > Berdasarkan Gambar 4.8, penganggur di Kabupaten Tuban adalah mayoritas tercatat tidak mengalami penyakit kronis sebesar 95,68%. Adapun yang tercatat sebesar 3,97% dan yang tidak tercatat sebesar 0,35% dari total penganggur. Selanjutnya, profil dari penganggur yang tercatat penyakit kronis dijelaskan dalam peringkat jumlah yang disajikan dalam Tabel 4.2.
 
@@ -118,7 +118,7 @@ Adapun pemetaan variabel respon Tingkat Pengangguran Terbuka (TPT) untuk mengeta
 
 > Peringkat pada Tabel 4.8 diketahui bahwa penyakit lainnya sebesar 1.317 dan rematik sebesar 1198 adalah tertinggi dialami oleh penganggur. Secara umum, menunjukkan penyakit kronis bukan faktor dominan di balik status pengangguran, karena dalam kondisi dengan jumlah tertinggi sekalipun hanya menyumbang kurang dari 1% dari seluruh penganggur, Selanjutnya, pemetaan pada proporsi penyakit kronis per desa/kelurahan pada Gambar 4.9.
 
-![**Gambar 4.9** Peta Proporsi Penyakit Kronis Menurut Desa/Kelurahan](docx-media/media/image12.png){width="3.6862871828521433in" height="1.7665048118985127in"}
+![**Gambar 4.9** Peta Proporsi Penyakit Kronis Menurut Desa/Kelurahan](../docx-media/media/image12.png){width="3.6862871828521433in" height="1.7665048118985127in"}
 
 ## Korelasi Data
 
@@ -365,20 +365,20 @@ https://www.canva.com/design/DAHRMKvrt60/nRzzhQLHdLpr6CZt2DCgLA/edit
 
 1. Ringkasan Kabupaten Tuban
 
-![](docx-media/media/image13.png){width="3.8319860017497813in" height="2.8738254593175854in"}
+![](../docx-media/media/image13.png){width="3.8319860017497813in" height="2.8738254593175854in"}
 
 2. Peta & Wilayah
 
-![](docx-media/media/image14.png){width="3.891509186351706in" height="2.918464566929134in"}
+![](../docx-media/media/image14.png){width="3.891509186351706in" height="2.918464566929133in"}
 
 3. Profil & Prioritas
 
-![](docx-media/media/image15.png){width="3.8447451881014874in" height="2.8833945756780404in"}
+![](../docx-media/media/image15.png){width="3.8447451881014874in" height="2.8833945756780404in"}
 
 4. Pola Spasial
 
-![](docx-media/media/image16.png){width="3.878248031496063in" height="2.9085192475940507in"}
+![](../docx-media/media/image16.png){width="3.878248031496063in" height="2.9085192475940507in"}
 
 5. GWR & Metodologi
 
-![](docx-media/media/image17.png){width="3.8366196412948383in" height="2.877299868766404in"}
+![](../docx-media/media/image17.png){width="3.8366196412948383in" height="2.877299868766404in"}

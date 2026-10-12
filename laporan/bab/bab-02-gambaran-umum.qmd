@@ -14,7 +14,7 @@ PDPM sendiri telah berdiri sejak tahun 2000 yang mana telah mengikuti sejarah na
 6. Tahun 2019-2024 pergantian pemimpin yang dipimpin oleh Bapak Sutikno dan Dr. Soedarso, M.Hum. sebagai wakilnya.
 7. Tahun 2024-sekarang berganti nama menjadi Pusat Studi Potensi Daerah dan Pemberdayaan Masyarakat (Pusat Studi PDPM) dimana masih dipimpin oleh Bapak Sutikno dan Ibu Rulli Pratiwi Setiawan, S.T., M.Sc., Ph.D. sebagai wakilnya.
 
-. ![Picture1](docx-media/media/image2.jpeg){width="1.474359142607174in" height="1.474359142607174in"}
+. ![Picture1](../docx-media/media/image2.jpeg){width="1.474359142607174in" height="1.474359142607174in"}
 
 []{#_Toc215385159 .anchor}**Gambar 2.1** Logo Pusat Studi PDPM ITS
 
@@ -50,7 +50,7 @@ e. Memperluas jaringan kerja sama nasional dan internasional dalam bidang pemban
 
 Struktur organisasi adalah kerangka kerja yang mengatur hubungan dan tanggung jawab antara berbagai elemen atau bagian di dalam suatu organisasi. Dikutip dari laman resmi *website* www.its.ac.id/pdpm, struktur organisasi sebagai berikut.
 
-![[]{#_Toc215385161 .anchor}**Gambar 2.2** Struktur Organisasi Pusat Studi PDPM ITS](docx-media/media/image3.png){width="3.1247845581802274in" height="3.002739501312336in"}
+![[]{#_Toc215385161 .anchor}**Gambar 2.2** Struktur Organisasi Pusat Studi PDPM ITS](../docx-media/media/image3.png){width="3.1247845581802274in" height="3.002739501312336in"}
 
 Sumber: *Website* PDPM ITS
 

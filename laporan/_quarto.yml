@@ -5,10 +5,11 @@ project:
 book:
   chapters:
     - index.qmd
-    - bab-02-gambaran-umum.qmd
-    - bab-03-pelaksanaan.qmd
-    - bab-04-hasil.qmd
-    - bab-05-penutup.qmd
+    - bab/bab-01-pendahuluan.qmd
+    - bab/bab-02-gambaran-umum.qmd
+    - bab/bab-03-pelaksanaan.qmd
+    - bab/bab-04-hasil.qmd
+    - bab/bab-05-penutup.qmd
 
 lang: id
 bibliography: references.bib

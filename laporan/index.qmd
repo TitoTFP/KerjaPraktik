@@ -1,57 +1,11 @@
-#  PENDAHULUAN
+# Laporan Kerja Praktik: Data Pengangguran Kabupaten Tuban {.unnumbered}
 
-## Latar Belakang
+Laporan ini memuat lima bab mengenai pelaksanaan kerja praktik dan analisis data pengangguran Kabupaten Tuban tahun 2026. Bab-babnya membahas pendahuluan, gambaran umum tempat kerja praktik, pelaksanaan kegiatan, hasil analisis, dan penutup.
 
-Perkembangan kebutuhan pembangunan daerah yang semakin kompleks menuntut adanya proses perencanaan, pelaksanaan, monitoring, dan evaluasi program yang didasarkan pada data dan kajian ilmiah. Berbagai persoalan pembangunan, seperti pengembangan potensi daerah, pemberdayaan masyarakat, penguatan ekonomi lokal, pengelolaan lingkungan, serta peningkatan kualitas tata kelola daerah membutuhkan informasi yang akurat agar kebijakan dan program dapat disusun secara tepat sasaran. Dalam konteks tersebut, statistika memiliki peran penting dalam proses pengumpulan, pengolahan, analisis, interpretasi, dan penyajian data menjadi informasi yang mendukung pengambilan keputusan. Pusat Studi Potensi Daerah dan Pemberdayaan Masyarakat Institut Teknologi Sepuluh Nopember (PDPM ITS) memiliki kegiatan yang berkaitan erat dengan kebutuhan tersebut, meliputi riset, pelatihan, pendampingan, kajian kewilayahan, pemetaan kondisi sosial dan lingkungan, serta penyusunan indikator pembangunan. Salah satu bidang fokus PDPM ITS adalah statistik, survei, dan pemetaan sosial, sehingga pelaksanaan Kerja Praktik di PDPM ITS memberikan kesempatan bagi mahasiswa Statistika untuk menerapkan kompetensi akademik pada permasalahan nyata yang berkaitan dengan pembangunan daerah dan pemberdayaan masyarakat.
+## Bab Laporan
 
-Salah satu kegiatan yang dilakukan selama Kerja Praktik adalah pengolahan dan analisis data pengangguran Kabupaten Tuban yang mencakup 328 desa/kelurahan. Data tersebut dianalisis untuk memperoleh gambaran kondisi pengangguran serta variasinya antarwilayah, dengan memanfaatkan informasi seperti sektor pekerjaan, pendidikan terakhir, dan penyakit kronis. Analisis hubungan antara struktur sektor pekerjaan dan TPT Proxy dilakukan menggunakan *Ordinary Least Squares* (OLS) sebagai model global dan *Geographically Weighted Regression* (GWR) untuk mengevaluasi perbedaan hubungan antarvariabel secara spasial. Hasil analisis selanjutnya disajikan melalui pemetaan dan dirancang dalam bentuk dashboard agar informasi dapat ditampilkan secara lebih ringkas, informatif, dan mudah dieksplorasi. Oleh karena itu, proyek utama Kerja Praktik ini difokuskan pada perancangan dashboard analisis dan pemetaan spasial data pengangguran Kabupaten Tuban sebagai bentuk penerapan statistika dalam mendukung penyajian informasi berbasis data di Pusat Studi PDPM ITS.
-
-## Tujuan Kerja Praktik
-
-Pelaksanaan kerja praktik ini merupakan proses bagi mahasiswa untuk melakukan pembelajaran serta menerapkan ilmu-ilmu yang telah dipelajari selama masa perkuliahan di kegiatan lapangan sehingga dapat memberikan pengalaman dan gambaran di dunia kerja kelak. Adapun untuk tujuan dalam pelaksanaan kerja praktik ini dibagi menjadi tujuan umum dan tujuan khusus sebagai berikut.
-
-### Tujuan Umum
-
-> Tujuan umum yang ingin dicapai dalam perlaksanaan kerja praktik terdapat beberapa, khususnya di Departemen Statistika sebagai berikut.
-
-1. Mahasiswa mampu menerapkan dan memahami ilmu statistika di dunia kerja.
-2. Mahasiswa memperoleh pengetahuan dan pengalaman yang dapat mendukung perkembangan *skill* baik *softskill* maupun *hardskill*.
-3. Menjalin kerja sama dengan perusahaan atau instansi di tempat berlangsungnya kerja praktik.
-4. Memberikan pengalaman bekerja secara mandiri dan mengambil tanggung jawab atas tugas-tugas yang diberikan.
-
-### Tujuan Khusus
-
-> Tujuan khusus dalam pelaksanaan kerja praktik ini adalah sebagai berikut.
-
-1. Melakukan eksplorasi dan analisis data dengan menerapkan metode statistika pada data pengangguran di Kabupaten Tuban Tahun 2026.
-2. Mengidentifikasi pola, persebaran spasial, dan pengelompokkan dari model GWR pada data pengangguran Kabupaten Tuban Tahun 2026 pada masing-masing wilayah.
-3. Menyajikan hasil analisis data dalam bentuk dashboard, meliputi analisis data, grafik, peta, atau informasi lain yang mudah dipahami dan dapat mendukung proses evaluasi serta pengambilan keputusan.
-
-## Manfaat
-
-Pelaksanaan dari kerja praktik oleh mahasiswa Departemen Statistika FSAD ITS ini diharapkan dapat memberikan kontribusi bagi beberapa pihak, manfaat yang dapat diperoleh pihak terkait sebagai berikut.
-
-### Manfaat bagi Perusahaan/Intansi
-
-> Manfaat bagi perusahaan adalah sebagai berikut,
-
-1. Adanya hubungan kerja sama secara langsung Pusat Studi PDPM ITS dengan perguruan tinggi Departemen Statistika FSAD ITS.
-2. Memberikan analisis data daerah sekitar Tuban dengan penerapan ilmu statistika.
-3. Masukan yang objektif untuk Pusat Studi PDPM ITS sebagai pertanggungjawaban secara akademis guna meningkatkan produktivitas.
-
-### Manfaat bagi Mahasiswa
-
-> Manfaat bagi mahasiswa Departemen Statistika FSAD ITS adalah sebagai berikut.
-
-1. Mahasiswa mengetahui dunia kerja secara langsung.
-2. Mahasiswa memperoleh pengalaman melalui sosialisasi dalam lingkungan kerja.
-3. Mahasiswa meningkatkan *skill* praktis dalam mengumpulkan, mengolah, dan menginterpretasikan dalam menganalisis data.
-4. Mahasiswa mengembangkan cara berkomunikasi, interpersonal, dan manajemen waktu melalui keterlibatan aktif kegiatan kerja.
-5. Mahasiswa mampu memberi wawasan akan penerapan statistika dalam lingkungan kerja.
-
-### Manfaat bagi Institusi Pendidikan
-
-> Manfaat bagi Departemen Statistika FSAD ITS adalah sebagai berikut
-
-1. Menghasilkan mahasiswa sebagai Sumber Daya Manusia (SDM) yang potensial sesuai bidang minat masing-masing.
-2. Memberikan ekosistem yang baru dalam lingkup dunia kerja di Pusat Studi PDPM ITS.
+- [Bab I — Pendahuluan](bab/bab-01-pendahuluan.qmd)
+- [Bab II — Gambaran Umum Tempat Kerja Praktik](bab/bab-02-gambaran-umum.qmd)
+- [Bab III — Pelaksanaan Kerja Praktik](bab/bab-03-pelaksanaan.qmd)
+- [Bab IV — Hasil Kerja Praktik](bab/bab-04-hasil.qmd)
+- [Bab V — Penutup](bab/bab-05-penutup.qmd)
