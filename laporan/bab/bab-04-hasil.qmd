@@ -12,7 +12,7 @@ EDA dilakukan untuk mengetahui karakteristik data pengangguran sebelum menentuka
 
 > Distribusi pada data perlu dilakukan pengecekan apakah berdistribusi normal atau tidak pada data TPT. Berikut adalah plot histogram dan boxplot yang disajikan pada Gambar 4.1.
 
-![**Gambar 4.1** Distribusi TPT Menurut Desa/Kelurahan](../docx-media/media/image4.png){width="2.0751159230096237in" height="0.6485673665791776in"}
+![**Gambar 4.1** Distribusi TPT Menurut Desa/Kelurahan](../docx-media/media/image4.png){width="3.2376902887139107in"}
 
 > Berdasarkan Gambar 4.1, grafik histogram menunjukkan bahwa data TPT mendekati normal dan sedikit menceng ke kanan. Nilai rata-rata yang dihasilkan juga 30,72% yang mana lebih besar dari nilai median yang sekitar 30,63% artinya beberapa desa/kelurahan memiliki nilai TPT yang tinggi yang menaikkan nilai rata-rata tersebut. Grafik boxplot menunjukkan bahwa sebaran data tengah relatif tepat dan terlihat beberapa titik *outlier* di sisi kanan yang nilai TPT beberapa desa/kelurahan itu tinggi. Untuk menguji kesesuaian data terhadap distribusi normal, dilakukan pula analisis Q*-Q plot* yang disajikan Gambar 4.2 berikut.
 
