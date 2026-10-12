@@ -11,8 +11,6 @@ EDA dilakukan untuk mengetahui karakteristik data pengangguran sebelum menentuka
 1. Distribusi TPT
 
 > Distribusi pada data perlu dilakukan pengecekan apakah berdistribusi normal atau tidak pada data TPT. Berikut adalah plot histogram dan boxplot yang disajikan pada Gambar 4.1.
->
-> ![](../docx-media/media/image4.png){width="3.2376902887139107in" height="1.1788035870516185in"}
 
 ![**Gambar 4.1** Distribusi TPT Menurut Desa/Kelurahan](../docx-media/media/image4.png){width="2.0751159230096237in" height="0.6485673665791776in"}
 
