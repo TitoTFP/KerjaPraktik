@@ -1,7 +1,7 @@
 # Laporan Kerja Praktik: Data Pengangguran Kabupaten Tuban
 
 Repositori untuk analisis deskriptif dan penyusunan laporan kerja praktik menggunakan data pengangguran Kabupaten Tuban.
-CSV sumber dibutuhkan untuk memuat data dan tidak disertakan dalam repositori. Letakkan salinan di `Datasets/Data_Pengangguran_Clean_Audited_8_Sep_2026.csv` sebelum menjalankan analisis; pastikan izin distribusi sebelum membagikan data. Unit tests tidak memerlukan CSV.
+CSV sumber yang dipakai loader dan berkas batas wilayah GeoJSON disertakan di `Datasets/`: `Data_Pengangguran_Clean_Audited_8_Sep_2026.csv` dan `Kabupaten Tuban-KEL_DESA.geojson`. Unit tests tidak memerlukan CSV.
 
 ## Mulai cepat
 
@@ -36,7 +36,7 @@ quarto render laporan
 ```text
 .
 ├── .github/                  # workflow CI dan templat kontribusi GitHub
-├── Datasets/                 # lokasi lokal opsional untuk CSV sumber
+├── Datasets/                 # CSV sumber dan batas wilayah GeoJSON
 ├── docs/                     # panduan referensi, kamus data, dan kerangka laporan
 ├── laporan/                  # proyek Quarto, dokumen .qmd, dan ekspor references.bib
 ├── src/laporan_kerja_praktik/ # loader dan agregasi yang dapat digunakan ulang
@@ -45,7 +45,7 @@ quarto render laporan
 └── uv.lock                   # lockfile dependensi
 ```
 
-CSV adalah sumber untuk analisis. Jangan menimpa dataset saat membersihkan atau menganalisis data; simpan perubahan analisis di kode proyek.
+Data analisis berada di `Datasets/`. Jangan menimpa berkas sumber saat membersihkan atau menganalisis data; simpan perubahan analisis di kode proyek.
 
 ## Git dan GitHub
 
