@@ -162,7 +162,7 @@ Hasil uji *F* diperoleh nilai statistik $F_{6,321} = 12,6777$ dengan nilai *p-va
 
   : **Tabel 4.2** Estimasi Parameter Model OLS
 
-Berdasarkan *p-value* OLS konvensional pada taraf signifikansi 5%, terdapat tiga prediktor yang menunjukkan hubungan signifikan dengan TPT Proxy, yaitu share_perdagangan ($X_{1}$), share_perikanan ($X_{4}$), dan share_sektor_lain_ref ($X_{6}$). Adapun share_lainnya ($X_{2}$), share_jasa_kemasyarakatan $(X_{3}$, dan share_jasa_pendidikan ($X_{5}$) tidak signifikan pada taraf 5%, sehingga belum terdapat cukup bukti berdasarkan model OLS global untuk menyatakan bahwa ketiga prediktor tersebut memiliki hubungan yang berbeda secara statistik terhadap TPT Proxy dibandingkan dengan kategori referensi, yaitu sektor pertanian. Pemeriksaan diagnostik dilakukan untuk menilai keterbatasan model global sebelum dilanjutkan ke analisis GWR.
+Berdasarkan *p-value* OLS konvensional pada taraf signifikansi 5%, terdapat tiga prediktor yang menunjukkan hubungan signifikan dengan TPT Proxy, yaitu share_perdagangan ($X_{1}$), share_perikanan ($X_{4}$), dan share_sektor_lain_ref ($X_{6}$). Adapun share_lainnya ($X_{2}$), share_jasa_kemasyarakatan ($X_{3}$), dan share_jasa_pendidikan ($X_{5}$) tidak signifikan pada taraf 5%, sehingga belum terdapat cukup bukti berdasarkan model OLS global untuk menyatakan bahwa ketiga prediktor tersebut memiliki hubungan yang berbeda secara statistik terhadap TPT Proxy dibandingkan dengan kategori referensi, yaitu sektor pertanian. Pemeriksaan diagnostik dilakukan untuk menilai keterbatasan model global sebelum dilanjutkan ke analisis GWR.
 
 +----------------------+---------------+----------------------------------------------------------------+
 | > Diagnostik         | > Hasil       | > Interpretasi                                                 |
@@ -260,7 +260,7 @@ Uji kesamaan model global dengan lokal digunakan untuk mengevaluasi apakah selur
 
 $$H_{0}:\beta_{j}\left( u_{i},v_{i} \right) = \beta_{j};j = 0,1,2,\ldots,6;\ i = 1,2,\ldots,328$$
 
-$H_{1}:$ minimal ada satu $\beta_{j}\left( u_{i},v_{i} \right) \neq \beta_{j}\$
+$H_{1}:$ minimal ada satu $\beta_{j}\left( u_{i},v_{i} \right) \neq \beta_{j}$
 
 Pada spesifikasi GWR Gaussian dengan bandwidth adaptif 43, diperoleh statistik uji $F_{GWR}$ sebesar 1,2323 dengan $df_{1} = 321$, $df_{2} = 290,5357$, dan *p-value* sebesar 0,0347. Karena *p-value* lebih kecil daripada taraf signifikansi 5%, hipotesis $H_{0}$ ditolak. Hasil ini memberikan bukti pendukung bahwa paling sedikit satu parameter lokal GWR berbeda dari parameter global OLS.
 

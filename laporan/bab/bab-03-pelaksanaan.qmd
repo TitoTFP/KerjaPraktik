@@ -342,10 +342,7 @@ Teori yang digunakan untuk penyelesaian tugas Kerja Praktik adalah sebagai berik
 1. *Adaptive Bisquare Kernel*
 
   ------------------------------------------------------------------------------------------------------------
-  $$w_{ij} = \left\{ \begin{array}{r}                                                                (3.17)
-  \left\lbrack 1 - \left( \frac{d_{ij}}{b_{i}} \right)^{2} \right\rbrack^{2},\ \ d_{ij} < b_{i} \\
-  0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,\ \ d_{ij} \geq b_{i}
-  \end{array} \right.\ $$
+  $$w_{ij} = \begin{cases} \left[1 - \left( \frac{d_{ij}}{b_{i}} \right)^{2} \right]^{2}, & d_{ij} < b_{i} \\ 0, & d_{ij} \geq b_{i} \end{cases}$$   (3.17)
   -------------------------------------------------------------------------------------------------- ---------
 
   ------------------------------------------------------------------------------------------------------------
@@ -386,7 +383,7 @@ Teori yang digunakan untuk penyelesaian tugas Kerja Praktik adalah sebagai berik
 >
 > $$H_{0}:\beta_{j}\left( u_{i},v_{i} \right) = \beta_{j};j = 0,1,2,\ldots,p;\ i = 1,2,\ldots,n$$
 >
-> $H_{1}:$ minimal ada satu $\beta_{j}\left( u_{i},v_{i} \right) \neq \beta_{j}\$
+> $H_{1}:$ minimal ada satu $\beta_{j}\left( u_{i},v_{i} \right) \neq \beta_{j}$
 >
 > dengan statistik uji yang digunakan sebagai berikut.
 
