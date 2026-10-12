@@ -1,0 +1,498 @@
+#  PELAKSANAAN KERJA PRAKTIK
+
+## Waktu dan Tempat Pelaksanaan Kerja Praktik
+
+Kerja Praktik dilaksanakan di kantor Pusat Studi PDPM ITS. Kantor ini beralamat di Gedung *Research Center* Lantai 7, Jalan Teknik Kimia. Kerja praktik ini dilakukan dari 6 Juli 2026 sampai 7 Agustus 2026. Kerja Praktik dilaksanakan selama waktu. Pelaksanaan kerja praktik ini dilakukan dengan mengikuti jam kerja Pusat Studi PDPM ITS, dengan jam mulai pukul 08.00 WIB hingga 16.00 WIB.
+
+## Kegiatan Harian Kerja Praktik
+
+Bagian ini menjelaskan kegiatan yang dilakukan selama pelaksanaan Kerja Praktik. Kegiatan dituliskan dalam bentuk jadwal rincian kegiatan yang dilakukan selama Kerja Praktik secara singkat.
+
++-----+----------------------------+----------------------------------------------------------------------------------------------+
+| No  | Tanggal                    | Deskripsi Kegiatan                                                                           |
++:===:+:==========================:+==============================================================================================+
+| 1   | 6 Juli - 10 Juli 2026      | 1.  Perkenalan diri dan perkerja di Pusat PDPM ITS                                           |
+|     |                            |                                                                                              |
+|     |                            | 2.  Perkenalan ruang-ruang yang ada di Pusat Studi PDPM ITS                                  |
+|     |                            |                                                                                              |
+|     |                            | 3.  Breakdown persiapan kegiatan publikasi dan pembagian tugas pada masing-masing mahasiswa  |
+|     |                            |                                                                                              |
+|     |                            | 4.  Melakukan *cleaning data* pengangguran yang akan dilakukan analisis                      |
+|     |                            |                                                                                              |
+|     |                            | 5.  Melakukan pemetaan pengangguran berdasarkan penyakit kronis dan lulusan terakhir         |
+|     |                            |                                                                                              |
+|     |                            | 6.  Rapat hasil analisis pemetaan dan revisi hasil analisis pemetaan                         |
++-----+----------------------------+----------------------------------------------------------------------------------------------+
+| 2   | 13 Juli - 17 Juli 2026     | 1.  Membuat dashboard ABMAS PDPM Tahun 2020-2025 dan menambahkan data ABMAS 2026             |
+|     |                            |                                                                                              |
+|     |                            | 2.  Membuat SOP penggunaan Power BI pada dashboard ABMAS PDPM                                |
+|     |                            |                                                                                              |
+|     |                            | 3.  Merekap data HIPPAMS Tuban                                                               |
++-----+----------------------------+----------------------------------------------------------------------------------------------+
+| 3   | 20 Juli - 24 Juli 2026     | 1.  *Cleaning data* Kinerja Pusat Studi PDPM ITS Tahun 2026                                  |
+|     |                            |                                                                                              |
+|     |                            | 2.  Survey ketersediaan barang di toko online pada data SHS P-APBD Kabupaten Mojokerto       |
+|     |                            |                                                                                              |
+|     |                            | 3.  Membuat dasboard aplikasi untuk UMKM Omah Kandang Bu Yanti                               |
++-----+----------------------------+----------------------------------------------------------------------------------------------+
+| 4   | 27 Juli - 31 Agustus 2026  | 1.  Revisi dan analisis pada cleaning data Kinerja Pusat Studi PDPM ITS Tahun 2026           |
++-----+----------------------------+----------------------------------------------------------------------------------------------+
+| 5   | 3 Agustus - 7 Agustus 2026 | 1.  Rapat subtansi kegiatan Pusat Studi PDPM ITS                                             |
+|     |                            |                                                                                              |
+|     |                            | 2.  Survey ulang ketersediaan barang di toko online pada data SHS P-APBD Kabupaten Mojokerto |
+|     |                            |                                                                                              |
+|     |                            | 3.  Pengerjaan laporan kerja praktik                                                         |
++-----+----------------------------+----------------------------------------------------------------------------------------------+
+
+: []{#_Toc240218930 .anchor}**Tabel 3.1** Kegiatan Pelaksanaan Kerja Praktik
+
+Waktu pelaksaan dilakukan telah sesuai jadwal, tetapi terdapat kegiatan non substansi untuk mempererat kebersamaan. Kegiatan yang telah dilakukan telah memenuhi tujuan umum pada Sub Bab 1.2.1 poin 1-4, yaitu analisis data pengabdian masyarakat (ABMAS), menerapkan metode statistika dalam analisis data, dan menyajikan dalam bentuk visualisasi tabel sehingga mahasiswa dapat menerapkan ilmu statistika dalam dunia kerja yang sesuai. Pada pelaksaannya, melakukan kegiatan *cleaning data*, pemetaan spasial, dan interpretasi pada data yang telah dianalisis, serta melakukan perbaikan. Adapun kegiatan membuat dashboard dengan dari hasil pemetaan spasial dan analisis data dari *cleaning data*, serta membuat SOP penggunaan Power BI dalam membuat dashbord tersebut. Selain itu, terdapat kegiatan melakukan survey produk di toko online data SHS P-APBD dan kegiatan merekap data HIPPAMS Tuban dari pendataan survey.
+
+Pada kegiatan kerja praktik yang telah dilakukan di Pusat Studi PDPM ITS, secara keseluruhan memenuhi tujuan umum yang mana mengembangkan *softskill* dan *hardskill*, menerapkan ilmu statistika, dan bekerja dan bertanggung jawab sesuai pembagian yang tugas selama kerja praktik. Adapun kegiatan non substansi dalam rangka untuk mempererat hubungan baik mahasiswa yang magang, kerja praktik, dan unit kerja PDPM ITS seperti kegiatan jogging pagi hari Jum'at dan dekorasi kantor dalam rangka HUT RI Ke-81.
+
+Pada tujuan khusus Sub Bab 1.2.2 pada poin 1-3 dilakukan dalam pembuatan karya dari kegiatan kerja praktik, yaitu perancangan dashboard dan analisis spasial pada data pengangguran Tuban Tahun 2026.
+
+## Metodologi Penyelesaian Tugas
+
+Metode yang digunakan untuk perancangan dashboard analisis dan pemetaan spasial menggunakan *Exploratory Data Analysis* (EDA) dan pemodelan *Geographically Weighted Regression* (GWR) untuk menyelesaikan proyek selama pelaksanaan Kerja Praktik.
+
+### Sumber Data
+
+Data yang digunakan adalah data sekunder, yaitu data pengangguran Kabupaten Tuban tahun 2026 bersumber dari Data Tunggal Sosial dan Ekonomi Nasional (DTSEN). Data pengangguran tersebut terdiri data pendidikan terakhir, data penyakit kronis, dan data sektor pekerjaan. Adapun struktur data pada sektor pekerjaan yang disajikan pada Tabel 3.2.
+
+  ----------------------------------------------------------------------------------------------------------------------------------------------------------
+      Kel\          $$Y$$          $$X_{1}$$         $$X_{2}$$         $$X_{3}$$         $$X_{4}$$         $$X_{5}$$         $$X_{6}$$         $$X_{7}$$
+   /Desa($i)$
+  ------------ --------------- ----------------- ----------------- ----------------- ----------------- ----------------- ----------------- -----------------
+       1         $$Y_{(1)}$$     $$X_{(1,1)}$$     $$X_{(2,1)}$$     $$X_{(3,1)}$$     $$X_{(4,1)}$$     $$X_{(5,1)}$$     $$X_{(6,1)}$$     $$X_{(7,1)}$$
+
+       2         $$Y_{(2)}$$     $$X_{(1,2)}$$     $$X_{(2,2)}$$     $$X_{(3,2)}$$     $$X_{(4,2)}$$     $$X_{(5,2)}$$     $$X_{(6,2)}$$     $$X_{(7,2)}$$
+
+       3         $$Y_{(3)}$$     $$X_{(1,3)}$$     $$X_{(2,3)}$$     $$X_{(3,3)}$$     $$X_{(4,3)}$$     $$X_{(5,3)}$$     $$X_{(6,3)}$$     $$X_{(7,3)}$$
+
+   $$\vdots$$    $$\vdots$$       $$\vdots$$        $$\vdots$$        $$\vdots$$        $$\vdots$$        $$\vdots$$        $$\vdots$$        $$\vdots$$
+
+      328       $$Y_{(328)}$$   $$X_{(1,328)}$$   $$X_{(2,328)}$$   $$X_{(3,328)}$$   $$X_{(4,328)}$$   $$X_{(5,328)}$$   $$X_{(6,328)}$$   $$X_{(7,328)}$$
+  ----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  : []{#_Toc240218931 .anchor}**Tabel 3.2** Struktur Data Pengangguran Kabupaten Tuban Tahun 2026 Sektor Pekerjaan
+
+dimana $i$ adalah lokasi setiap pengamatan kelurahan/desa di Kabupaten Tuban. Selanjutnya, untuk perancangan dashboard menggunakan data pendidikan terakhir, penyakit kronis, dan sektor pekerjaan hasil dari analisis yang menyebabkan adanya data pengangguran tersebut.
+
+### Variabel Penelitian
+
+Variabel yang digunakan dalam analisis model GWR meliputi variabel respon dan prediktor. Variabel respon yang digunakan adalah tingkat pengangguran terbuka dan variabel prediktor adalah perdagangan, lainnya, jasa kemasyarakatan, perikanan, jasa pendidikan, dan sektor lain. Adapun definisi singkat, dan satuan atau skala pengukuran masing-masing variabel yang disajikan dalam bentuk Tabel 3.3.
+
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   No     Simbol    Nama Variabel                         Deskripsi Variabel                                                                                                                                 Skala
+  ----- ----------- ------------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------- --------
+    1      $$Y$$    Tingkat Pengangguran Terbuka ($\%$)   Persentase jumlah penganggur terhadap angkatan kerja pada suatu wilayah                                                                            Rasio
+
+    2    $$X_{1}$$  Persentase Perdagangan (%)            Proporsi penduduk yang bekerja pada sektor perdagangan terhadap keseluruhan penduduk yang bekerja pada suatu wilayah                               Rasio
+
+    3    $$X_{2}$$  Persentase Lainnya (%)                Proporsi penduduk yang bekerja pada sektor lainnya dalam satu amatan terhadap keseluruhan penduduk yang bekerja pada suatu wilayah                 Rasio
+
+    4    $$X_{3}$$  Persentase Jasa Kemasyarakatan (%)    Proporsi penduduk yang bekerja pada sektor jasa kemasyarakatan terhadap keseluruhan penduduk yang bekerja pada suatu wilayah                       Rasio
+
+    5    $$X_{4}$$  Persentase Perikanan (%)              Proporsi penduduk yang bekerja pada sektor perikanan terhadap keseluruhan penduduk yang bekerja pada suatu wilayah                                 Rasio
+
+    6    $$X_{5}$$  Persentase Jasa Pendidikan (%)        Proporsi penduduk yang bekerja pada sektor jasa pendidikan terhadap keseluruhan penduduk yang bekerja pada suatu wilayah                           Rasio
+
+    7    $$X_{6}$$  Persentase Sektor Lain (%)            Proporsi penduduk yang bekerja pada sektor lain dari beberapa amatan menjadi satu terhadap keseluruhan penduduk yang bekerja pada suatu wilayah    Rasio
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  : []{#_Toc240218932 .anchor}**Tabel 3.3** Variabel Data Pengangguran dan Data Sektor Pekerjaan
+
+> Adapun definisi operasional dari masing-masing variabel yang dirumuskan pada Tabel 3.4.
+
+  ---------------------------------------------------------------------------------------------------------------------------
+   No   Nama Variabel                         Definisi Operasional
+  ----- ------------------------------------- -------------------------------------------------------------------------------
+    1   Tingkat Pengangguran Terbuka ($\%$)   $$\frac{Jumlah\ Penganggur}{Jumlah\ Angkatan\ Kerja\ } \times 100\%$$
+
+    2   Persentase Perdagangan (%)            $$\frac{Jumlah\ Perdagangan}{Jumlah\ Seluruh\ Sektor} \times 100\%$$
+
+    3   Persentase Lainnya (%)                $$\frac{Jumlah\ Lainnya}{Jumlah\ Seluruh\ Sektor} \times 100\%$$
+
+    4   Persentase Jasa Kemasyarakatan (%)    $$\frac{Jumlah\ Jasa\ Kemasyarakatan}{Jumlah\ Seluruh\ Sektor} \times 100\%$$
+
+    5   Persentase Perikanan (%)              $$\frac{Jumlah\ Perikanan}{Jumlah\ Seluruh\ Sektor} \times 100\%$$
+
+    6   Persentase Jasa Pendidikan (%)        $$\frac{Jumlah\ Jasa\ Pendidikan}{Jumlah\ Seluruh\ Sektor} \times 100\%$$
+
+    7   Persentase Sektor Lain (%)            $$\frac{Jumlah\ Sektor\ Lain}{Jumlah\ Seluruh\ Sektor} \times 100\%$$
+  ---------------------------------------------------------------------------------------------------------------------------
+
+  : []{#_Toc240218933 .anchor}**Tabel 3.4** Definisi Operasional Variabel Penelitian
+
+### Langkah Penyelesaian
+
+Langkah dalam pembuatan dashboard analisis dan pemetaan spasial adalah berikut.
+
+1. *Exploratory data analysis* pada data pengangguran
+2. Analisis deskripsi data pada masing-masing variabel
+3. Pengecekan multikolinearitas data
+4. Analisis model regresi *Ordinary Least Square*
+5. Pengecekan autokorelasi spasial dengan Moran's I
+6. Pemilihan *bandwidth* yang optimum
+7. Analisis model *Generalized Weighted Regression*
+8. Pemilihan model berdasarkan nilai AICc
+9. Interpretasi model
+10. Pemetaan spasial variabel signifikan
+11. Pembuatan dashboard
+
+## Dasar Teori
+
+Teori yang digunakan untuk penyelesaian tugas Kerja Praktik adalah sebagai berikut.
+
+### Statistika Deskriptif
+
+> Statistika deskriptif merupakan langkah analisis yang menerjemahkan data mentah menjadi hasil perhitungan sederhana untuk mendapatkan sebuah informasi. Data yang diterjemahkan biasanya diuraikan secara kuantitatif, yaitu ukuran pemusatan dan penyebaran (Walpole dkk., 2012). Ukuran pemusatan seperti rata-rata (*mean*) dan median dirumuskan sebagai berikut.
+
++------------------------------------------------------------------------------------+--------+
+| $$\overline{x} = \frac{\Sigma_{i = 1}^{n}x_{i}}{n}$$                               | (3.1)  |
++:==================================================================================:+:======:+
+| $${Me}_{ganjil} = \frac{x_{n + 1}}{2}$$                                            | (3.2)  |
+|                                                                                    |        |
+| $${Me}_{genap} = \frac{1}{2}\left( x_{\frac{n}{2}} + x_{\frac{n}{2} + 1} \right)$$ |        |
++------------------------------------------------------------------------------------+--------+
+
+> Keterangan:
+>
+> $x_{i}$ : nilai pengamatan lokasi ke-*i*
+>
+> $n$ : banyak sampel amatan
+>
+> Selanjutnya, ukuran penyebaran seperti variasi (*varians*), standar deviasi, dan jarak (*range*) dirumuskan sebagai berikut.
+
+  -------------------------------------------------------------------------------------------------
+    $$s^{2} = \frac{\Sigma_{i = 1}^{n}\left( x_{i} - \overline{x} \right)^{2}}{n - 1}$$     (3.3)
+  ---------------------------------------------------------------------------------------- --------
+   $$s = \sqrt{\frac{\Sigma_{i = 1}^{n}\left( x_{i} - \overline{x} \right)^{2}}{n - 1}}$$   (3.4)
+
+                             $$Range = (x_{\max} - x_{\min})$$                              (3.5)
+  -------------------------------------------------------------------------------------------------
+
+> Semakin kecil nilai varians maka variabilitas data semakin rendah sehingga data cenderung homogen. Nilai ekstrim data untuk menunjukkan nilai terbesar dan terkecil pada kumpulan data tersebut (Walpole dkk., 2012).
+
+### Multikolinearitas dan Korelasi
+
+> Regresi *Ordinary Least Square* (OLS) salah satu syarat untuk bisa digunakan adalah data tidak mengalami gejala multikolinearitas. Multikolinearitas adalah kondisi terjadinya hubungan yang kuat antar variabel prediktor dan dideteksi dengan menggunakan *Variance Inflation Factor* (VIF) dengan nilai lebih dari 5 sehingga mengalami gejala multikolinearitas (Draper & Smith, 1998; Kutner dkk., 2005). VIF dapat dihitung dengan rumus sebagai berikut.
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+
+| $$VIF_{j} = \frac{1}{1 - R_{j}^{2}}$$                                                                                                                         | (3.6)  |
+|                                                                                                                                                               |        |
+| $$R_{j}^{2} = 1 - \frac{\Sigma_{i = 1}^{n}\left( {x_{ji} - \widehat{x}}_{ji} \right)^{2}}{\Sigma_{i = 1}^{n}\left( x_{ji} - {\overline{x}}_{j} \right)^{2}}$$ |        |
++===============================================================================================================================================================+========+
+
+> dimana $R_{j}^{2}$ adalah koefisien determinasi dari variabel prediktor $x_{j}$ terhadap variabel prediktor yang lain. Selain itu, gejala multikolinearitas dapat diatasi dengan menggunakan *Principal Component Analysis* (PCA) atau menghilangkan variabel prediktor yang berpengaruh, mentransformasi data, atau menambah data amatan.
+>
+> Korelasi untuk mengetahui sebuah hubungan baik variabel prediktor dengan variabel respon atau antar variabel prediktor secara linear (Draper & Smith, 1998). Korelasi juga dapat mengetahui kuat dan lemahnya hubungan baik secara positif ataupun negatif dari nilainya, dengan nilai 0 adalah tidak adanya hubungan antara 2 variabel. Korelasi dapat dirumuskan sebagai berikut.
+
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  $$r_{x,y} = \frac{\sum_{i = 1}^{n}{(x_{i} - \overline{x})(y_{i} - \overline{y})}}{\sqrt{\sum_{i = 1}^{n}\left( x_{i} - \overline{x} \right)^{2}\ \sum_{i = 1}^{n}\left( y_{i} - \overline{y} \right)^{2}\ }}$$   (3.7)
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --------
+
+> dengan $r_{x,y}$ adalah koefisien korelasi *x* dan *y* yang berjarak -1 hingga +1.
+
+### *Exploratory Data Analysis* (EDA)
+
+> Sebuah data diperlukan langkah awal dalam menentukan penggunaan metode apa untuk langkah selanjutnya, yaitu eksplorasi data. EDA berawal dari karya Tukey (1977) dan sejak itu dianggap sebagai metodologi standar untuk menganalisis dataset. Mengutip Seltman, memasukkan ke dalam EDA setiap cara melihat data yang tidak melibatkan pemodelan dan inferensi statistik formal (Komorowski dkk., 2016). Tahap ini dilakukan setelah pengumpulan dan pra-pemrosesan data, untuk menilai kualitas data dan membantu membangun model. Tujuan utamanya adalah memeriksa distribusi, outlier, dan anomali sebagai arah bagi pengujian hipotesis. Pemahaman yang mendalam tentang struktur data memungkinkan perumusan hipotesis dan pertanyaan penelitian yang lebih rinci (Konopka dkk., 2018) .
+>
+> Teknik dalam EDA menjadi non-grafis dan grafis, dan pilihan teknik disesuaikan dengan tipe data. Untuk mengungkap struktur data, dilakukan menggunakan metode seperti klasterisasi dan *Principal Component Analysis* (PCA) (Konopka dkk., 2018). Metode berbasis jarak sensitif terhadap skala data, sehingga normalisasi umumnya diperlukan. PCA juga berguna untuk visualisasi karena mengurangi jumlah dimensi tanpa banyak kehilangan informasi. Hal ini perlu untuk memilih kombinasi metode yang saling melengkapi.
+
+### Deteksi Efek Spasial
+
+> Analisis data yang terdapat wilayah tentunya berhubungan dengan data spasial, sehingga perlu dilakukan mendeteksi efek spasial tersebut. Efek spasial berkaitan dengan heterogenitas yang mana gambaran pengamatan peristiwa di suatu lokasi mengalami perbedaan distribusi, karakteristik, dan parameter dengan lokasi yang lain. Efek spasial dapat dideteksi pada model global dengan menggunakan statistik Moran's I yang dihipotesiskan sebagai berikut (Anselin, 1988).
+>
+> $H_{0}:I = 0$ (Residual tidak menunjukkan autokorelasi spasial)
+>
+> $H_{1}:I \neq 0$ (Residual menunjukkan autokorelasi spasial)
+>
+> Setelah mengestimasi parameter dari model global, bagian residualnya dapat diuji dengan statistik Moran's I yang dirumuskan sebagai berikut.
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+
+| $$\widehat{I} = \frac{n}{\sum_{i = 1}^{n}{\sum_{j = 1}^{n}w_{ij}}}\frac{\sum_{i = 1}^{n}{\sum_{j = 1}^{n}w_{ij}}(e_{i} - \overline{e})(e_{j} - \overline{e})\ }{\sum_{i = 1}^{n}\left( e_{i} - \overline{e} \right)^{2}}$$ | (3.8)  |
+|                                                                                                                                                                                                                            |        |
+| $$Z_{I} = \frac{\widehat{I} - E(\widehat{I})}{\sqrt{\widehat{Var}(\widehat{I})}}\ \ ;E\left( \widehat{I} \right) = \frac{1}{n - 1}$$                                                                                       |        |
++============================================================================================================================================================================================================================+========+
+
+> dengan $w_{ij}$ adalah pembobot lokasi ke-$i$ dan lokasi ke-$j$. Daerah tolak $H_{0}$ ketika $\left| Z_{I} \right|$ \> $Z_{(\alpha/2)}$ atau nilai *p-value* \< $\alpha$ maka residual menunjukkan autokorelasi spasial yang menandakan model global belum mampu dalam menangkap efek spasial pada data.
+>
+> Selain itu, untuk mengetahui varians setiap lokasi itu konstan (homogen) atau bervariasi (heterogen) dapat dilakukan dengan uji *Breusch Pagan*. Berikut adalah hipotesis dan statitstik ujinya.
+>
+> $H_{0}:\sigma_{1}^{2} = \sigma_{2}^{2} = \ldots = \sigma_{n}^{2} = \sigma^{2}$(Varians antar lokasi sama)
+>
+> $H_{1}:$ minimal terdapat satu $\sigma_{i}^{2} \neq \sigma^{2}$ (Varians antar lokasi beda)
+>
+> dengan statistik uji sebagai berikut.
+
+  ---------------------------------------------------------------------------------------------------------------------------------------------------
+  $$BP = \left( \frac{1}{2} \right)\mathbf{f}^{T}\mathbf{Z}\left( \mathbf{Z}^{T}\mathbf{Z} \right)^{\mathbf{-}1}\mathbf{Z}^{T}\mathbf{f}$$   (3.9)
+  ------------------------------------------------------------------------------------------------------------------------------------------ --------
+
+  ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+> Keterangan:
+>
+> $\mathbf{f:}$ matriks vektor $\mathbf{f =}\left\lbrack f_{1}\ \ f_{2}\ \ldots\ \ f_{n} \right\rbrack^{T}$ dengan $f_{i} = \frac{e_{i}^{2}}{{\widehat{\sigma}}^{2}} - 1$
+>
+> $\widehat{\sigma}:$ varians
+>
+> $e_{i}:$ nilai galat $e_{i} = y_{i} - {\widehat{y}}_{i}$
+>
+> $\mathbf{Z:}$ matriks berukuran $n \times (k + 1)$ berisi vektor yang sudah dinormal-standarkan setiap amatan.
+>
+> Daerah tolak $H_{0}$ jika nilai *BP* \> $\chi_{(k,\alpha)}^{2}$ atau nilai *p-value* \< $\alpha$ dengan taraf signifikansi 5% dalam artian nilai varians tidak konstan setiap wilayah yang mengindikasikan heterogenitas spasial (Anselin, 1988).
+
+### Regresi *Ordinary Least Square*
+
+> Regresi *Ordinary Least Squares* (OLS) atau regresi kuadrat terkecil biasa merupakan metode statistika yang digunakan untuk memodelkan hubungan antara variabel respons dan satu atau lebih variabel prediktor. Pada metode OLS, parameter model diestimasi dengan meminimumkan jumlah kuadrat residual antara nilai aktual dan nilai prediksi. Regresi OLS dapat digunakan untuk menjelaskan hubungan global antar variabel serta menghasilkan nilai prediksi berdasarkan variabel prediktor yang digunakan (Montgomery Douglas C. dkk., 2021).
+>
+> Model regresi linear berganda dengan $p$ variabel prediktor dan $n$ pengamatan dapat dituliskan sebagai berikut.
+
++--------------------------------------------------------------------------------------------------------+--------+
+| $$Y_{i} = \beta_{0} + \beta_{1}X_{1i} + \beta_{2}X_{2i} + \cdots + \beta_{p}X_{pi} + \varepsilon_{i}$$ | (3.10) |
+|                                                                                                        |        |
+| $$i = 1,2,\ldots,n;j = 1,2,\ldots,p$$                                                                  |        |
++========================================================================================================+========+
+
+> Keterangan:
+>
+> $Y_{i}$ : nilai variabel respons pada pengamatan ke-*i*
+>
+> $X_{(j,i)}$: nilai variabel prediktor ke-*j* pada pengamatan ke-*i*
+>
+> $\beta_{0}$ : intersep
+>
+> $\beta_{j}$ : koefisien regresi variabel prediktor ke-*j*
+>
+> $\varepsilon_{i}$ : galat acak pada pengamatan ke-*i*
+>
+> Estimasi parameter OLS dilakukan dengan meminimumkan jumlah kuadrat residual dengan rumus (3.11).
+
+  -----------------------------------------------------------------------------------------------------------------------------------------
+  $$S\left( \mathbf{\beta} \right) = \sum_{i = 1}^{n}\left( Y_{i} - {\widehat{Y}}_{i} \right)^{2} = \sum_{i = 1}^{n}e_{i}^{2}$$   (3.11)
+  ------------------------------------------------------------------------------------------------------------------------------- ---------
+
+  -----------------------------------------------------------------------------------------------------------------------------------------
+
+> dengan $e_{i} = Y_{i} - \widehat{Y_{i}}$ adalah residual pada pengamatan ke-*i*. Selanjutnya, dimasukkan ke dalam matriks untuk mendapatkan estimator OLS yang dirumuskan (3.12).
+
+  --------------------------------------------------------------------------------------------------------------------------------------------------
+  $$\widehat{\mathbf{\beta}}\mathbf{=}\left( \mathbf{X}^{\mathbf{T}}\mathbf{X} \right)^{\mathbf{- 1}}\mathbf{X}^{\mathbf{T}}\mathbf{Y}$$   (3.12)
+  ---------------------------------------------------------------------------------------------------------------------------------------- ---------
+
+  --------------------------------------------------------------------------------------------------------------------------------------------------
+
+> Rumus estimator OLS dapat digunakan jika matriks prediktor tidak mengalami multikolinearitas sempurna sehingga dapat dilakukan invers pada $\mathbf{X}^{\mathbf{T}}\mathbf{X}$. Nilai $\widehat{\mathbf{\beta}}$ menunjukkan estimasi koefisien regresi yang menghasilkan jumlah kuadrat residual minimun (Draper & Smith, 1998; Kutner et al., 2005).
+>
+> Terdapat pengujian hipotesis serentak dan parsial untuk mengetahui variabel mana yang berpengaruh terhadap variabel respon pada model global OLS. Pengujian secara serentak dihipotesiskan sebagai berikut.
+>
+> $H_{0}:\beta_{1} = \beta_{2} = \ldots = \beta_{p} = 0$
+>
+> $H_{1}:$ minimal terdapat satu $\beta_{j} \neq 0$
+>
+> dengan statistik uji yang digunakan pada rumus (3.13).
+
+  ------------------------------------------------------------------
+  $$F_{hitung} = \frac{MSR}{MSE}$$                         (3.13)
+  -------------------------------------------------------- ---------
+
+  ------------------------------------------------------------------
+
+> Daerah tolak $H_{0}$ jika nilai dari $F_{hitung}$ \> $F_{\alpha,p,(n - p - 1)}$ atau *p-value* \< $\alpha$ dengan taraf signifikansi 5% maka dinyatakan bahwa secara serentak minimal terdapat satu variabel prediktor yang signifikan terhadap variabel respon pada model global OLS. Selanjutnya dilakukan pengujian secara parsial yang dihipotesiskan sebagai berikut.
+>
+> $H_{0}:\beta_{j} = 0$
+>
+> $H_{1}:\beta_{j} \neq 0$
+>
+> dengan statistik uji yang digunakan sebagai berikut.
+
+  -------------------------------------------------------------------------------
+  $$T_{j} = \frac{{\widehat{\beta}}_{j}}{SE({\widehat{\beta}}_{j})}$$   (3.14)
+  --------------------------------------------------------------------- ---------
+
+  -------------------------------------------------------------------------------
+
+> Daerah tolak $H_{0}$ jika nilai dari $\left| T_{j} \right|$ \> $t_{\frac{\alpha}{2};(n - p - 1)}$ maka dinyatakan bahwa variabel prediktor berpengaruh signifikan terhadap variabel respon (Draper & Smith, 1998).
+
+### *Geographically Weighted Regression*
+
+> *Geographically Wighted Regression* (GWR) adalah pengembangan dari model regresi global OLS yang memungkinkan koefisien regresi berbeda setiap lokasi. Regresi global yang diasumsikan koefisiena regresinya konstan seluruh wilayah, sedangkan GWR yang adanya heterogenitas diperlukan informasi koordinat geografis berupa bujur dan lintang ($u_{i}$,$v_{i}$) ke dalam model (Brunsdon dkk., 1996; Fotheringham dkk., 2002). Model GWR dinyatakan sebagai berikut.
+
+  -----------------------------------------------------------------------------------------------------------------------------------------
+  $$Y_{i} = \beta_{0}\left( u_{i},v_{i} \right) + \sum_{j = 1}^{p}\beta_{j}\left( u_{i},v_{i} \right)X_{ji} + \varepsilon_{i}$$   (3.15)
+  ------------------------------------------------------------------------------------------------------------------------------- ---------
+
+  -----------------------------------------------------------------------------------------------------------------------------------------
+
+> Estimasi parameter GWR untuk setiap lokasi pengamatan dilakukan dengan metode *Weighted Least Squares.* Estimator koefisien lokal pada lokasi ke-*i* dirumuskan sebagai berikut.
+
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  $$\widehat{\mathbf{\beta}}\mathbf{(}u_{i}\mathbf{,}v_{i}\mathbf{) =}\left( \mathbf{X}^{\mathbf{T}}\mathbf{W}\left( u_{i},v_{i} \right)\mathbf{X} \right)^{\mathbf{- 1}}\mathbf{X}^{\mathbf{T}}\mathbf{W}(u_{i},v_{i}\mathbf{)Y}$$   (3.16)
+  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------
+
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+> dengan $\mathbf{W}$ adalah matriks pembobot yang mempresentasikan variasi bobot setiap estimasi parameter pada lokasi ke-*i*. Pengamatan yang lokasinya lebih dekat memiliki pembobot yang lebih besar, sedangkan lokasi yang jauh memperoleh pembobot yang lebih kecil (Fotheringham dkk., 2002).
+>
+> Pembobot dalam model GWR berperan sebagai representasi hubungan kedekatan lokasi antar data pengamatan, yang ditentukan oleh jarak antara titik regresi dengan titik pengamatan melalui fungsi kernel .(Fotheringham dkk., 2002) Terdapat beberapa fungsi kernel yang *adaptive* yang disajikan sebagai berikut.
+
+1. *Adaptive Bisquare Kernel*
+
+  ------------------------------------------------------------------------------------------------------------
+  $$w_{ij} = \left\{ \begin{array}{r}                                                                (3.17)
+  \left\lbrack 1 - \left( \frac{d_{ij}}{b_{i}} \right)^{2} \right\rbrack^{2},\ \ d_{ij} < b_{i} \\
+  0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,\ \ d_{ij} \geq b_{i}
+  \end{array} \right.\ $$
+  -------------------------------------------------------------------------------------------------- ---------
+
+  ------------------------------------------------------------------------------------------------------------
+
+2. *Adaptive Gaussian Kernel*
+
+  --------------------------------------------------------------------------------------------------------------------------------------
+  $$w_{ij}\left( u_{i},v_{i} \right) = \exp\left\lbrack - \frac{1}{2}\left( \frac{d_{ij}}{b_{i}} \right)^{2} \right\rbrack$$   (3.18)
+  ---------------------------------------------------------------------------------------------------------------------------- ---------
+
+  --------------------------------------------------------------------------------------------------------------------------------------
+
+3. *Adaptive Exponential Kernel*
+
+  --------------------------------------------------------------------------------------------
+  $$w_{ij}\left( u_{i},v_{i} \right) = \exp\left( - \frac{d_{ij}}{b_{i}} \right)$$   (3.19)
+  ---------------------------------------------------------------------------------- ---------
+
+  --------------------------------------------------------------------------------------------
+
+> dengan $b_{i}$ menyatakan nilai *bandwidth* pada lokasi pengamatan ke-*i*, sedangkan $d_{ij}$ adalah Jarak *Euclidean* antara lokasi ke-*i* dan lokasi pengamatan ke-*j* yang disajikan pada persamaan (3.20).
+
+  ---------------------------------------------------------------------------------------------------
+  $$d_{ij} = \sqrt{\left( u_{i} - u_{j} \right)^{2} + \left( v_{i} - v_{j} \right)^{2}}$$   (3.20)
+  ----------------------------------------------------------------------------------------- ---------
+
+  ---------------------------------------------------------------------------------------------------
+
+> Pemilihan *bandwidth* yang optimum diperoleh menggunakan metode *Cross Validation* (CV) dan dirumuskan pada persamaan (3.21) berikut (Fotheringham dkk., 2002).
+
+  ------------------------------------------------------------------------------------------------
+  $$CV(b) = \sum_{i = 1}^{n}\left( Y_{i} - {\widehat{Y}}_{\neq i}(b_{i}) \right)^{2}$$   (3.21)
+  -------------------------------------------------------------------------------------- ---------
+
+  ------------------------------------------------------------------------------------------------
+
+> Model lokal GWR diperoleh, dilakukan analisis kesamaan model yang bertujuan untuk mengetahui signifikansi pada pembentukan model lokal denagn membandingkan dengan model global OLS. Berikut adalah hipotesis dan statistik uji yang digunakan.
+>
+> $$H_{0}:\beta_{j}\left( u_{i},v_{i} \right) = \beta_{j};j = 0,1,2,\ldots,p;\ i = 1,2,\ldots,n$$
+>
+> $H_{1}:$ minimal ada satu $\beta_{j}\left( u_{i},v_{i} \right) \neq \beta_{j}\$
+>
+> dengan statistik uji yang digunakan sebagai berikut.
+
+  ---------------------------------------------------------------------
+  $$F_{GWR} = \frac{SSE(H_{0})/df_{1}}{SSE(H_{1})/df_{2}}$$   (3.22)
+  ----------------------------------------------------------- ---------
+
+  ---------------------------------------------------------------------
+
+> Keterangan:
+>
+> $\mathbf{H = X}\left( \mathbf{X}^{T}\mathbf{X} \right)^{\mathbf{-}1}\mathbf{X}^{T}$
+>
+> $SSE\left( H_{0} \right) = \ {\widehat{\mathbf{\varepsilon}}}^{T}\widehat{\mathbf{\varepsilon}}\mathbf{=}\mathbf{y}^{T}\left( \mathbf{I - H} \right)\mathbf{y}$
+>
+> $SSE\left( H_{0} \right) = \ {\widehat{\mathbf{\varepsilon}}}^{T}\widehat{\mathbf{\varepsilon}}\mathbf{=}\mathbf{y}^{T}\left( \mathbf{I - G} \right)^{\mathbf{-}1}\left( \mathbf{I - G} \right)\mathbf{y}$
+>
+> $df_{1} = n - p - 1$
+>
+> $df_{2} = (n - 2tr(G) + tr\left( G^{T}G \right))$
+>
+> Daerah tolak $H_{0}$ jika nilai $F_{GWR}$ \> $F_{1 - \alpha;df_{1};df_{2}}$ atau maka dinyatakan bahwa terdapat perbedaan signifikan model global OLS dengan model lokal GWR. Terdapat pengujian secara serentak yang dihipotesiskan sebagai berikut.
+>
+> $H_{0}:\beta_{1}(u_{i},v_{i}) = \beta_{2}(u_{i},v_{i}) = \ldots = \beta_{p}(u_{i},v_{i}) = 0$
+>
+> $H_{1}:$ minimal terdapat satu $\beta_{j}(u_{i},v_{i}) \neq 0$
+>
+> dengan statistik uji yang digunakan pada rumus (3.23).
+
+  ------------------------------------------------------------------
+  $$F_{hitung,GWR} = \frac{MSR}{MSE}$$                     (3.23)
+  -------------------------------------------------------- ---------
+
+  ------------------------------------------------------------------
+
+> Daerah tolak $H_{0}$ jika nilai dari $F_{hitung,GWR}$ \> $F_{\alpha,p,\left( n - 2tr(G) + tr\left( G^{T}G \right) \right)}$ atau *p-value* \< $\alpha$ maka dinyatakan bahwa secara serentak minimal terdapat satu variabel prediktor yang signifikan terhadap variabel respon pada model lokal GWR. Selanjutnya dilakukan pengujian secara parsial yang dihipotesiskan sebagai berikut.
+>
+> $H_{0}:\beta_{j}(u_{i},v_{i}) = 0$
+>
+> $H_{1}:\beta_{j}(u_{i},v_{i}) \neq 0$
+>
+> dengan statistik uji yang digunakan sebagai berikut.
+
+  -------------------------------------------------------------------------------------------------------------
+  $$T_{j,GWR} = \frac{{\widehat{\beta}}_{j}(u_{i},v_{i})}{SE({\widehat{\beta}}_{j}(u_{i},v_{i}))}$$   (3.24)
+  --------------------------------------------------------------------------------------------------- ---------
+
+  -------------------------------------------------------------------------------------------------------------
+
+> Daerah tolak $H_{0}$ jika nilai dari $\left| T_{j,GWR} \right|$ \> $t_{\frac{\alpha}{2};\left( n - 2tr(G) + tr\left( G^{T}G \right) \right)}$ maka dinyatakan bahwa variabel prediktor berpengaruh signifikan terhadap variabel respon.
+
+### Kriteria Kebaikan Model
+
+> Kriteria kebaikan model pada model global dan model lokal yang digunakan meliputi koefisien determinasi ($R^{2}$) dan *Akaike's Information Criterion with Correction* (AICc). Koefisien determinasi digunakan untuk menilai kemampuan sekumpulan variabel prediktor yang dapat menjelaskan variasi pada variabel respon yang dirumuskan sebagai berikut.
+
+  ------------------------------------------------------------------
+  $$R^{2} = 1 - \frac{SSE}{SST}$$                          (3.25)
+  -------------------------------------------------------- ---------
+
+  ------------------------------------------------------------------
+
+> Sementara itu, AICc yang merupakan pengembangan dari AIC untuk mengatasi lokal yang terlalu kompleks dan rentan terhadap *overfitting* (Gollini dkk., 2015). AICc dihitung menggunakan persamaan (3.26) berikut.
+
++----------------------------------------------------------+--------+
+| $$AIC_{GWR} = - 2\ln(L) + 2k$$                           | (3.26) |
+|                                                          |        |
+| $$AICc_{GWR} = AIC_{GWR} + \frac{2k(k + 1)}{n - k - 1}$$ |        |
++==========================================================+========+
+
+> dengan nilai $k = tr\left( \mathbf{S} \right) + 1$ dan $tr(\mathbf{S})$ adalah ukuran kompleksitas efektif model sehingga sudah termasuk intersep di dalamnya.
+
+### Peta Tematik
+
+> Salah satu bentuk penyajian data dalam statistika deskriptif adalah melalui peta tematik. Peta adalah representasi dari permukaan bumi yang disederhanakan dalam dua dimensi sehingga dapat digunakan untuk meletakkan informasi. Peta tematik adalah sebuah peta yang memuat data-data untuk konsep/tema tertentu, dengan data kuantitatif dan kualitatif serta detail topografi yang sesuai dengan tema tersebut (Setyawan dkk., 2018).
+>
+> Pembuatan peta tematik diperlukan pembagian kelas untuk mengetahui klasifikasi setiap wilayah. *Natural Breaks* adalah salah satu cara membagi kelas dengan hasil varians minimum dan varians maksimum setiap kela. Pada peta tematik, pembagian kelas dilakukan langkah sebagai berikut (Shafira dkk., 2023).
+
+1. Membagi kelompok dengan *k* kelompok dan setiap kelompok terdapat $n_{j}$ amatan.
+2. Menghitung nilai deviasi kuadrat di dalam kelompok (SDCM).
+
+  -----------------------------------------------------------------------------------------------------------
+  $$SDCM = \sum_{j = 1}^{k}{\sum_{i = 1}^{n_{j}}\left( x_{ij} - {\overline{x}}_{j} \right)^{2}}$$   (3.27)
+  ------------------------------------------------------------------------------------------------- ---------
+
+  -----------------------------------------------------------------------------------------------------------
+
+> dengan SDCM (*Sum of Deviations for Class Means*) adalah variasi setiap kelas.
+
+3. Menghitung nilai kuadrat penyimpangan dari rata-rata (SDAM).
+
+  ------------------------------------------------------------------------------
+  $$SDAM = \sum_{i = 1}^{n}\left( x_{i} - \overline{x} \right)^{2}$$   (3.28)
+  -------------------------------------------------------------------- ---------
+
+  ------------------------------------------------------------------------------
+
+> dengan SDAM (*Sum of Deviations for Array Means*) adalah variasi total.
+
+4. Hitung kebaikan *varians fit* dengan mengurangi SDAM oleh SDCM.
+5. Pembagian kolompok dengan SDCM terkecil adalah pembagian wilayah yang optimum.
+6. Nilai batas kelas dicari dengan GVF (*Goodness of Variance)* dengan persamaan sebagai berikut.
+
+  ------------------------------------------------------------------------
+  $$GVF = \frac{(SDAM - SDCM)}{SDAM} = 1 - \frac{SDCM}{SDAM}$$   (3.29)
+  -------------------------------------------------------------- ---------
+
+  ------------------------------------------------------------------------
+
+> dengan nilai GVF rentang 0 hingga 1, jika mendekati nilai 1 maka semakin baik.

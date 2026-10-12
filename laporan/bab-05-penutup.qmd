@@ -1,0 +1,13 @@
+#  PENUTUP
+
+## Kesimpulan
+
+Berdasarkan hasil analisis data pengangguran Kabupaten Tuban dapat disimpulkan dari hasil analisis berikut.
+
+1. Eksplorasi data didapatkan bahwa Tingkat Pengangguran Terbuka berdistribusi normal dan persebaran pada peta acak sehingga berbeda pada satu wilayah dengan wilayah sekitar. Jumlah pendidikan terakhir didominasi 60-80% pendidikan rendah dan 10% pendidikan tinggi pada penganggur. Untuk penyakit kronis, secara keseluruhan penganggur 95,68% tidak mengalami penyakit kronis dan 3,97% tercatat mengalami penyakit kronis dengan proporsi tertinggi penyakit lain dan rematik.
+2. Model GWR didapatkan sebagai model terbaik dengan nilai AICc adalah -1059,12 yang lebih kecil dari model OLS. Model GWR dapat mengatasi korelasi spasial, nilai parameter yang dihasilkan juga berbeda-beda setiap wilayah desa/kelurahan.
+3. Dashboard analisis dengan tampilan ringkasan kabupaten, peta dan wilayah, profil dan prioritas, pola spasial, dan GWR dan metodologi. Tampilan ringkasan kabupaten berupa ringkasan analisis TPT dan jumlah penganggur. Tampilan peta dan wilayah berupa eksplorasi dalam bentuk peta. Tampilan profil dan prioritas berupa identifikasi pendidikan, kesehatan, pekerjaan. Tampilan pola spasial berupa nilai spasial dari data pengangguran. Tampilan GWR dan metodologi berupa analisis variabel pekerjaan yang signifikan terhadap TPT pada masing-masing wilayah.
+
+## Saran
+
+Saran dalam analisis data pengangguran diperlukan *software* yang mendukung seperti Jupyter, Phyton, AI, dan laptop spesifikasi memadai. Selama pelaksanaan kerja praktik, terdapat kendala kurangnya komunikasi antara magang/kerja praktik dengan unit kerja Pusat Studi PDPM ITS yang mana pekerjaan yang perlu dilakukan oleh magang/kerja praktik belum maksimal. Saran untuk Pusat Studi PDPM ITS, diberikan sebuah *list* atau daftar di kalender kerja tersebut apa yang harus dilakukan dan komunikasi.

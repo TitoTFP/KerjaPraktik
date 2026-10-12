@@ -1,7 +1,7 @@
 # Laporan Kerja Praktik: Data Pengangguran Kabupaten Tuban
 
 Repositori untuk analisis deskriptif dan penyusunan laporan kerja praktik menggunakan data pengangguran Kabupaten Tuban.
-Notebook membutuhkan `Datasets/Data_Pengangguran_Clean_Audited_8_Sep_2026.csv`; berkas data tidak disertakan dalam commit scaffold. Letakkan salinannya di path tersebut sebelum menjalankan notebook. Pastikan izin distribusi sebelum memasukkan data ke remote. Unit tests tidak memerlukan CSV; CI mengeksekusi notebook hanya jika CSV tersedia.
+CSV sumber dibutuhkan untuk memuat data dan tidak disertakan dalam repositori. Letakkan salinan di `Datasets/Data_Pengangguran_Clean_Audited_8_Sep_2026.csv` sebelum menjalankan analisis; pastikan izin distribusi sebelum membagikan data. Unit tests tidak memerlukan CSV.
 
 ## Mulai cepat
 
@@ -9,18 +9,26 @@ Prasyarat: Python 3.12 atau lebih baru dan [uv](https://docs.astral.sh/uv/gettin
 
 ```bash
 uv sync
-uv run jupyter lab
 ```
 
-Buka `notebooks/01_eksplorasi_data.ipynb` untuk eksplorasi dan `notebooks/02_tabel_variabel.ipynb` untuk tabel definisi variabel. Notebook kedua merender tiga DataFrame langsung di output Jupyter agar bisa dipilih dan disalin; tidak ada file tabel/gambar terpisah.
+## Menulis laporan
+
+Laporan kerja praktik disusun sebagai Quarto Book dengan satu berkas `.qmd` per bab: `laporan/index.qmd` berisi Bab I (nama `index.qmd` diperlukan oleh Quarto Book), lalu `bab-02-gambaran-umum.qmd` sampai `bab-05-penutup.qmd`. Berkas hanya mencakup Bab I–V; halaman awal, daftar pustaka, dan lampiran dari sumber DOCX tidak disertakan. Quarto merender HTML dan Word; DOCX gabungan tersimpan di `laporan/_output/laporan.docx`. Quarto menyertakan Pandoc untuk konversi dan sitasi. Siapkan Zotero serta Better BibTeX untuk ekspor referensi ke `laporan/references.bib`.
+
+```bash
+quarto check
+quarto render laporan
+```
+
+Lihat [panduan Quarto, Pandoc, dan Zotero](docs/panduan-referensi.md) untuk instalasi, ekspor otomatis, gaya sitasi, dan format kutipan.
 
 ## Pemeriksaan lokal
 
 ```bash
 uv run pytest
 uv run ruff check src tests
-# Opsional; memerlukan CSV sumber di Datasets/
-uv run jupyter nbconvert --to notebook --execute --output-dir /tmp notebooks/01_eksplorasi_data.ipynb notebooks/02_tabel_variabel.ipynb
+# Opsional; memerlukan Quarto
+quarto render laporan
 ```
 
 ## Struktur
@@ -29,15 +37,15 @@ uv run jupyter nbconvert --to notebook --execute --output-dir /tmp notebooks/01_
 .
 ├── .github/                  # workflow CI dan templat kontribusi GitHub
 ├── Datasets/                 # lokasi lokal opsional untuk CSV sumber
-├── docs/                     # kamus data dan kerangka laporan
-├── notebooks/                # analisis Jupyter
+├── docs/                     # panduan referensi, kamus data, dan kerangka laporan
+├── laporan/                  # proyek Quarto, dokumen .qmd, dan ekspor references.bib
 ├── src/laporan_kerja_praktik/ # loader dan agregasi yang dapat digunakan ulang
 ├── tests/                    # uji perilaku loader dan agregasi
 ├── pyproject.toml            # metadata, dependensi, dan konfigurasi Python
 └── uv.lock                   # lockfile dependensi
 ```
 
-CSV adalah sumber analisis notebook. Jangan menimpa dataset sumber saat membersihkan atau menganalisis data. Simpan perubahan analisis di notebook atau kode terpisah.
+CSV adalah sumber untuk analisis. Jangan menimpa dataset saat membersihkan atau menganalisis data; simpan perubahan analisis di kode proyek.
 
 ## Git dan GitHub
 
@@ -47,4 +55,5 @@ Direktori kerja ini sudah merupakan repositori Git lokal. Berkas `.gitignore`, `
 
 - [Kerangka laporan kerja praktik](docs/kerangka-laporan.md)
 - [Kamus data dan catatan interpretasi](docs/kamus-data.md)
+- [Panduan Quarto, Pandoc, dan Zotero](docs/panduan-referensi.md)
 - [Panduan kontribusi](CONTRIBUTING.md)
