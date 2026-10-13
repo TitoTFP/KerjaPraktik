@@ -194,7 +194,7 @@ Hasil uji *F* diperoleh nilai statistik $F_{6,321} = 12,6777$ dengan nilai *p-va
                                                                                    -0,0084)
   -----------------------------------------------------------------------------------------
 
-  : **Tabel 4.2** Estimasi Parameter Model OLS
+  : **Tabel 4.3** Estimasi Parameter Model OLS
 
 Berdasarkan *p-value* OLS konvensional pada taraf signifikansi 5%, terdapat tiga prediktor yang menunjukkan hubungan signifikan dengan TPT Proxy, yaitu share_perdagangan ($X_{1}$), share_perikanan ($X_{4}$), dan share_sektor_lain_ref ($X_{6}$). Adapun share_lainnya ($X_{2}$), share_jasa_kemasyarakatan ($X_{3}$), dan share_jasa_pendidikan ($X_{5}$) tidak signifikan pada taraf 5%, sehingga belum terdapat cukup bukti berdasarkan model OLS global untuk menyatakan bahwa ketiga prediktor tersebut memiliki hubungan yang berbeda secara statistik terhadap TPT Proxy dibandingkan dengan kategori referensi, yaitu sektor pertanian. Pemeriksaan diagnostik dilakukan untuk menilai keterbatasan model global sebelum dilanjutkan ke analisis GWR.
 
@@ -210,11 +210,11 @@ Berdasarkan *p-value* OLS konvensional pada taraf signifikansi 5%, terdapat tiga
 |                      | > p = 0,001   |                                                                |
 +----------------------+---------------+----------------------------------------------------------------+
 
-: **Tabel 4.3** Hasil Diagnostik Model OLS
+: **Tabel 4.4** Hasil Diagnostik Model OLS
 
-Nilai VIF seluruh prediktor berada pada rentang 1,142--1,747, sehingga tidak terdapat indikasi multikolinearitas global yang serius pada spesifikasi dengan share_pertanian sebagai kategori referensi. Uji Breusch--Pagan menghasilkan *p-value* sebesar 0,0029 pada versi LM yang menunjukkan adanya indikasi heteroskedastisitas. Selain itu, pengujian Moran's I menggunakan matriks bobot spasial *Queen contiguity* yang distandarisasi berdasarkan baris dan 999 permutasi menghasilkan nilai Moran's I residual OLS sebesar 0,2132 dengan *p-value* 0,001, sehingga menunjukkan adanya autokorelasi spasial positif yang signifikan pada residual OLS. Heteroskedastisitas terdeteksi dan autorkorelasi spasial positif, tetapi hasil signifikansi model tidak diperlakukan sebagai bukti kausal maupun bukti final mengenai pola spasial. Berikut ringkasan hasil model OLS disajikan pada Tabel 4.4.
+Nilai VIF seluruh prediktor berada pada rentang 1,142--1,747, sehingga tidak terdapat indikasi multikolinearitas global yang serius pada spesifikasi dengan share_pertanian sebagai kategori referensi. Uji Breusch--Pagan menghasilkan *p-value* sebesar 0,0029 pada versi LM yang menunjukkan adanya indikasi heteroskedastisitas. Selain itu, pengujian Moran's I menggunakan matriks bobot spasial *Queen contiguity* yang distandarisasi berdasarkan baris dan 999 permutasi menghasilkan nilai Moran's I residual OLS sebesar 0,2132 dengan *p-value* 0,001, sehingga menunjukkan adanya autokorelasi spasial positif yang signifikan pada residual OLS. Heteroskedastisitas terdeteksi dan autorkorelasi spasial positif, tetapi hasil signifikansi model tidak diperlakukan sebagai bukti kausal maupun bukti final mengenai pola spasial. Berikut ringkasan hasil model OLS disajikan pada Tabel 4.5.
 
-**Tabel 4.4** Ringkasan Hasil Model OLS
+**Tabel 4.5** Ringkasan Hasil Model OLS
 
 +-----------------------------------------+----------------+
 | > Ukuran                                | > Nilai        |
@@ -242,7 +242,7 @@ Sementara itu, nilai RMSE sebesar 0,05099 menunjukkan besarnya akar rata-rata ku
 
 ## Deskripsi Data
 
-Sebelum melakukan analisis dengan metode GWR, perlu untuk mengetahui apa saja informasi yang didapatkan dari variabel data pengangguran. Analisis yang dilakukan dengan statistika deskriptif dari variabel prediktor dan respon. Statistika deskriptif disajikan pada Tabel 4.3.
+Sebelum melakukan analisis dengan metode GWR, perlu untuk mengetahui apa saja informasi yang didapatkan dari variabel data pengangguran. Analisis yang dilakukan dengan statistika deskriptif dari variabel prediktor dan respon. Statistika deskriptif disajikan pada Tabel 4.6.
 
   ---------------------------------------------------------------------------
   Variabel           *Mean*      StanDev          Min       Median       Maks
@@ -262,9 +262,9 @@ Sebelum melakukan analisis dengan metode GWR, perlu untuk mengetahui apa saja in
   $$X_{6}$$           2,861        2,215            0        2,263     16,398
   ---------------------------------------------------------------------------
 
-  : []{#_Toc240218738 .anchor}**Tabel 4.3** Statistika Deskriptif Variabel Penelitian
+  : []{#_Toc240218738 .anchor}**Tabel 4.6** Statistika Deskriptif Variabel Penelitian
 
-Berdasarkan Tabel 4.3, diketahui bahwa variabel $Y$ (Tingkat Pengangguran Terbuka) relatif homogen. Nilai *mean* (30,717) dan median (30,628) hampir sama, dan standar deviasinya kecil dibanding mean-nya. Ini menandakan sebaran data cenderung simetris/normal antar wilayah, tidak banyak outlier ekstrem.
+Berdasarkan Tabel 4.6, diketahui bahwa variabel $Y$ (Tingkat Pengangguran Terbuka) relatif homogen. Nilai *mean* (30,717) dan median (30,628) hampir sama, dan standar deviasinya kecil dibanding mean-nya. Ini menandakan sebaran data cenderung simetris/normal antar wilayah, tidak banyak outlier ekstrem.
 
 Pada variabel $X_{4}$ (Persentase Perikanan) adalah yang paling mencolok sangat skewed karena nilai *mean* (2,550), tapi median (0,136) yang jauh lebih kecil dan nilai StanDev (9,221) bahkan lebih besar dari *mean.* Dalam artian sebagian besar wilayah punya persentase sektor perikanan yang sangat kecil mendekati nol, tapi ada beberapa wilayah dengan nilai ekstrem sangat tinggi. Distribusinya menceng kanan (*right-skewed*) secara ekstrem. Pada variabel $X_{2}$ (Persentase Lainnya), $X_{3}$ (Persentase Jasa Kemasyarakatan), dan $X_{6}$ (Persentase Sektor Lainnya) juga menceng kanan, *mean* lebih besar dari median, dan standar deviasi cukup besar relatif terhadap *mean*-nya menunjukkan ada variasi antar wilayah yang cukup besar, dengan beberapa wilayah bernilai jauh di atas rata-rata.
 
@@ -274,9 +274,9 @@ Pada variabel $X_{1}$ (Persentase Perdagangan) dan $X_{5}$ (Persentase Jasa Pend
 
 Penggunaan GWR didasarkan pada hasil diagnostik model OLS. Moran's I residual OLS menunjukkan adanya autokorelasi spasial positif yang signifikan. Dengan demikian, model global belum sepenuhnya menangkap struktur geografis pada data. GWR digunakan untuk mengevaluasi apakah hubungan antara struktur sektor pekerjaan dan TPT Proxy mengalami ketidakstasioneran spasial. Interpretasi yang dihasilkan tetap bersifat asosiatif dan tidak dimaksudkan sebagai bukti hubungan sebab-akibat.
 
-Model GWR menggunakan 328 desa/kelurahan sebagai unit analisis. Diperlukan koordinat lokasi dimana digunakan untuk menghitung jarak dan membentuk bobot spasial. Pemilihan kernel dan *bandwidth* dilakukan menggunakan kriteria AICc. *Bandwidth* yang digunakan bersifat *adaptive nearest-neighbor*, sehingga angka *bandwidth* menunjukkan skala jumlah tetangga terdekat yang digunakan untuk membentuk bobot pada setiap lokasi. Hasil perbandingan kernel disajikan pada Tabel 4.5.
+Model GWR menggunakan 328 desa/kelurahan sebagai unit analisis. Diperlukan koordinat lokasi dimana digunakan untuk menghitung jarak dan membentuk bobot spasial. Pemilihan kernel dan *bandwidth* dilakukan menggunakan kriteria AICc. *Bandwidth* yang digunakan bersifat *adaptive nearest-neighbor*, sehingga angka *bandwidth* menunjukkan skala jumlah tetangga terdekat yang digunakan untuk membentuk bobot pada setiap lokasi. Hasil perbandingan kernel disajikan pada Tabel 4.7.
 
-[]{#_Toc240218742 .anchor}**Tabel 4.5** Perbandingan Kernel dan Bandwidth GWR
+[]{#_Toc240218742 .anchor}**Tabel 4.7** Perbandingan Kernel dan Bandwidth GWR
 
 +-------------------+-------------------+---------------+-------------+
 | > Kernel          | > Bandwidth       | > AICc        | > R²        |
@@ -288,7 +288,7 @@ Model GWR menggunakan 328 desa/kelurahan sebagai unit analisis. Diperlukan koord
 | > Bisquare        | > 210             | > -1057,30    | > 0,3798    |
 +-------------------+-------------------+---------------+-------------+
 
-Berdasarkan Tabel 4.5, Kernel *Gaussian* dengan *bandwidth* adaptif 43 dipilih sebagai spesifikasi utama karena menghasilkan nilai AICc paling rendah. Meskipun kernel *exponential* menghasilkan R² yang lebih tinggi, yaitu 0,4360 dibandingkan 0,4062 pada kernel *Gaussian*, pemilihan model tidak didasarkan pada R² saja.
+Berdasarkan Tabel 4.7, Kernel *Gaussian* dengan *bandwidth* adaptif 43 dipilih sebagai spesifikasi utama karena menghasilkan nilai AICc paling rendah. Meskipun kernel *exponential* menghasilkan R² yang lebih tinggi, yaitu 0,4360 dibandingkan 0,4062 pada kernel *Gaussian*, pemilihan model tidak didasarkan pada R² saja.
 
 Uji kesamaan model global dengan lokal digunakan untuk mengevaluasi apakah seluruh koefisien lokal GWR sama dengan koefisien global OLS. Hipotesis yang kesamaan model sebagai berikut.
 
@@ -306,9 +306,9 @@ $H_{1}:I \neq 0$ (Residual menunjukkan autokorelasi spasial)
 
 Moran's I residual GWR sebesar 0,0587 dengan *p-value* adalah 0,038 lebih rendah dibandingkan Moran's I residual OLS sebesar 0,2132. Hasil ini menunjukkan bahwa GWR mengurangi autokorelasi spasial residual secara substansial. Namun, residual GWR masih memiliki autokorelasi spasial kecil yang signifikan pada taraf 5%, sehingga struktur spasial belum dapat dinyatakan hilang sepenuhnya.
 
-Adapun ringkasan hasil model lokal GWR yang disajikan pada Tabel 4.6.
+Adapun ringkasan hasil model lokal GWR yang disajikan pada Tabel 4.8.
 
-[]{#_Toc240218743 .anchor}**Tabel 4.6** Ringkasan Hasil Model GWR
+[]{#_Toc240218743 .anchor}**Tabel 4.8** Ringkasan Hasil Model GWR
 
 +-------------------------------------+------------------+
 | > Ukuran                            | > Nilai          |
@@ -334,9 +334,9 @@ Nilai R² sebesar 0,4062 menunjukkan bahwa model GWR menjelaskan sekitar 40,62% 
 
 ## Interpretasi Model GWR
 
-Ringkasan hasil estimasi koefisien model lokal menggunakan rentang nilai, jumlah lokasi yang signifikan setelah koreksi multiple testing, dan pola tanda koefisien. Seluruh koefisien merupakan kontras terhadap share_pertanian. Oleh karena itu, koefisien tidak dibaca sebagai perubahan absolut yang berdiri sendiri. Berikut adalah ringkasan yang disajikan pada Tabel 4.7.
+Ringkasan hasil estimasi koefisien model lokal menggunakan rentang nilai, jumlah lokasi yang signifikan setelah koreksi multiple testing, dan pola tanda koefisien. Seluruh koefisien merupakan kontras terhadap share_pertanian. Oleh karena itu, koefisien tidak dibaca sebagai perubahan absolut yang berdiri sendiri. Berikut adalah ringkasan yang disajikan pada Tabel 4.9.
 
-[]{#_Toc240218744 .anchor}**Tabel 4.7** Ringkasan Koefisien Lokal Model GWR
+[]{#_Toc240218744 .anchor}**Tabel 4.9** Ringkasan Koefisien Lokal Model GWR
 
 +---------------------+---------------------+---------------------+-----------------------------+
 | > Prediktor         | > Rentang koefisien | > Lokasi signifikan | > Pola tanda                |
@@ -363,9 +363,9 @@ Koefisien lokal share_perikanan ($X_{4}$) bernilai negatif di 294 dari 328 lokas
 
 Koefisien share_lainnya ($X_{2}$), share_jasa_kemasyarakatan ($X_{3}$), share_jasa_pendidikan ($X_{5}$), dan share_sektor_lain_ref ($X_{6}$) berubah tanda antarwilayah. Perubahan tanda menunjukkan bahwa arah asosiasi relatif terhadap share_pertanian tidak seragam secara geografis. Karena signifikansi lokalnya terbatas atau tidak ditemukan, prediktor-prediktor tersebut tidak diringkas sebagai hubungan yang berlaku umum di seluruh Kabupaten Tuban.
 
-Model GWR mengestimasi parameter yang dapat berbeda pada setiap lokasi, Tabel 4.7 merangkum variasi koefisien pada 328 desa/kelurahan. Tabel 4.8 menyajikan intersep dan enam koefisien lokal untuk salah satu kelurahan/desa, yaitu Kelurahan Gedongombo, Kecamatan Semanding (kode_kd 35.23.15.1015). Berikut adalah estimasi parameter model GWR *adaptive gaussian* pada Kelurahan Gedongombo.
+Model GWR mengestimasi parameter yang dapat berbeda pada setiap lokasi, Tabel 4.9 merangkum variasi koefisien pada 328 desa/kelurahan. Tabel 4.10 menyajikan intersep dan enam koefisien lokal untuk salah satu kelurahan/desa, yaitu Kelurahan Gedongombo, Kecamatan Semanding (kode_kd 35.23.15.1015). Berikut adalah estimasi parameter model GWR *adaptive gaussian* pada Kelurahan Gedongombo.
 
-[]{#_Toc240218745 .anchor}**Tabel 4.8** Estimasi Parameter Model GWR pada Kel. Gedongombo
+[]{#_Toc240218745 .anchor}**Tabel 4.10** Estimasi Parameter Model GWR pada Kel. Gedongombo
 
 +-------------------+-------------+----------+-----------------+-------------+----------------------+
 | > Variabel        | > Koefisien | > SE     | > $$T_{j,GWR}$$ | > *p-value* | > CI 95%             |
@@ -389,7 +389,7 @@ Model GWR mengestimasi parameter yang dapat berbeda pada setiap lokasi, Tabel 4.
 | > lain_ref        |             |          |                 |             |                      |
 +-------------------+-------------+----------+-----------------+-------------+----------------------+
 
-Pada Tabel 4.8, koefisien share_sektor_lain_ref ($X_{6})$ bernilai $- 0,5556$ dan memiliki *p-value* sebesar 0,0271. Koefisien tersebut merupakan kontras relatif terhadap share_pertanian dan secara tak terkoreksi berasosiasi dengan nilai TPT Proxy yang lebih rendah ketika share_sektor_lain_ref lebih besar relatif terhadap share_pertanian, dengan prediktor lain dianggap tetap. Namun, nilai $T_{6,GWR}$ sebesar -2,2203 lebih kecil daripada nilai $t_{tabel} = 2,5107$. Oleh karena itu, tidak ada satu pun dari enam prediktor yang dinyatakan signifikan secara lokal di Gedongombo setelah koreksi multiple testing.
+Pada Tabel 4.10, koefisien share_sektor_lain_ref ($X_{6})$ bernilai $- 0,5556$ dan memiliki *p-value* sebesar 0,0271. Koefisien tersebut merupakan kontras relatif terhadap share_pertanian dan secara tak terkoreksi berasosiasi dengan nilai TPT Proxy yang lebih rendah ketika share_sektor_lain_ref lebih besar relatif terhadap share_pertanian, dengan prediktor lain dianggap tetap. Namun, nilai $T_{6,GWR}$ sebesar -2,2203 lebih kecil daripada nilai $t_{tabel} = 2,5107$. Oleh karena itu, tidak ada satu pun dari enam prediktor yang dinyatakan signifikan secara lokal di Gedongombo setelah koreksi multiple testing.
 
 ## Dashboard
 
