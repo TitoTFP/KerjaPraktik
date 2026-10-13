@@ -14,6 +14,30 @@ def signed_ring_area(ring: Ring) -> float:
     ) / 2
 
 
+def area_weighted_centroid(polygons: Sequence[Sequence[Ring]]) -> Point:
+    """Return the area-weighted centroid of polygon shells and holes."""
+    total_area = total_x = total_y = 0.0
+    for rings in polygons:
+        for index, ring in enumerate(rings):
+            twice_area = centroid_x = centroid_y = 0.0
+            for (x1, y1), (x2, y2) in zip(ring[:-1], ring[1:], strict=True):
+                cross = x1 * y2 - x2 * y1
+                twice_area += cross
+                centroid_x += (x1 + x2) * cross
+                centroid_y += (y1 + y2) * cross
+            if twice_area == 0:
+                continue
+            weight = abs(twice_area) / 2
+            if index:
+                weight = -weight
+            total_area += weight
+            total_x += centroid_x / (3 * twice_area) * weight
+            total_y += centroid_y / (3 * twice_area) * weight
+    if total_area <= 0:
+        raise ValueError("Luas poligon harus positif untuk menghitung centroid.")
+    return total_x / total_area, total_y / total_area
+
+
 def _inside_ring(point: Point, ring: Ring) -> bool:
     x, y = point
     inside = False
@@ -64,3 +88,53 @@ def point_on_surface(rings: Sequence[Ring]) -> Point:
     if best_point is None:
         raise ValueError("Tidak menemukan titik interior pada poligon.")
     return best_point
+
+
+def polygon_group_label_point(polygons: Sequence[Sequence[Ring]]) -> Point:
+    """Use the area centroid when interior; otherwise choose the representative nearest to it."""
+    centroid = area_weighted_centroid(polygons)
+    if any(_inside_polygon(centroid, rings) for rings in polygons):
+        return centroid
+
+    nearest_point = None
+    nearest_distance = float("inf")
+    for rings in polygons:
+        point = point_on_surface(rings)
+        distance = (point[0] - centroid[0]) ** 2 + (point[1] - centroid[1]) ** 2
+        if distance < nearest_distance:
+            nearest_point = point
+            nearest_distance = distance
+    if nearest_point is None:
+        raise ValueError("Tidak menemukan titik label interior pada kelompok poligon.")
+    return nearest_point
+
+
+def grouped_boundary_segments(
+    features: Sequence[dict], group_property: str
+) -> list[tuple[Point, Point]]:
+    """Keep polygon exterior edges and borders between different groups."""
+    edge_groups: dict[tuple[Point, Point], list[str]] = {}
+    for feature in features:
+        group = str(feature["properties"][group_property])
+        geometry = feature["geometry"]
+        if geometry["type"] == "Polygon":
+            polygons = [geometry["coordinates"]]
+        elif geometry["type"] == "MultiPolygon":
+            polygons = geometry["coordinates"]
+        else:
+            raise ValueError(f"Tipe geometri tidak didukung: {geometry['type']}")
+
+        for polygon in polygons:
+            for ring in polygon:
+                points = [(float(point[0]), float(point[1])) for point in ring]
+                for start, end in zip(points[:-1], points[1:], strict=True):
+                    if start == end:
+                        continue
+                    edge = tuple(sorted((start, end)))
+                    edge_groups.setdefault(edge, []).append(group)
+
+    return [
+        edge
+        for edge, groups in edge_groups.items()
+        if len(groups) == 1 or len(set(groups)) > 1
+    ]

@@ -13,12 +13,18 @@ matplotlib.use("Agg")
 import matplotlib.patheffects as path_effects
 import matplotlib.pyplot as plt
 import pandas as pd
-from matplotlib.collections import PolyCollection
+from matplotlib.collections import LineCollection, PolyCollection
 from matplotlib.patches import Rectangle
+from scipy.stats import linregress, spearmanr
 
 from laporan_kerja_praktik.classification import natural_breaks
-from laporan_kerja_praktik.data import PROJECT_ROOT, load_dataset
-from laporan_kerja_praktik.geometry import point_on_surface, signed_ring_area
+from laporan_kerja_praktik.data import PROJECT_ROOT, _summarize_tpt_by_district, load_dataset
+from laporan_kerja_praktik.geometry import (
+    grouped_boundary_segments,
+    point_on_surface,
+    polygon_group_label_point,
+    signed_ring_area,
+)
 from laporan_kerja_praktik.label_layout import place_label_centers
 
 DATASET_PATH = PROJECT_ROOT / "Datasets" / "Data_Pengangguran_Clean_Audited_8_Sep_2026.csv"
@@ -34,6 +40,39 @@ MUTED = "#637783"
 GRID = "#d9e2e8"
 TPT_MAP_COLORS = ("#FFF1B3", "#FFC55D", "#FD7835", "#E41C26", "#8A012D")
 ORRD_MAP_COLORS = ("#FDE5C3", "#FCC38E", "#F68656", "#DF3E2A", "#AC0001")
+
+EDUCATION_CORRELATION_GROUPS = (
+    "Tidak punya ijazah SD",
+    "SD/SMP sederajat",
+    "SMA/sederajat",
+    "D1 ke atas",
+)
+CHRONIC_CORRELATION_GROUPS = (
+    ("Tidak Ada", "Tidak Ada"),
+    ("Penyakit kronis tercatat", "Penyakit kronis tercatat"),
+    ("Unknown/Tidak diketahui", "Penyakit tidak diketahui"),
+)
+SECTOR_PLOT_EXCLUDED_COLUMNS = ("Pertanian Padi & Palawija",)
+# Plot-only operationalization: the five named categories use their matching
+# CSV fields; Sektor Lain combines Peternakan with eight other remaining fields.
+SECTOR_CORRELATION_GROUPS = {
+    "Perdagangan": ("Perdagangan",),
+    "Lainnya": ("Lainnya_2",),
+    "Jasa Kemasyarakatan": ("Jasa Kemasyarakatan, Pemerintah, Dan Perorangan",),
+    "Perikanan": ("Perikanan",),
+    "Jasa Pendidikan": ("Jasa Pendidikan",),
+    "Sektor Lain": (
+        "Bangunan/Konstruksi",
+        "Hotel & Rumah Makan",
+        "Industri Pengolahan",
+        "Informasi & Komunikasi",
+        "Jasa Kesehatan",
+        "Keuangan & Asuransi",
+        "Listrik Dan Gas",
+        "Peternakan",
+        "Transportasi & Pergudangan",
+    ),
+}
 
 EDUCATION_GROUPS = {
     "D1 ke atas": ("D1/D2/D3", "D4/S1", "Profesi", "S2", "S3"),
@@ -85,6 +124,8 @@ def load_report_data() -> pd.DataFrame:
         "#N/A",
         *CHRONIC_COLUMNS,
         *(column for columns in EDUCATION_GROUPS.values() for column in columns),
+        *(column for columns in SECTOR_CORRELATION_GROUPS.values() for column in columns),
+        *SECTOR_PLOT_EXCLUDED_COLUMNS,
     }
     for column in numeric_columns:
         data[column] = pd.to_numeric(data[column], errors="raise").fillna(0)
@@ -156,23 +197,40 @@ def _projected_polygons(
     center_lon: float,
     center_lat: float,
     column: str,
+    *,
+    join_column: str = "kode_kd",
+    label_column: str = "fid",
+    label_join_values: set[str] | None = None,
 ) -> tuple[
     list[list[tuple[float, float]]],
     list[float],
+    list[str],
     list[tuple[float, float]],
     list[str],
     tuple[float, float, float, float],
 ]:
-    values = data.set_index(data["kode_kd"].astype(str))[column].to_dict()
+    if data[join_column].isna().any():
+        raise ValueError(f"Kolom {join_column} harus terisi pada data peta.")
+    keys = data[join_column].astype(str)
+    if keys.duplicated().any():
+        raise ValueError(f"Kode {join_column} harus unik pada data peta.")
+    values = dict(zip(keys, data[column], strict=True))
+    feature_keys = {str(feature["properties"][join_column]) for feature in features}
+    if set(values) != feature_keys:
+        raise ValueError(f"Kode {join_column} pada data dan GeoJSON tidak cocok.")
+
     cosine = math.cos(math.radians(center_lat))
     polygons: list[list[tuple[float, float]]] = []
+    polygon_keys: list[str] = []
     polygon_values: list[float] = []
-    label_points: list[tuple[float, float]] = []
-    fid_labels: list[str] = []
+    label_candidates: dict[str, tuple[float, tuple[float, float], str]] = {}
+    label_geometries: dict[str, list[list[list[tuple[float, float]]]]] = {}
+    feature_counts: dict[str, int] = {}
     min_x = min_y = float("inf")
     max_x = max_y = float("-inf")
     for feature in features:
-        code = str(feature["properties"]["kode_kd"])
+        properties = feature["properties"]
+        code = str(properties[join_column])
         value = float(values[code])
         projected_parts = []
         for polygon in _polygons(feature["geometry"]):
@@ -191,18 +249,36 @@ def _projected_polygons(
                 max_y = max(max_y, y)
             polygons.append(outer_ring)
             polygon_values.append(value)
+            polygon_keys.append(code)
             projected_parts.append(projected_rings)
+        feature_counts[code] = feature_counts.get(code, 0) + 1
+        label_geometries.setdefault(code, []).extend(projected_parts)
 
-        largest_part = max(
-            projected_parts, key=lambda rings: abs(signed_ring_area(rings[0]))
-        )
-        label_points.append(point_on_surface(largest_part))
-        fid_labels.append(str(feature["properties"]["fid"]))
+        if label_join_values is None or code in label_join_values:
+            largest_part = max(
+                projected_parts, key=lambda rings: abs(signed_ring_area(rings[0]))
+            )
+            area = abs(signed_ring_area(largest_part[0]))
+            if code not in label_candidates or area > label_candidates[code][0]:
+                label_candidates[code] = (
+                    area,
+                    point_on_surface(largest_part),
+                    str(properties[label_column]),
+                )
+
+    label_points = [
+        polygon_group_label_point(label_geometries[code])
+        if feature_counts[code] > 1
+        else candidate[1]
+        for code, candidate in label_candidates.items()
+    ]
+    labels = [candidate[2] for candidate in label_candidates.values()]
     return (
         polygons,
         polygon_values,
+        polygon_keys,
         label_points,
-        fid_labels,
+        labels,
         (min_x, max_x, min_y, max_y),
     )
 
@@ -225,6 +301,276 @@ def save_figure(
     plt.close(fig)
 
 
+def _draw_map_labels(
+    ax: plt.Axes,
+    label_points: list[tuple[float, float]],
+    labels: list[str],
+    *,
+    fontsize: float,
+) -> None:
+    label_texts = [
+        ax.text(
+            x,
+            y,
+            label,
+            color="#19364b",
+            fontsize=fontsize,
+            fontweight="bold",
+            ha="center",
+            va="center",
+            zorder=5,
+            clip_on=True,
+            path_effects=[path_effects.withStroke(linewidth=0.7, foreground="white")],
+        )
+        for (x, y), label in zip(label_points, labels, strict=True)
+    ]
+    if not label_texts:
+        return
+
+    fig = ax.figure
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    label_sizes = [
+        (bbox.width, bbox.height)
+        for bbox in (text.get_window_extent(renderer) for text in label_texts)
+    ]
+    anchor_pixels = [ax.transData.transform(point) for point in label_points]
+    bounds = ax.bbox
+    centers = place_label_centers(
+        anchor_pixels,
+        label_sizes,
+        (bounds.x0, bounds.y0, bounds.x1, bounds.y1),
+        padding=1.5,
+        max_offset=112,
+    )
+    inverse_transform = ax.transData.inverted()
+    for text, anchor, center, (anchor_x, anchor_y) in zip(
+        label_texts, anchor_pixels, centers, label_points, strict=True
+    ):
+        x, y = inverse_transform.transform(center)
+        text.set_position((x, y))
+        if math.dist(anchor, center) > 2:
+            leader, = ax.plot(
+                (anchor_x, x),
+                (anchor_y, y),
+                color="#19364b",
+                linewidth=0.6,
+                alpha=0.8,
+                zorder=4,
+            )
+            leader.set_path_effects(
+                [path_effects.withStroke(linewidth=1.4, foreground="white")]
+            )
+
+
+def plot_tpt_by_village_in_high_tpt_districts(
+    data: pd.DataFrame,
+    features: list[dict],
+    center_lon: float,
+    center_lat: float,
+) -> None:
+    district_data = _summarize_tpt_by_district(data)
+    district_breaks, _ = natural_breaks(district_data["tpt_pct"], len(TPT_MAP_COLORS))
+    focus_rows = district_data.loc[
+        district_data["tpt_pct"] > district_breaks[-1]
+    ].sort_values("kecamatan")
+    focus_codes = focus_rows["kode_kec"].astype(str).tolist()
+    focus_code_set = set(focus_codes)
+    focus_names = focus_rows["kecamatan"].astype(str).tolist()
+    district_codes = data["kode_kec"].astype(str)
+    focus_village_codes = set(
+        data.loc[district_codes.isin(focus_code_set), "kode_kd"].astype(str)
+    )
+    focus_village_count = len(focus_village_codes)
+    if not focus_codes or not focus_village_codes:
+        raise ValueError("Kelas TPT agregat tertinggi tidak memiliki desa/kelurahan.")
+
+    district_by_village = {
+        str(feature["properties"]["kode_kd"]): str(feature["properties"]["kode_kec"])
+        for feature in features
+    }
+    focus_features = [
+        feature
+        for feature in features
+        if str(feature["properties"]["kode_kec"]) in focus_code_set
+    ]
+    (
+        polygons,
+        values,
+        village_codes,
+        label_points,
+        labels,
+        extent,
+    ) = _projected_polygons(
+        data,
+        features,
+        center_lon,
+        center_lat,
+        "tpt_pct",
+        label_join_values=focus_village_codes,
+    )
+    village_breaks, legend_labels = natural_breaks(data["tpt_pct"], len(TPT_MAP_COLORS))
+    context_color = "#d5d8da"
+    polygon_colors = [
+        (
+            TPT_MAP_COLORS[sum(value > breakpoint for breakpoint in village_breaks)]
+            if district_by_village[code] in focus_code_set
+            else context_color
+        )
+        for code, value in zip(village_codes, values, strict=True)
+    ]
+    cosine = math.cos(math.radians(center_lat))
+    focus_boundaries = [
+        [
+            ((longitude - center_lon) * cosine, latitude)
+            for longitude, latitude in segment
+        ]
+        for segment in grouped_boundary_segments(focus_features, "kode_kd")
+    ]
+    district_boundaries = [
+        [
+            ((longitude - center_lon) * cosine, latitude)
+            for longitude, latitude in segment
+        ]
+        for segment in grouped_boundary_segments(features, "kode_kec")
+    ]
+
+    fig = plt.figure(figsize=(12.8, 7.05), facecolor="white")
+    ax = fig.add_axes((92 / 1280, 13 / 705, 884 / 1280, 556 / 705))
+    ax.add_collection(
+        PolyCollection(
+            polygons,
+            facecolors=polygon_colors,
+            edgecolors="none",
+            linewidths=0,
+        )
+    )
+    ax.add_collection(
+        LineCollection(focus_boundaries, colors="#fff1dc", linewidths=0.65, zorder=2)
+    )
+    ax.add_collection(
+        LineCollection(district_boundaries, colors="#737a81", linewidths=0.75, zorder=3)
+    )
+    min_x, max_x, min_y, max_y = extent
+    ax.set_xlim(min_x, max_x)
+    ax.set_ylim(min_y, max_y)
+    ax.set_aspect("auto")
+    ax.set_axis_off()
+
+    fig.text(
+        20 / 1280,
+        1 - 14 / 705,
+        "TPT Desa/Kelurahan · Enam Kecamatan Tertinggi",
+        color="#193050",
+        fontsize=24,
+        fontweight="bold",
+        va="top",
+    )
+    fig.text(
+        20 / 1280,
+        1 - 45 / 705,
+        f"{' · '.join(focus_names)} · {focus_village_count} label fid CSV",
+        color="#858e98",
+        fontsize=10.5,
+        va="top",
+    )
+    fig.text(
+        1111 / 1280,
+        1 - 116 / 705,
+        "TPT desa/kelurahan (%)",
+        color="#242424",
+        fontsize=9,
+        va="top",
+    )
+    for index, (color, label) in enumerate(
+        zip(TPT_MAP_COLORS, legend_labels, strict=True)
+    ):
+        row_top = 141 + index * 26
+        fig.add_artist(
+            Rectangle(
+                (1132 / 1280, 1 - (row_top + 14) / 705),
+                23 / 1280,
+                14 / 705,
+                transform=fig.transFigure,
+                facecolor=color,
+                edgecolor="none",
+            )
+        )
+        fig.text(
+            1166 / 1280,
+            1 - (row_top + 7) / 705,
+            label,
+            color="#242424",
+            fontsize=9,
+            va="center",
+        )
+
+    context_row_top = 141 + len(TPT_MAP_COLORS) * 26
+    fig.add_artist(
+        Rectangle(
+            (1132 / 1280, 1 - (context_row_top + 14) / 705),
+            23 / 1280,
+            14 / 705,
+            transform=fig.transFigure,
+            facecolor=context_color,
+            edgecolor="none",
+        )
+    )
+    fig.text(
+        1166 / 1280,
+        1 - (context_row_top + 7) / 705,
+        f"{len(district_data) - len(focus_codes)} kecamatan lain",
+        color="#242424",
+        fontsize=9,
+        va="center",
+    )
+    fig.text(
+        1055 / 1280,
+        1 - 116 / 705,
+        "N",
+        color="#193050",
+        fontsize=12,
+        fontweight="bold",
+        ha="center",
+        va="top",
+    )
+    fig.text(
+        1055 / 1280,
+        1 - 157 / 705,
+        "↑",
+        color="#193050",
+        fontsize=27,
+        ha="center",
+        va="top",
+    )
+
+    x_span = max_x - min_x
+    y_span = max_y - min_y
+    scale_x = min_x + x_span * 0.05
+    scale_y = min_y + y_span * 0.055
+    scale_length = 10 / 111.32
+    ax.plot(
+        (scale_x, scale_x + scale_length),
+        (scale_y, scale_y),
+        color="#193050",
+        linewidth=2.8,
+        solid_capstyle="butt",
+        zorder=4,
+    )
+    ax.text(
+        scale_x + scale_length / 2,
+        scale_y + y_span * 0.027,
+        "10 km",
+        color="#193050",
+        fontsize=9,
+        fontweight="bold",
+        ha="center",
+        va="bottom",
+        zorder=4,
+    )
+    _draw_map_labels(ax, label_points, labels, fontsize=9)
+    save_figure(fig, "gambar-4-5-peta-tpt-6-kecamatan.png", dpi=100, bbox_inches=None)
+
 
 def plot_discrete_map(
     data: pd.DataFrame,
@@ -237,27 +583,61 @@ def plot_discrete_map(
     legend_title: str,
     filename: str,
     colors: tuple[str, ...],
+    *,
+    join_column: str = "kode_kd",
+    label_column: str = "fid",
+    boundary_group_column: str | None = None,
     title_size: int = 26,
     title_top: int = 14,
     subtitle_top: int = 45,
+    label_fontsize: float = 9,
 ) -> None:
     breakpoints, legend_labels = natural_breaks(data[column], len(colors))
-    polygons, values, label_points, fid_labels, extent = _projected_polygons(
-        data, features, center_lon, center_lat, column
+    (
+        polygons,
+        values,
+        _polygon_keys,
+        label_points,
+        labels,
+        extent,
+    ) = _projected_polygons(
+        data,
+        features,
+        center_lon,
+        center_lat,
+        column,
+        join_column=join_column,
+        label_column=label_column,
     )
-    facecolors = [
+    class_colors = [
         colors[sum(value > breakpoint for breakpoint in breakpoints)] for value in values
     ]
     fig = plt.figure(figsize=(12.8, 7.05), facecolor="white")
     ax = fig.add_axes((92 / 1280, 13 / 705, 884 / 1280, 556 / 705))
-    ax.add_collection(
-        PolyCollection(
-            polygons,
-            facecolors=facecolors,
-            edgecolors="#fff1dc",
-            linewidths=0.3,
+    if boundary_group_column is None:
+        ax.add_collection(
+            PolyCollection(
+                polygons,
+                facecolors=class_colors,
+                edgecolors="#fff1dc",
+                linewidths=0.3,
+            )
         )
-    )
+    else:
+        ax.add_collection(
+            PolyCollection(polygons, facecolors=class_colors, edgecolors="none", linewidths=0)
+        )
+        cosine = math.cos(math.radians(center_lat))
+        boundaries = [
+            [
+                ((longitude - center_lon) * cosine, latitude)
+                for longitude, latitude in segment
+            ]
+            for segment in grouped_boundary_segments(features, boundary_group_column)
+        ]
+        ax.add_collection(
+            LineCollection(boundaries, colors="#fff1dc", linewidths=0.9, zorder=2)
+        )
     min_x, max_x, min_y, max_y = extent
     ax.set_xlim(min_x, max_x)
     ax.set_ylim(min_y, max_y)
@@ -289,54 +669,7 @@ def plot_discrete_map(
         fontsize=9,
         va="top",
     )
-    label_texts = [
-        ax.text(
-            x,
-            y,
-            fid,
-            color="#19364b",
-            fontsize=9,
-            fontweight="bold",
-            ha="center",
-            va="center",
-            zorder=5,
-            clip_on=True,
-            path_effects=[path_effects.withStroke(linewidth=0.7, foreground="white")],
-        )
-        for (x, y), fid in zip(label_points, fid_labels, strict=True)
-    ]
-    fig.canvas.draw()
-    renderer = fig.canvas.get_renderer()
-    label_sizes = [
-        (bbox.width, bbox.height)
-        for bbox in (text.get_window_extent(renderer) for text in label_texts)
-    ]
-    anchor_pixels = [ax.transData.transform(point) for point in label_points]
-    axes_bounds = ax.bbox
-    label_centers = place_label_centers(
-        anchor_pixels,
-        label_sizes,
-        (axes_bounds.x0, axes_bounds.y0, axes_bounds.x1, axes_bounds.y1),
-        padding=1.5,
-    )
-    inverse_transform = ax.transData.inverted()
-    for text, anchor, center, (anchor_x, anchor_y) in zip(
-        label_texts, anchor_pixels, label_centers, label_points, strict=True
-    ):
-        x, y = inverse_transform.transform(center)
-        text.set_position((x, y))
-        if math.dist(anchor, center) > 2:
-            leader, = ax.plot(
-                (anchor_x, x),
-                (anchor_y, y),
-                color="#19364b",
-                linewidth=0.6,
-                alpha=0.8,
-                zorder=4,
-            )
-            leader.set_path_effects(
-                [path_effects.withStroke(linewidth=1.4, foreground="white")]
-            )
+    _draw_map_labels(ax, label_points, labels, fontsize=label_fontsize)
     for index, (color, label) in enumerate(zip(colors, legend_labels, strict=True)):
         row_top = 141 + index * 26
         fig.add_artist(
@@ -401,6 +734,34 @@ def plot_discrete_map(
         zorder=4,
     )
     save_figure(fig, filename, dpi=100, bbox_inches=None)
+
+
+def plot_tpt_by_district(
+    data: pd.DataFrame,
+    features: list[dict],
+    center_lon: float,
+    center_lat: float,
+) -> None:
+    district_data = _summarize_tpt_by_district(data)
+    plot_discrete_map(
+        district_data,
+        features,
+        center_lon,
+        center_lat,
+        "tpt_pct",
+        "TPT",
+        f"TPT agregat berbobot angkatan kerja · {len(district_data)} kecamatan",
+        "TPT (%)",
+        "gambar-4-4-peta-tpt-kecamatan.png",
+        TPT_MAP_COLORS,
+        join_column="kode_kec",
+        label_column="kecamatan",
+        boundary_group_column="kode_kec",
+        title_size=28,
+        label_fontsize=14,
+        title_top=5,
+        subtitle_top=35,
+    )
 
 
 def plot_tpt_distribution(data: pd.DataFrame) -> None:
@@ -495,7 +856,7 @@ def plot_education_profile(data: pd.DataFrame) -> None:
             va="center",
             fontsize=9,
         )
-    save_figure(fig, "gambar-4-4-profil-pendidikan.png")
+    save_figure(fig, "gambar-4-6-profil-pendidikan.png")
 
 
 def plot_education_scatter(data: pd.DataFrame) -> None:
@@ -526,7 +887,7 @@ def plot_education_scatter(data: pd.DataFrame) -> None:
     ax.set_axisbelow(True)
     bar = fig.colorbar(points, ax=ax, fraction=0.04, pad=0.04)
     bar.set_label("Total penganggur")
-    save_figure(fig, "gambar-4-5-beban-proporsi-pendidikan.png")
+    save_figure(fig, "gambar-4-7-beban-proporsi-pendidikan.png")
 
 
 def plot_education_by_district(data: pd.DataFrame) -> None:
@@ -566,7 +927,7 @@ def plot_education_by_district(data: pd.DataFrame) -> None:
     ax.grid(axis="x", color=GRID, linewidth=0.6)
     ax.set_axisbelow(True)
     ax.legend(loc="lower left", frameon=True)
-    save_figure(fig, "gambar-4-6-kontras-pendidikan-kecamatan.png")
+    save_figure(fig, "gambar-4-8-kontras-pendidikan-kecamatan.png")
 
 
 def plot_chronic_profile(data: pd.DataFrame) -> None:
@@ -594,11 +955,75 @@ def plot_chronic_profile(data: pd.DataFrame) -> None:
             f"{share:.2f}% · {count:,.0f}",
             va="center",
         )
-    save_figure(fig, "gambar-4-8-profil-penyakit-kronis.png")
+    save_figure(fig, "gambar-4-10-profil-penyakit-kronis.png")
+
+
+def _holm_adjust(p_values: list[float]) -> list[float]:
+    """Adjust a family of p-values using Holm's step-down procedure."""
+    ordered = sorted(enumerate(p_values), key=lambda item: item[1])
+    adjusted = [0.0] * len(p_values)
+    previous = 0.0
+    for rank, (index, p_value) in enumerate(ordered):
+        previous = max(previous, (len(p_values) - rank) * p_value)
+        adjusted[index] = min(previous, 1.0)
+    return adjusted
+
+
+def plot_count_correlations(
+    data: pd.DataFrame,
+    groups: dict[str, pd.Series],
+    title: str,
+    x_label: str,
+    filename: str,
+    *,
+    columns: int,
+    figsize: tuple[float, float],
+) -> None:
+    """Plot category counts against TPT with Spearman correlations and Holm correction."""
+    labels = list(groups)
+    tpt = data["tpt_pct"].to_numpy()
+    results = [spearmanr(groups[label].to_numpy(), tpt) for label in labels]
+    adjusted_p_values = _holm_adjust([float(result.pvalue) for result in results])
+    rows = math.ceil(len(labels) / columns)
+    fig, axes = plt.subplots(rows, columns, figsize=figsize, facecolor="white", sharey=True)
+
+    for position, axis in enumerate(axes.flat):
+        if position >= len(labels):
+            axis.remove()
+            continue
+        label = labels[position]
+        counts = groups[label].to_numpy(dtype=float)
+        result = results[position]
+        fit = linregress(counts, tpt)
+        p_label = (
+            "<0.001"
+            if adjusted_p_values[position] < 0.001
+            else f"{adjusted_p_values[position]:.3f}"
+        )
+        axis.scatter(counts, tpt, s=17, color="#b88f76", alpha=0.58, edgecolors="none")
+        x_limits = (float(counts.min()), float(counts.max()))
+        axis.plot(
+            x_limits,
+            [fit.intercept + fit.slope * value for value in x_limits],
+            color=BLUE,
+            linewidth=1.8,
+        )
+        axis.set(
+            title=f"{label}\nSpearman rho={result.statistic:.3f}; Holm p={p_label}",
+            xlabel=x_label,
+            ylabel="TPT (%)" if position % columns == 0 else "",
+            ylim=(14, 50),
+        )
+        axis.grid(color=GRID, linewidth=0.5, alpha=0.7)
+        axis.set_axisbelow(True)
+
+    fig.suptitle(title, color=NAVY, fontweight="bold")
+    fig.tight_layout(rect=(0, 0, 1, 0.95))
+    save_figure(fig, filename)
 
 
 def main() -> None:
-    """Generate the nine data-driven figures referenced by Bab IV."""
+    """Generate the fourteen data-driven figures referenced by Bab IV."""
     data = load_report_data()
     features, center_lon, center_lat = load_boundaries(data)
     plt.rcParams.update(
@@ -629,6 +1054,8 @@ def main() -> None:
         title_top=5,
         subtitle_top=35,
     )
+    plot_tpt_by_district(data, features, center_lon, center_lat)
+    plot_tpt_by_village_in_high_tpt_districts(data, features, center_lon, center_lat)
     plot_education_profile(data)
     plot_education_scatter(data)
     plot_education_by_district(data)
@@ -641,7 +1068,7 @@ def main() -> None:
         "Share pendidikan rendah",
         "Profil pendidikan penganggur · 328 desa/kelurahan",
         "Share pendidikan rendah (%)",
-        "gambar-4-7-peta-pendidikan-rendah.png",
+        "gambar-4-9-peta-pendidikan-rendah.png",
         ORRD_MAP_COLORS,
         title_size=26,
         title_top=14,
@@ -657,13 +1084,43 @@ def main() -> None:
         "Share penyakit kronis tercatat",
         "Profil penyakit pada penganggur · bukan prevalensi penduduk · 328 desa/kelurahan",
         "Share penyakit kronis (%)",
-        "gambar-4-9-peta-penyakit-kronis.png",
+        "gambar-4-11-peta-penyakit-kronis.png",
         ORRD_MAP_COLORS,
         title_size=28,
         title_top=12,
         subtitle_top=43,
     )
-    print(f"Dibuat 9 gambar analisis Bab IV di {OUTPUT_DIR.relative_to(PROJECT_ROOT)}")
+    plot_count_correlations(
+        data,
+        {label: data[label] for label in EDUCATION_CORRELATION_GROUPS},
+        "Pendidikan terakhir dan TPT — jumlah orang",
+        "Jumlah orang dalam kategori",
+        "gambar-4-12-korelasi-pendidikan-tpt.png",
+        columns=2,
+        figsize=(12, 7),
+    )
+    plot_count_correlations(
+        data,
+        {label: data[column] for label, column in CHRONIC_CORRELATION_GROUPS},
+        "Penyakit kronis dan TPT — jumlah orang",
+        "Jumlah orang dalam kategori",
+        "gambar-4-13-korelasi-penyakit-kronis-tpt.png",
+        columns=3,
+        figsize=(12, 4.2),
+    )
+    plot_count_correlations(
+        data,
+        {
+            label: data[list(columns)].sum(axis=1)
+            for label, columns in SECTOR_CORRELATION_GROUPS.items()
+        },
+        "Sektor pekerjaan dan TPT — jumlah pekerja",
+        "Pekerja sektor (orang)",
+        "gambar-4-14-korelasi-sektor-tpt.png",
+        columns=2,
+        figsize=(12, 10),
+    )
+    print(f"Dibuat 14 gambar analisis Bab IV di {OUTPUT_DIR.relative_to(PROJECT_ROOT)}")
 
 
 if __name__ == "__main__":

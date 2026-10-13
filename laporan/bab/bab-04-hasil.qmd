@@ -22,19 +22,43 @@ EDA dilakukan untuk mengetahui karakteristik data pengangguran sebelum menentuka
 
 2. Pemetaan TPT
 
-Adapun pemetaan variabel respon Tingkat Pengangguran Terbuka (TPT) untuk mengetahui daerah mana saja yang memiliki persentase rendah dan tinggi. Peta persentase tingkat pengangguran disajikan pada Gambar 4.3.
+Adapun pemetaan variabel respon Tingkat Pengangguran Terbuka (TPT) untuk mengetahui daerah mana saja yang memiliki persentase rendah dan tinggi. Peta disajikan menurut desa/kelurahan, kecamatan, dan wilayah fokus enam kecamatan pada Gambar 4.3–4.5.
 
 > ![Peta TPT per desa/kelurahan berlabel fid](../assets/bab-04/gambar-4-3-peta-tpt.png){width="6in"}
 >
 > **Gambar 4.3** Peta TPT Menurut Desa/Kelurahan
 >
-> Berdasarkan Gambar 4.3, terlihat TPT di Kabupaten Tuban mengalami persebaran yang acak di masing-masing wilayah. Dalam artian, TPT di Kabupaten Tuban cenderung memiliki karakteristik tersendiri di suatu wilayah dan heterogenitas yang membedakan dengan wilayah di sekitar.
+> Gambar 4.3 menunjukkan variasi TPT pada 328 desa/kelurahan, dengan rentang 16,03–48,91%. Kelas terbanyak adalah >28,11–≤32,21% (105 desa; 32,0%), sedangkan 123 desa (37,5%) berada pada dua kelas tertinggi (>32,21%). Batas *Natural Breaks* mengelompokkan nilai relatif terhadap distribusi data; kelas-kelas ini bukan ambang kebijakan.
+>
+> TPT tertinggi tercatat di Desa Cangkring, Kecamatan Plumpang (fid 15), yaitu 48,91% (292 penganggur dari 597 angkatan kerja); terendah di Desa Mergoasri, Kecamatan Parengan (fid 63), 16,03% (67 dari 418). TPT adalah proporsi, bukan jumlah penganggur: Desa Sumurgeneng di Kecamatan Jenu memiliki TPT 45,85% dengan 730 penganggur, lebih banyak daripada Cangkring meskipun persentasenya lebih rendah. Perbandingan ini menunjukkan bahwa TPT sebagai ukuran relatif dan jumlah penganggur sebagai angka absolut menggambarkan aspek yang berbeda.
+>
+> Secara visual, peta memperlihatkan variasi antardesa; kedekatan warna hanya pola deskriptif dan tidak dengan sendirinya membuktikan hubungan spasial atau menjelaskan penyebab pengangguran.
+
+> ![](../assets/bab-04/gambar-4-4-peta-tpt-kecamatan.png){width="6in" fig-alt="Peta TPT agregat untuk 20 kecamatan di Kabupaten Tuban, dikelompokkan dalam lima kelas Natural Breaks dan diberi label nama kecamatan."}
+>
+> **Gambar 4.4** Peta TPT Menurut Kecamatan
+>
+> TPT kecamatan dihitung dari jumlah penganggur dibagi total angkatan kerja kecamatan (penganggur + penduduk bekerja), sehingga bukan rata-rata TPT desa. Nilainya berkisar dari 22,34% di Bancar (6.143 penganggur; 21.360 bekerja) hingga 34,84% di Parengan (7.495 penganggur; 14.015 bekerja), selisih 12,51 poin persentase.
+>
+> Enam dari 20 kecamatan berada pada kelas *Natural Breaks* tertinggi (>32,53–34,84%); nilai keenamnya dalam data berkisar 33,92–34,84%: Parengan (34,84%), Singgahan (34,84%), Bangilan (34,67%), Widang (34,44%), Plumpang (33,95%), dan Soko (33,92%). Batas kelas menunjukkan pengelompokan relatif antarkecamatan, bukan ambang kebijakan atau bukti penyebab tertentu.
+>
+> TPT dan jumlah penganggur memberi informasi berbeda: Bancar memiliki TPT terendah, tetapi tetap mencatat 6.143 penganggur. Gambar 4.5 memperlihatkan variasi TPT pada desa/kelurahan di enam kecamatan kelas agregat tertinggi.
+>
+> ![](../assets/bab-04/gambar-4-5-peta-tpt-6-kecamatan.png){width="6in" fig-alt="Peta tunggal Kabupaten Tuban dengan desa/kelurahan di enam kecamatan TPT agregat tertinggi diwarnai menurut TPT desa dan diberi label fid numerik; 14 kecamatan lain ditampilkan abu-abu."}
+>
+> **Gambar 4.5** Peta TPT Desa/Kelurahan pada Enam Kecamatan dengan TPT Agregat Tertinggi
+>
+> Gambar 4.5 memusatkan perhatian pada 101 desa/kelurahan di enam kecamatan yang berada di kelas TPT agregat tertinggi pada Gambar 4.4. Meskipun wilayah dipilih berdasarkan TPT kecamatan, warna pada peta menunjukkan TPT masing-masing desa/kelurahan; batas kelas *Natural Breaks* sama dengan Gambar 4.3, sehingga perbandingan kelas tetap memakai acuan seluruh 328 desa.
+>
+> Pada 101 desa/kelurahan fokus, jumlah pada lima kelas *Natural Breaks* dari terendah ke tertinggi berturut-turut 1, 10, 23, 37, dan 30. Dengan demikian, 67 (66,3%) berada pada dua kelas tertinggi (>32,21%), sementara 34 (33,7%) berada pada tiga kelas lebih rendah; rentang TPT desa dalam peta tetap 16,03–48,91%. Hasil ini menunjukkan bahwa kecamatan pada kelas agregat tertinggi tidak berarti seluruh desa di dalamnya memiliki TPT tinggi.
+>
+> Warna abu-abu hanya menandai 14 kecamatan di luar fokus; warna tersebut tidak menyatakan TPT rendah atau ketiadaan data. Angka `fid` merupakan ID desa/kelurahan, bukan peringkat. *Natural Breaks* adalah pengelompokan relatif, bukan ambang kebijakan; peta ini tidak menjelaskan penyebab perbedaan TPT.
 
 ### Jumlah Pendidikan Terakhir
 
-> Selanjutnya, pendidikan terakhir adalah profil pendidikan yang ditempuh terakhir oleh penganggur. Profil pendidikan yang ada di Kabupaten Tuban banyak, tapi dapat disajikan dalam Gambar 4.4 yang menampilkan 4 jumlah tertingginya dan keterangan dalam Tabel 4.1.
+> Selanjutnya, pendidikan terakhir adalah profil pendidikan yang ditempuh terakhir oleh penganggur. Profil pendidikan yang ada di Kabupaten Tuban banyak, tapi dapat disajikan dalam Gambar 4.6 yang menampilkan 4 jumlah tertingginya dan keterangan dalam Tabel 4.1.
 
-![**Gambar 4.4** Profil Pendidikan Terakhir](../assets/bab-04/gambar-4-4-profil-pendidikan.png){width="3.6805555555555554in"}
+![**Gambar 4.6** Profil Pendidikan Terakhir](../assets/bab-04/gambar-4-6-profil-pendidikan.png){width="3.6805555555555554in"}
 
   ----------------------------------------------------------------
   Kelompok Analisis      Kategori
@@ -50,29 +74,29 @@ Adapun pemetaan variabel respon Tingkat Pengangguran Terbuka (TPT) untuk mengeta
 
   : **Tabel 4.1** Keterangan Kategori Pendidikan
 
-> Berdasarkan Gambar 4.4, diketahui profil pendidikan terakhir penganggur di Kabupaten Tuban didominasi oleh kelompok berpendidikan rendah. Penganggur dengan pendidikan SD/SMP sederajat menempati jumlah terbesar, yaitu 40,21% (57.161 orang), diikuti kelompok tidak memiliki ijazah SD sebesar 25,19% (35.813 orang). Sementara itu, kelompok SMA/sederajat dengan persentase 27,83% (39.560 orang), dan persentase ke-4 dari kelompok D1 ke atas dengan 6,78% (9.634 orang).
+> Berdasarkan Gambar 4.6, diketahui profil pendidikan terakhir penganggur di Kabupaten Tuban didominasi oleh kelompok berpendidikan rendah. Penganggur dengan pendidikan SD/SMP sederajat menempati jumlah terbesar, yaitu 40,21% (57.161 orang), diikuti kelompok tidak memiliki ijazah SD sebesar 25,19% (35.813 orang). Sementara itu, kelompok SMA/sederajat dengan persentase 27,83% (39.560 orang), dan persentase ke-4 dari kelompok D1 ke atas dengan 6,78% (9.634 orang).
 >
-> Pola ini menunjukkan hubungan terbalik antara tingkat pendidikan dan jumlah penganggur: semakin tinggi jenjang pendidikan, semakin kecil persentase penganggurannya. Hal ini mengindikasikan bahwa pengangguran di Kabupaten Tuban masih banyak terjadi pada kelompok berpendidikan dasar/tanpa ijazah. Pembagian proporsi pendidikan dan beban absolut masing-masing desa/kecamatan dalam *scatterplot* pada Gambar 4.5
+> Pola ini menunjukkan hubungan terbalik antara tingkat pendidikan dan jumlah penganggur: semakin tinggi jenjang pendidikan, semakin kecil persentase penganggurannya. Hal ini mengindikasikan bahwa pengangguran di Kabupaten Tuban masih banyak terjadi pada kelompok berpendidikan dasar/tanpa ijazah. Pembagian proporsi pendidikan dan beban absolut masing-masing desa/kecamatan dalam *scatterplot* pada Gambar 4.7
 
-![**Gambar 4.5** Beban Absolut dan Proporsi Pendidikan Per Desa/Kelurahan](../assets/bab-04/gambar-4-5-beban-proporsi-pendidikan.png){width="3.359890638670166in"}
+![**Gambar 4.7** Beban Absolut dan Proporsi Pendidikan Per Desa/Kelurahan](../assets/bab-04/gambar-4-7-beban-proporsi-pendidikan.png){width="3.359890638670166in"}
 
-> Berdasarkan Gambar 4.5, sebagian besar desa memiliki kurang dari sekitar 400 penganggur pendidikan rendah. Hanya beberapa desa yang jauh di kanan dengan beban sekitar 600-1.400 orang sehingga jumlah sasaran tidak tersebar merata karena menampung beban absolut lebih besar. Sebagian besar titik berada di 55-80% yang mana banyak desa yang lebih dari nilai median, artinya banyak desa yang pendidikan rendah didominasi oleh penganggur. Pola sebaran titik melebar, menandakan desa dengan proporsi tinggi belum tentu memiliki beban absolut terbesar, dan sebaliknya. Desa dengan sekitar 150-250 penganggur bisa memiliki proporsi lebih dari 80%, sedangkan desa dengan lebih dari 1.200 penganggur proporsinya sekitar 50%. Hal ini menunjukkan jumlah sasaran dan intensitas masalah adalah dua hal yang berbeda dan dinilai secara terpisah.
+> Berdasarkan Gambar 4.7, sebagian besar desa memiliki kurang dari sekitar 400 penganggur pendidikan rendah. Hanya beberapa desa yang jauh di kanan dengan beban sekitar 600-1.400 orang sehingga jumlah sasaran tidak tersebar merata karena menampung beban absolut lebih besar. Sebagian besar titik berada di 55-80% yang mana banyak desa yang lebih dari nilai median, artinya banyak desa yang pendidikan rendah didominasi oleh penganggur. Pola sebaran titik melebar, menandakan desa dengan proporsi tinggi belum tentu memiliki beban absolut terbesar, dan sebaliknya. Desa dengan sekitar 150-250 penganggur bisa memiliki proporsi lebih dari 80%, sedangkan desa dengan lebih dari 1.200 penganggur proporsinya sekitar 50%. Hal ini menunjukkan jumlah sasaran dan intensitas masalah adalah dua hal yang berbeda dan dinilai secara terpisah.
 >
-> Adapun grafik untuk kontras pada pendidikan rendah dan tinggi di Kabupaten Tuban berdasarkan kecamatan yang ditampilkan pada Gambar 4.6.
+> Adapun grafik untuk kontras pada pendidikan rendah dan tinggi di Kabupaten Tuban berdasarkan kecamatan yang ditampilkan pada Gambar 4.8.
 
-![**Gambar 4.6** Kontras Proporsi Pendidikan Per Kecamatan](../assets/bab-04/gambar-4-6-kontras-pendidikan-kecamatan.png){width="3.5559601924759403in"}
+![**Gambar 4.8** Kontras Proporsi Pendidikan Per Kecamatan](../assets/bab-04/gambar-4-8-kontras-pendidikan-kecamatan.png){width="3.5559601924759403in"}
 
-> Gambar 4.6 membandingkan proporsi penganggur berpendidikan rendah (merah) dan tinggi/D1 ke atas (biru) pada tiap kecamatan. Polanya serupa di hampir semua kecamatan: pendidikan rendah mendominasi (60–80%), sedangkan pendidikan tinggi umumnya di bawah 10%. Kesenjangan terbesar terlihat di Grabagan, Kenduruan, Kerek, dan Montong. Peta kontras proporsi penganggur berpendidikan rendah per desa/kelurahan ditampilkan pada Gambar 4.7.
+> Gambar 4.8 membandingkan proporsi penganggur berpendidikan rendah (merah) dan tinggi/D1 ke atas (biru) pada tiap kecamatan. Polanya serupa di hampir semua kecamatan: pendidikan rendah mendominasi (60–80%), sedangkan pendidikan tinggi umumnya di bawah 10%. Kesenjangan terbesar terlihat di Grabagan, Kenduruan, Kerek, dan Montong. Peta kontras proporsi penganggur berpendidikan rendah per desa/kelurahan ditampilkan pada Gambar 4.9.
 
-![Peta pendidikan rendah per desa/kelurahan berlabel fid](../assets/bab-04/gambar-4-7-peta-pendidikan-rendah.png){width="6in"}
+![Peta pendidikan rendah per desa/kelurahan berlabel fid](../assets/bab-04/gambar-4-9-peta-pendidikan-rendah.png){width="6in"}
 
 ### Jumlah Penyakit Kronis
 
-> Penyakit kronis menggambarkan kondisi kesehatan penganggur. Tiga kelompok profilnya disajikan pada Gambar 4.8.
+> Penyakit kronis menggambarkan kondisi kesehatan penganggur. Tiga kelompok profilnya disajikan pada Gambar 4.10.
 
-![**Gambar 4.8** Profil Penyakit Kronis](../assets/bab-04/gambar-4-8-profil-penyakit-kronis.png){width="3.711797900262467in"}
+![**Gambar 4.10** Profil Penyakit Kronis](../assets/bab-04/gambar-4-10-profil-penyakit-kronis.png){width="3.711797900262467in"}
 
-> Berdasarkan Gambar 4.8, penganggur di Kabupaten Tuban adalah mayoritas tercatat tidak mengalami penyakit kronis sebesar 95,68%. Adapun yang tercatat sebesar 3,97% dan yang tidak tercatat sebesar 0,35% dari total penganggur. Selanjutnya, profil dari penganggur yang tercatat penyakit kronis dijelaskan dalam peringkat jumlah yang disajikan dalam Tabel 4.2.
+> Berdasarkan Gambar 4.10, penganggur di Kabupaten Tuban adalah mayoritas tercatat tidak mengalami penyakit kronis sebesar 95,68%. Adapun yang tercatat sebesar 3,97% dan yang tidak tercatat sebesar 0,35% dari total penganggur. Selanjutnya, profil dari penganggur yang tercatat penyakit kronis dijelaskan dalam peringkat jumlah yang disajikan dalam Tabel 4.2.
 
   -----------------------------------------------------------------------------------
   Peringkat    Kondisi                Jumlah Penganggur   Proporsi Total Penganggur
@@ -114,13 +138,25 @@ Adapun pemetaan variabel respon Tingkat Pengangguran Terbuka (TPT) untuk mengeta
 
   : **Tabel 4.2** Peringkat Kondisi Kesehatan yang Tercatat pada Penganggur Kabupaten Tuban
 
-> Tabel 4.2 menunjukkan jumlah tertinggi tercatat pada kategori lainnya (1.317 penganggur) dan rematik (1.198 penganggur). Secara umum, penyakit kronis bukan faktor dominan di balik status pengangguran karena kondisi dengan jumlah tertinggi sekalipun hanya mencakup kurang dari 1% dari seluruh penganggur. Peta proporsi penyakit kronis per desa/kelurahan ditampilkan pada Gambar 4.9.
+> Tabel 4.2 menunjukkan jumlah tertinggi tercatat pada kategori lainnya (1.317 penganggur) dan rematik (1.198 penganggur). Secara umum, penyakit kronis bukan faktor dominan di balik status pengangguran karena kondisi dengan jumlah tertinggi sekalipun hanya mencakup kurang dari 1% dari seluruh penganggur. Peta proporsi penyakit kronis per desa/kelurahan ditampilkan pada Gambar 4.11.
 
-![Peta penyakit kronis per desa/kelurahan berlabel fid](../assets/bab-04/gambar-4-9-peta-penyakit-kronis.png){width="6in"}
+![Peta penyakit kronis per desa/kelurahan berlabel fid](../assets/bab-04/gambar-4-11-peta-penyakit-kronis.png){width="6in"}
 
 ## Korelasi Data
 
-Hubungan setiap data diperlukan untuk mengetahui tingkat pengaruh pendidikan terakhir, penyakit kronis, dan sektor pekerjaan terhadap jumlah pengangguran di Kabupaten Tuban. Hubungan yang dihasilkan dari analisis adalah sebagai berikut.
+Korelasi Spearman digunakan untuk menggambarkan hubungan monoton antara TPT dan jumlah orang pada kategori pendidikan, penyakit kronis, dan sektor pekerjaan di 328 desa/kelurahan. Nilai *p-value* disesuaikan dengan metode Holm secara terpisah untuk tiap kelompok gambar. Titik menunjukkan jumlah absolut, sehingga asosiasi juga dapat mencerminkan skala desa/kelurahan; garis hanya menunjukkan kecenderungan linear untuk membantu membaca pola. Korelasi ini bersifat deskriptif, bukan ukuran pengaruh atau bukti sebab-akibat. Khusus pendidikan dan penyakit, hitungannya merupakan bagian dari jumlah penganggur yang juga menjadi pembilang TPT.
+
+![**Gambar 4.12** Korelasi TPT dengan Pendidikan Terakhir](../assets/bab-04/gambar-4-12-korelasi-pendidikan-tpt.png){width="6in"}
+
+Gambar 4.12 memperlihatkan hubungan monoton positif pada seluruh kelompok pendidikan: koefisien Spearman sebesar 0,387 untuk tidak punya ijazah SD, 0,410 untuk SD/SMP, 0,457 untuk SMA/sederajat, dan 0,322 untuk D1 ke atas. Seluruh *p-value* setelah koreksi Holm <0,001. Karena yang dibandingkan adalah jumlah penganggur pada tiap kategori, pola tersebut tidak menunjukkan bahwa jenjang pendidikan tertentu meningkatkan risiko menganggur.
+
+![**Gambar 4.13** Korelasi TPT dengan Penyakit Kronis](../assets/bab-04/gambar-4-13-korelasi-penyakit-kronis-tpt.png){width="6in"}
+
+Pada Gambar 4.13, korelasi positif terbesar terdapat pada jumlah penganggur yang tercatat tidak mengalami penyakit kronis (ρ=0,472), disusul penyakit kronis tercatat (ρ=0,310) dan kondisi tidak diketahui (ρ=0,160). Setelah koreksi Holm, *p-value* masing-masing adalah <0,001, <0,001, dan 0,004. Angka tersebut adalah jumlah penganggur dalam tiap kelompok, bukan prevalensi penyakit pada seluruh penduduk; hasilnya tidak membuktikan hubungan sebab-akibat.
+
+![**Gambar 4.14** Korelasi TPT dengan Sektor Pekerjaan](../assets/bab-04/gambar-4-14-korelasi-sektor-tpt.png){width="6in"}
+
+Gambar 4.14 menyajikan enam kelompok pekerjaan pada Tabel 3.3: Perdagangan, Lainnya, Jasa Kemasyarakatan, Perikanan, Jasa Pendidikan, dan Sektor Lain. Untuk grafik ini, Sektor Lain dioperasionalkan sebagai Peternakan dan delapan kolom pekerjaan lain setelah lima kategori khusus serta Pertanian Padi & Palawija dikeluarkan. Tabel 3.3–3.4 tidak merinci pemetaan kolom untuk agregat ini; karena itu, pengelompokan tersebut merupakan definisi Gambar 4.14, bukan klaim bahwa nilainya identik dengan `share_sektor_lain_ref` pada OLS. Hubungan TPT dengan jumlah pekerja Perdagangan positif (ρ=0,237; Holm *p*<0,001), sedangkan dengan jumlah pekerja Perikanan negatif (ρ=−0,184; Holm *p*=0,004). Korelasi Lainnya (ρ=0,082; Holm *p*=0,273), Jasa Kemasyarakatan (ρ=0,104; Holm *p*=0,182), Jasa Pendidikan (ρ=0,124; Holm *p*=0,101), dan Sektor Lain (ρ=0,049; Holm *p*=0,374) tidak signifikan setelah koreksi Holm. Grafik membandingkan jumlah absolut, bukan proporsi; pola ini bersifat asosiatif dan tidak menunjukkan sebab-akibat.
 
 ## Analisis Model OLS
 

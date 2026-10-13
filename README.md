@@ -24,14 +24,14 @@ Lihat [panduan Quarto, Pandoc, dan Zotero](docs/panduan-referensi.md) untuk inst
 
 ## Reproduksi aset Bab IV
 
-Sembilan gambar analisis Bab IV (Gambar 4.1–4.9) dibuat ulang dari CSV pengangguran dan GeoJSON batas desa di `Datasets/`, termasuk peta Gambar 4.3, 4.7, dan 4.9. Lima tangkapan layar bagian 4.7 Dashboard tetap menggunakan `laporan/docx-media/media/image13.png`–`image17.png` dan tidak dibuat ulang oleh generator.
+Empat belas gambar analisis Bab IV (Gambar 4.1–4.14) dibuat ulang dari CSV pengangguran dan GeoJSON batas desa di `Datasets/`, termasuk peta Gambar 4.3–4.5, 4.9, dan 4.11 serta tiga plot korelasi Spearman Gambar 4.12–4.14. Pada Gambar 4.14, enam kategori mengikuti nama di Tabel 3.3; “Sektor Lain” dioperasionalkan sebagai Peternakan dan delapan kolom pekerjaan lain setelah lima kategori khusus serta Pertanian Padi & Palawija dikeluarkan. Tabel 3.3–3.4 tidak merinci pemetaan kolom untuk agregat tersebut. Lima tangkapan layar bagian 4.7 Dashboard tetap menggunakan `laporan/docx-media/media/image13.png`–`image17.png` dan tidak dibuat ulang oleh generator.
 
 ```bash
 uv run python scripts/generate_bab4_assets.py
 quarto render laporan
 ```
 
-Generator menulis sembilan gambar analisis ke `laporan/assets/bab-04/`. Peta 4.3, 4.7, dan 4.9 memakai lima kelas *Natural Breaks* dan label desa dari kolom `fid` CSV (bukan nama desa); data dan batas legenda dinyatakan dalam persen. Lebar peta di laporan ditingkatkan agar ID lebih terbaca. Tiap peta memuat legenda diskret, penunjuk utara, dan skala 10 km. Tangkapan layar Dashboard tetap bersumber dari `laporan/docx-media/`.
+Generator menulis empat belas gambar analisis ke `laporan/assets/bab-04/`. Peta 4.3, 4.5, 4.9, dan 4.11 memakai kelas *Natural Breaks* dan label desa dari kolom `fid` CSV; peta 4.4 memakai label nama kecamatan dan TPT agregat berbobot angkatan kerja. Peta 4.5 berupa satu peta Kabupaten Tuban: enam kecamatan dengan TPT agregat tertinggi diwarnai menurut TPT desa/kelurahan, dibagi menurut batas desa, dan diberi label fid numerik; 14 kecamatan lain ditampilkan abu-abu. Batas kelas warna TPT desa dihitung dari seluruh dataset agar konsisten dengan peta 4.3. Gambar 4.12–4.14 menampilkan korelasi Spearman TPT dengan jumlah penganggur menurut pendidikan dan kesehatan; Gambar 4.14 menampilkan enam kelompok pekerjaan dan mengoperasionalkan Sektor Lain sebagai sembilan kolom sisa setelah lima kategori khusus dan Pertanian Padi & Palawija dikeluarkan. *P-value* dikoreksi Holm per gambar. Batas kecamatan digabung dari geometri desa pada GeoJSON yang disediakan. Tangkapan layar Dashboard tetap bersumber dari `laporan/docx-media/`.
 
 ## Pemeriksaan lokal
 

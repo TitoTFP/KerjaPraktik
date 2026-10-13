@@ -2,6 +2,7 @@ import pandas as pd
 import pytest
 
 from laporan_kerja_praktik.classification import natural_breaks
+from laporan_kerja_praktik.data import _summarize_tpt_by_district
 
 
 def test_natural_breaks_finds_weighted_clusters_and_percent_labels():
@@ -30,3 +31,19 @@ def test_natural_breaks_finds_weighted_clusters_and_percent_labels():
 def test_natural_breaks_requires_enough_distinct_values():
     with pytest.raises(ValueError, match="Natural Breaks memerlukan setidaknya 5 nilai unik"):
         natural_breaks(pd.Series([0.0, 0.0, 1.0, 1.0, 2.0]))
+
+
+def test_district_tpt_uses_summed_labor_force_not_mean_of_village_rates():
+    data = pd.DataFrame(
+        {
+            "kode_kec": ["01", "01"],
+            "kecamatan": ["Tuban", "Tuban"],
+            "Total_Penganggur": [1, 9],
+            "Total_Penduduk_Bekerja": [99, 1],
+        }
+    )
+
+    district = _summarize_tpt_by_district(data)
+
+    assert len(district) == 1
+    assert district.loc[0, "tpt_pct"] == pytest.approx(100 * 10 / 110)

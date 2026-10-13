@@ -58,3 +58,35 @@ def summarize_by_district(data: pd.DataFrame) -> pd.DataFrame:
         .sort_values("Total_Penganggur", ascending=False)
         .reset_index(drop=True)
     )
+
+
+def _summarize_tpt_by_district(data: pd.DataFrame) -> pd.DataFrame:
+    """Calculate district TPT from summed unemployment and employment counts."""
+    columns = (
+        "kode_kec",
+        "kecamatan",
+        "Total_Penganggur",
+        "Total_Penduduk_Bekerja",
+    )
+    missing = [column for column in columns if column not in data.columns]
+    if missing:
+        raise ValueError(f"Kolom wajib untuk agregasi TPT tidak ditemukan: {', '.join(missing)}")
+    if data["kode_kec"].isna().any() or data["kecamatan"].isna().any():
+        raise ValueError("Kode dan nama kecamatan harus terisi untuk agregasi TPT.")
+    names_per_code = data.groupby("kode_kec")["kecamatan"].nunique()
+    if names_per_code.ne(1).any():
+        raise ValueError("Setiap kode kecamatan harus memiliki satu nama kecamatan.")
+
+    district = (
+        data.groupby("kode_kec", as_index=False, sort=False)
+        .agg(
+            kecamatan=("kecamatan", "first"),
+            Total_Penganggur=("Total_Penganggur", "sum"),
+            Total_Penduduk_Bekerja=("Total_Penduduk_Bekerja", "sum"),
+        )
+    )
+    labor_force = district["Total_Penganggur"] + district["Total_Penduduk_Bekerja"]
+    if (labor_force <= 0).any():
+        raise ValueError("Angkatan kerja kecamatan harus positif untuk menghitung TPT.")
+    district["tpt_pct"] = 100 * district["Total_Penganggur"] / labor_force
+    return district
