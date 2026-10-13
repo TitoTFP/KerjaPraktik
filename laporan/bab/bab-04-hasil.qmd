@@ -76,7 +76,7 @@ Adapun pemetaan variabel respon Tingkat Pengangguran Terbuka (TPT) untuk mengeta
 
 > Berdasarkan Gambar 4.6, diketahui profil pendidikan terakhir penganggur di Kabupaten Tuban didominasi oleh kelompok berpendidikan rendah. Penganggur dengan pendidikan SD/SMP sederajat menempati jumlah terbesar, yaitu 40,21% (57.161 orang), diikuti kelompok tidak memiliki ijazah SD sebesar 25,19% (35.813 orang). Sementara itu, kelompok SMA/sederajat dengan persentase 27,83% (39.560 orang), dan persentase ke-4 dari kelompok D1 ke atas dengan 6,78% (9.634 orang).
 >
-> Pola ini menunjukkan hubungan terbalik antara tingkat pendidikan dan jumlah penganggur: semakin tinggi jenjang pendidikan, semakin kecil persentase penganggurannya. Hal ini mengindikasikan bahwa pengangguran di Kabupaten Tuban masih banyak terjadi pada kelompok berpendidikan dasar/tanpa ijazah. Pembagian proporsi pendidikan dan beban absolut masing-masing desa/kecamatan dalam *scatterplot* pada Gambar 4.7
+> Secara komposisi, kelompok pendidikan rendah (SD/SMP sederajat dan tidak punya ijazah SD) mencakup 65,40% dari seluruh penganggur. Kelompok SMA/sederajat mencakup 27,83%, sedangkan D1 ke atas 6,78%. Angka ini menggambarkan komposisi pendidikan di antara penganggur, bukan tingkat pengangguran pada setiap jenjang; penghitungan tingkat tersebut memerlukan jumlah angkatan kerja pada masing-masing jenjang. Gambar 4.7 membandingkan jumlah penganggur berpendidikan rendah dan proporsinya terhadap seluruh penganggur di tiap desa/kelurahan.
 
 ![**Gambar 4.7** Beban Absolut dan Proporsi Pendidikan Per Desa/Kelurahan](../assets/bab-04/gambar-4-7-beban-proporsi-pendidikan.png){width="3.359890638670166in"}
 
