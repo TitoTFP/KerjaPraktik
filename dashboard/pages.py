@@ -1399,7 +1399,7 @@ def render_gwr() -> None:
         "share_jasa_kemasyarakatan": "Jasa kemasyarakatan",
         "share_perikanan": "Perikanan",
         "share_jasa_pendidikan": "Jasa pendidikan",
-        "share_sektor_lain_ref": "Sektor lain",
+        "share_sektor_lain_ref": "Sektor Gabungan",
     }
     significance = coefficient_summary[coefficient_summary["variable"].isin(variable_labels)].copy()
     significance["prediktor"] = significance["variable"].map(variable_labels)
@@ -1468,7 +1468,7 @@ def render_gwr() -> None:
             "RdBu",
             0.0,
         ),
-        "Koefisien sektor lain": (
+        "Koefisien Sektor Gabungan": (
             "coefficient",
             "share_sektor_lain_ref",
             "RdBu",

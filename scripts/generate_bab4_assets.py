@@ -53,15 +53,14 @@ CHRONIC_CORRELATION_GROUPS = (
     ("Unknown/Tidak diketahui", "Penyakit tidak diketahui"),
 )
 SECTOR_PLOT_EXCLUDED_COLUMNS = ("Pertanian Padi & Palawija",)
-# Plot-only operationalization: the five named categories use their matching
-# CSV fields; Sektor Lain combines Peternakan with eight other remaining fields.
+# Model-aligned groups: X6 combines nine categories; agriculture is the reference.
 SECTOR_CORRELATION_GROUPS = {
     "Perdagangan": ("Perdagangan",),
     "Lainnya": ("Lainnya_2",),
     "Jasa Kemasyarakatan": ("Jasa Kemasyarakatan, Pemerintah, Dan Perorangan",),
     "Perikanan": ("Perikanan",),
     "Jasa Pendidikan": ("Jasa Pendidikan",),
-    "Sektor Lain": (
+    "Sektor Gabungan": (
         "Bangunan/Konstruksi",
         "Hotel & Rumah Makan",
         "Industri Pengolahan",

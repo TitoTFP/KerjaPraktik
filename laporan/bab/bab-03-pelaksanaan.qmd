@@ -81,7 +81,7 @@ dimana $i$ adalah lokasi setiap pengamatan kelurahan/desa di Kabupaten Tuban. Se
 
 ### Variabel Penelitian
 
-Variabel yang digunakan dalam analisis model GWR meliputi variabel respon dan prediktor. Variabel respon yang digunakan adalah tingkat pengangguran terbuka dan variabel prediktor adalah perdagangan, lainnya, jasa kemasyarakatan, perikanan, jasa pendidikan, dan sektor lain. Adapun definisi singkat, dan satuan atau skala pengukuran masing-masing variabel yang disajikan dalam bentuk Tabel 3.3.
+Variabel yang digunakan dalam analisis model GWR meliputi variabel respon dan prediktor. Variabel respon yang digunakan adalah tingkat pengangguran terbuka dan variabel prediktor adalah perdagangan, lainnya, jasa kemasyarakatan, perikanan, jasa pendidikan, dan sektor gabungan. Adapun definisi singkat, dan satuan atau skala pengukuran masing-masing variabel yang disajikan dalam bentuk Tabel 3.3.
 
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
    No     Simbol    Nama Variabel                         Deskripsi Variabel                                                                                                                                 Skala
@@ -98,10 +98,15 @@ Variabel yang digunakan dalam analisis model GWR meliputi variabel respon dan pr
 
     6    $$X_{5}$$  Persentase Jasa Pendidikan (%)        Proporsi penduduk yang bekerja pada sektor jasa pendidikan terhadap keseluruhan penduduk yang bekerja pada suatu wilayah                           Rasio
 
-    7    $$X_{6}$$  Persentase Sektor Lain (%)            Proporsi penduduk yang bekerja pada sektor lain dari beberapa amatan menjadi satu terhadap keseluruhan penduduk yang bekerja pada suatu wilayah    Rasio
+    7    $$X_{6}$$  Persentase Sektor Gabungan (%)         Proporsi gabungan sembilan kategori sektor pekerjaan (dirinci setelah tabel) terhadap keseluruhan penduduk yang bekerja pada suatu wilayah                         Rasio
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : []{#_Toc240218932 .anchor}**Tabel 3.3** Variabel Data Pengangguran dan Data Sektor Pekerjaan
+
+Perlu dibedakan antara $X_{2}$ dan $X_{6}$. $X_{2}$ (Persentase Lainnya) menggunakan kategori `Lainnya_2` yang tercatat tersendiri pada data lapangan pekerjaan. Sementara itu, $X_{6}$ (Persentase Sektor Gabungan) merupakan agregat dari sembilan kategori: Bangunan/Konstruksi, Hotel & Rumah Makan, Industri Pengolahan, Informasi & Komunikasi, Jasa Kesehatan, Keuangan & Asuransi, Listrik Dan Gas, Peternakan, serta Transportasi & Pergudangan. Jumlah kesembilan kategori tersebut dihitung per desa/kelurahan, dibagi jumlah seluruh penduduk bekerja, lalu dikalikan 100%. Agregat $X_{6}$ tidak memasukkan kategori $X_{1}$–$X_{5}$; Pertanian Padi & Palawija juga tidak termasuk karena digunakan sebagai kategori referensi pada model.
+
+Pengelompokan dilakukan agar beberapa sektor dengan jumlah pekerja sangat kecil tetap terwakili tanpa menjadikan masing-masing sebagai prediktor tersendiri. Dalam data 328 desa/kelurahan, misalnya, Keuangan & Asuransi tercatat hanya 3 pekerja pada 3 desa/kelurahan, sedangkan Hotel & Rumah Makan tercatat 10 pekerja pada 7 desa/kelurahan. Kategori `Lainnya_2` tidak disatukan ke $X_{6}$ karena merupakan kategori tersendiri yang tercatat pada data sumber; penggabungan akan mencampur kategori tersebut dengan agregat sembilan sektor dan menghilangkan perbedaan makna antara $X_{2}$ dan $X_{6}$.
+
 
 > Adapun definisi operasional dari masing-masing variabel yang dirumuskan pada Tabel 3.4.
 
@@ -120,7 +125,7 @@ Variabel yang digunakan dalam analisis model GWR meliputi variabel respon dan pr
 
     6   Persentase Jasa Pendidikan (%)        $$\frac{Jumlah\ Jasa\ Pendidikan}{Jumlah\ Seluruh\ Sektor} \times 100\%$$
 
-    7   Persentase Sektor Lain (%)            $$\frac{Jumlah\ Sektor\ Lain}{Jumlah\ Seluruh\ Sektor} \times 100\%$$
+    7   Persentase Sektor Gabungan (%)        $$\frac{Jumlah\ Sektor\ Gabungan}{Jumlah\ Seluruh\ Sektor} \times 100\%$$
   ---------------------------------------------------------------------------------------------------------------------------
 
   : []{#_Toc240218933 .anchor}**Tabel 3.4** Definisi Operasional Variabel Penelitian
