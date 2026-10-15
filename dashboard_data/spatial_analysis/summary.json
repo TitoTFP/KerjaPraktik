@@ -1,0 +1,151 @@
+{
+  "analysis_contract": {
+    "target": "TPT_Proxy",
+    "predictors": [
+      "share_perdagangan",
+      "share_lainnya",
+      "share_jasa_kemasyarakatan",
+      "share_perikanan",
+      "share_jasa_pendidikan",
+      "share_sektor_lain_ref"
+    ],
+    "reference_category": "share_pertanian",
+    "projected_crs": "EPSG:32749",
+    "coordinate_method": "representative_point within polygon",
+    "share_sum_tolerance": 1e-08
+  },
+  "join_audit": {
+    "tabular_rows": 328,
+    "spatial_rows": 328,
+    "tabular_unique_kode_kd": 328,
+    "spatial_unique_kode_kd": 328,
+    "tabular_duplicate_kode_kd": 0,
+    "spatial_duplicate_kode_kd": 0,
+    "matched_keys": 328,
+    "tabular_only_keys": [],
+    "spatial_only_keys": [],
+    "input_crs": "EPSG:4326",
+    "invalid_geometries": 0,
+    "empty_geometries": 0,
+    "missing_geometries": 0,
+    "tabular_missing_kode_kd": 0,
+    "spatial_missing_kode_kd": 0,
+    "tabular_blank_kode_kd": 0,
+    "spatial_blank_kode_kd": 0,
+    "non_numeric_counts": {
+      "TPT_Proxy": 0,
+      "share_perdagangan": 0,
+      "share_lainnya": 0,
+      "share_jasa_kemasyarakatan": 0,
+      "share_perikanan": 0,
+      "share_jasa_pendidikan": 0,
+      "share_sektor_lain_ref": 0,
+      "share_pertanian": 0
+    },
+    "numeric_missing_counts": {
+      "TPT_Proxy": 0,
+      "share_perdagangan": 0,
+      "share_lainnya": 0,
+      "share_jasa_kemasyarakatan": 0,
+      "share_perikanan": 0,
+      "share_jasa_pendidikan": 0,
+      "share_sektor_lain_ref": 0,
+      "share_pertanian": 0
+    },
+    "non_finite_counts": {
+      "TPT_Proxy": 0,
+      "share_perdagangan": 0,
+      "share_lainnya": 0,
+      "share_jasa_kemasyarakatan": 0,
+      "share_perikanan": 0,
+      "share_jasa_pendidikan": 0,
+      "share_sektor_lain_ref": 0,
+      "share_pertanian": 0
+    },
+    "target_missing": 0,
+    "predictor_missing": 0,
+    "reference_category_missing": 0,
+    "target_out_of_range": 0,
+    "share_out_of_range": 0,
+    "share_sum_min": 0.9999999999999998,
+    "share_sum_max": 1.0000000000000002,
+    "share_sum_max_abs_error_from_1": 2.220446049250313e-16
+  },
+  "weights": {
+    "type": "Queen contiguity, row-standardized",
+    "n": 328,
+    "islands": [],
+    "island_count": 0,
+    "mean_neighbors": 5.414634146341464,
+    "min_neighbors": 1,
+    "max_neighbors": 13
+  },
+  "eda": {
+    "target_min": 0.16028708133971292,
+    "target_q25": 0.27229556937641974,
+    "target_median": 0.306284853552778,
+    "target_mean": 0.3071684886516889,
+    "target_q75": 0.34242916174734356,
+    "target_max": 0.48911222780569513,
+    "vif_max": 1.7469870629150555
+  },
+  "ols": {
+    "n": 328,
+    "r2": 0.19157047816143058,
+    "adj_r2": 0.17645964597753205,
+    "aic": -1007.5685516224912,
+    "aicc": -1007.2185516224912,
+    "bic": -981.0174563638022,
+    "rmse": 0.05098582292444592,
+    "breusch_pagan_lm": 19.87005022961112,
+    "breusch_pagan_lm_p": 0.002920786932448139,
+    "breusch_pagan_f": 3.4499979248247463,
+    "breusch_pagan_f_p": 0.0025680543329418674,
+    "jarque_bera": 26.09067952140384,
+    "jarque_bera_p": 2.1601351674522127e-06,
+    "residual_skew": 0.4613945788456234,
+    "residual_kurtosis": 4.028364858291896,
+    "cooks_d_threshold_4_over_n": 0.012195121951219513,
+    "influential_count_cooks_d": 16,
+    "max_cooks_d": 0.3634085219577326,
+    "condition_number": 135.14388749531153
+  },
+  "ols_residual_moran": {
+    "I": 0.21321847266219945,
+    "expected_I": -0.0030581039755351682,
+    "p_sim": 0.001,
+    "z_sim": 6.108985373429305,
+    "permutations": 999
+  },
+  "gwr": {
+    "kernel": "gaussian",
+    "bandwidth_neighbors": 43,
+    "r2": 0.4062324511181421,
+    "adj_r2": 0.35077840419105866,
+    "aic": -1064.9289859635621,
+    "aicc": -1059.1186538550617,
+    "bic": -955.1929297800965,
+    "rmse": 0.043695486622233,
+    "effective_parameters_enp": 27.931100046913365,
+    "sigma2": 0.0020870171513153704
+  },
+  "gwr_residual_moran": {
+    "I": 0.05871395677579472,
+    "expected_I": -0.0030581039755351682,
+    "p_sim": 0.038,
+    "z_sim": 1.764197001801219,
+    "permutations": 999
+  },
+  "gwr_local_collinearity": {
+    "condition_number_min": 8.623222000257494,
+    "condition_number_median": 11.958508608738686,
+    "condition_number_max": 21.805054429643178,
+    "condition_number_gt_30_count": 0,
+    "condition_number_gt_30_share": 0.0
+  },
+  "comparison": {
+    "delta_aicc_gwr_minus_ols": -51.900102232570475,
+    "delta_r2_gwr_minus_ols": 0.21466197295671152,
+    "delta_rmse_gwr_minus_ols": -0.007290336302212923
+  }
+}

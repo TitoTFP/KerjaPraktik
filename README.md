@@ -33,6 +33,16 @@ quarto render laporan
 
 Generator menulis empat belas gambar analisis ke `laporan/assets/bab-04/`. Peta 4.3, 4.5, 4.9, dan 4.11 memakai kelas *Natural Breaks* dan label desa dari kolom `fid` CSV; peta 4.4 memakai label nama kecamatan dan TPT agregat berbobot angkatan kerja. Peta 4.5 berupa satu peta Kabupaten Tuban: enam kecamatan dengan TPT agregat tertinggi diwarnai menurut TPT desa/kelurahan, dibagi menurut batas desa, dan diberi label fid numerik; 14 kecamatan lain ditampilkan abu-abu. Batas kelas warna TPT desa dihitung dari seluruh dataset agar konsisten dengan peta 4.3. Gambar 4.12–4.14 menampilkan korelasi Spearman TPT dengan jumlah penganggur menurut pendidikan dan kesehatan; Gambar 4.14 menampilkan enam kelompok pekerjaan dan mengoperasionalkan Sektor Lain sebagai sembilan kolom sisa setelah lima kategori khusus dan Pertanian Padi & Palawija dikeluarkan. *P-value* dikoreksi Holm per gambar. Batas kecamatan digabung dari geometri desa pada GeoJSON yang disediakan. Tangkapan layar Dashboard tetap bersumber dari `laporan/docx-media/`.
 
+## Streamlit dashboard
+
+Dashboard Streamlit memakai artefak pra-hitung di `dashboard_data/` dan GeoJSON di `Datasets/`; dashboard tidak menjalankan ulang analisis spasial atau model.
+
+```bash
+uv sync --extra dashboard
+uv run --extra dashboard streamlit run app.py
+```
+
+
 ## Pemeriksaan lokal
 
 ```bash
@@ -46,12 +56,16 @@ quarto render laporan
 
 ```text
 .
-├── .github/                  # workflow CI dan templat kontribusi GitHub
+├── .github/                  # workflow CI dan templat GitHub
+├── .streamlit/               # konfigurasi tampilan Streamlit
 ├── Datasets/                 # CSV sumber dan batas wilayah GeoJSON
+├── dashboard/                # halaman, loader data, dan UI Streamlit
+├── dashboard_data/           # artefak pra-hitung yang dipakai dashboard
 ├── docs/                     # panduan referensi, kamus data, dan kerangka laporan
-├── laporan/                  # Quarto Book: index.qmd, bab/, references.bib
+├── laporan/                  # Quarto Book
 ├── src/laporan_kerja_praktik/ # loader dan agregasi yang dapat digunakan ulang
 ├── tests/                    # uji perilaku loader dan agregasi
+├── app.py                    # entry point dashboard
 ├── pyproject.toml            # metadata, dependensi, dan konfigurasi Python
 └── uv.lock                   # lockfile dependensi
 ```

@@ -1,0 +1,4 @@
+metric,label,fdr_significant_villages,High-High,Low-Low,High-Low,Low-High,Tidak signifikan
+TPT_Proxy,TPT,62,15,43,2,2,266
+share_pendidikan_rendah,Pendidikan rendah,54,26,26,2,0,274
+share_penyakit_kronis,Penyakit kronis,0,0,0,0,0,328

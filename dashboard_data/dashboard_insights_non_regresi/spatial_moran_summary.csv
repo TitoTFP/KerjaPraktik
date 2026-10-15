@@ -1,0 +1,4 @@
+metric,label,moran_I,permutation_p_value,expected_I
+TPT_Proxy,TPT,0.3913027513244993,0.001,-0.0030581039755351682
+share_pendidikan_rendah,Pendidikan rendah,0.4927948526301198,0.001,-0.0030581039755351682
+share_penyakit_kronis,Penyakit kronis,0.060285883443775126,0.016,-0.0030581039755351682

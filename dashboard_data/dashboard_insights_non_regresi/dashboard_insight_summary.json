@@ -1,0 +1,937 @@
+{
+  "method": {
+    "regression_used": false,
+    "non_regression_scope": "Distribusi dan pola spasial deskriptif; tidak ada OLS, GWR, atau inferensi kausal.",
+    "unit": "328 desa/kelurahan",
+    "source_sheet": "Data Pengangguran Full dengan K",
+    "outcome_context": "TPT = penganggur / (penganggur + penduduk_bekerja)",
+    "profile_denominator": "Total_Penganggur",
+    "education_grouping": {
+      "Tidak punya ijazah SD": [
+        "Tidak Punya Ijazah SD"
+      ],
+      "SD/SMP sederajat": [
+        "SD",
+        "SDLB",
+        "MI",
+        "MTs",
+        "Paket A",
+        "Paket B",
+        "SMP",
+        "SMP LB",
+        "SPM/PDF Ula",
+        "SPM/PDF Wustha"
+      ],
+      "SMA/sederajat": [
+        "SMA",
+        "SMK",
+        "SMLB",
+        "MA",
+        "MAK",
+        "Paket C",
+        "SPM/PDF Ulya"
+      ],
+      "D1 ke atas": [
+        "D1/D2/D3",
+        "D4/S1",
+        "Profesi",
+        "S2",
+        "S3"
+      ]
+    },
+    "disease_unknown_preserved": true,
+    "spatial_weights": "8-nearest-neighbor row-standardized",
+    "local_moran_permutations": 999,
+    "local_cluster_significance": "Benjamini-Hochberg FDR-adjusted p_adj <= 0.05; exploratory",
+    "spatial_measures": [
+      "TPT_Proxy",
+      "share_pendidikan_rendah",
+      "share_penyakit_kronis"
+    ],
+    "coverage_diagnostics": {
+      "education": {
+        "min": 1.0,
+        "max": 1.0,
+        "rows_not_equal_one": 0,
+        "max_abs_gap": 0
+      },
+      "disease": {
+        "min": 1.0,
+        "max": 1.0,
+        "rows_not_equal_one": 0,
+        "max_abs_gap": 0
+      }
+    },
+    "causal_caveat": "Pendidikan dan penyakit hanya profil deskriptif; bukan prediktor baru TPT dan bukan bukti sebab-akibat.",
+    "health_category_caveat": "Unknown/Tidak diketahui dipertahankan terpisah dari Tidak Ada; angka penyakit bukan prevalensi seluruh penduduk."
+  },
+  "data_quality": {
+    "rows": 328,
+    "kode_kd_unique": 328,
+    "duplicate_kode_kd": 0,
+    "kode_kd_missing": 0,
+    "missing_numeric_cells": 0,
+    "negative_numeric_cells": 0,
+    "non_integer_numeric_cells": 0,
+    "base_non_numeric_cells": 0,
+    "zero_angkatan_kerja": 0,
+    "education_partition_max_abs_gap": 0,
+    "disease_partition_max_abs_gap": 0,
+    "tpt_proxy_range": [
+      0.160287,
+      0.489112
+    ],
+    "occupation_share_range": [
+      1.0,
+      1.0
+    ],
+    "spatial_join": {
+      "geometry_rows": 328,
+      "analysis_rows": 328,
+      "matched": 328,
+      "unmatched_geometry": 0,
+      "unmatched_analysis": 0,
+      "duplicate_geometry_keys": 0,
+      "missing_geometry": 0,
+      "invalid_geometry": 0
+    },
+    "coverage_diagnostics": {
+      "education": {
+        "min": 1.0,
+        "max": 1.0,
+        "rows_not_equal_one": 0,
+        "max_abs_gap": 0
+      },
+      "disease": {
+        "min": 1.0,
+        "max": 1.0,
+        "rows_not_equal_one": 0,
+        "max_abs_gap": 0
+      }
+    },
+    "district_partition_diagnostics": {
+      "education_max_abs_gap": 0,
+      "disease_max_abs_gap": 0,
+      "education_districts": 20,
+      "disease_districts": 20
+    }
+  },
+  "tpt_proxy_and_scale": {
+    "weighted_tpt_proxy": 0.30994150771867024,
+    "median_village_tpt_proxy": 0.306284853552778,
+    "p10_tpt_proxy": 0.2342543871043812,
+    "p90_tpt_proxy": 0.38249224401942483,
+    "spearman_rate_vs_labor_force": 0.17029743913144635,
+    "rate_scale_quadrants": [
+      {
+        "rate_scale_quadrant": "TPT tinggi + Angkatan kerja besar",
+        "desa": 94,
+        "median_tpt_proxy": 0.3384903427400693,
+        "total_penganggur": 60691,
+        "total_angkatan_kerja": 176172,
+        "weighted_tpt_proxy": 0.34449855822718706,
+        "share_penganggur": 0.4268963479826684
+      },
+      {
+        "rate_scale_quadrant": "TPT rendah + Angkatan kerja besar",
+        "desa": 70,
+        "median_tpt_proxy": 0.2792183017002408,
+        "total_penganggur": 37901,
+        "total_angkatan_kerja": 139724,
+        "weighted_tpt_proxy": 0.27125619077610147,
+        "share_penganggur": 0.26659304484834845
+      },
+      {
+        "rate_scale_quadrant": "TPT tinggi + Angkatan kerja kecil",
+        "desa": 70,
+        "median_tpt_proxy": 0.3504611295633907,
+        "total_penganggur": 23630,
+        "total_angkatan_kerja": 66163,
+        "weighted_tpt_proxy": 0.3571482550670314,
+        "share_penganggur": 0.16621180575094255
+      },
+      {
+        "rate_scale_quadrant": "TPT rendah + Angkatan kerja kecil",
+        "desa": 94,
+        "median_tpt_proxy": 0.26937238019712245,
+        "total_penganggur": 19946,
+        "total_angkatan_kerja": 76634,
+        "weighted_tpt_proxy": 0.2602761176501292,
+        "share_penganggur": 0.14029880141804063
+      }
+    ],
+    "top_rate_villages": [
+      {
+        "kode_kd": "35.23.17.2008",
+        "kecamatan": "Plumpang",
+        "kel_desa": "Cangkring",
+        "TPT_Proxy": 0.48911222780569513,
+        "Total_Penganggur": 292,
+        "Angkatan_Kerja": 597
+      },
+      {
+        "kode_kd": "35.23.12.2006",
+        "kecamatan": "Jenu",
+        "kel_desa": "Sumurgeneng",
+        "TPT_Proxy": 0.4585427135678392,
+        "Total_Penganggur": 730,
+        "Angkatan_Kerja": 1592
+      },
+      {
+        "kode_kd": "35.23.14.2016",
+        "kecamatan": "Rengel",
+        "kel_desa": "Ngadirejo",
+        "TPT_Proxy": 0.4567350579839429,
+        "Total_Penganggur": 512,
+        "Angkatan_Kerja": 1121
+      },
+      {
+        "kode_kd": "35.23.19.2014",
+        "kecamatan": "Widang",
+        "kel_desa": "Kedungharjo",
+        "TPT_Proxy": 0.4519015659955257,
+        "Total_Penganggur": 404,
+        "Angkatan_Kerja": 894
+      },
+      {
+        "kode_kd": "35.23.18.2015",
+        "kecamatan": "Palang",
+        "kel_desa": "Wangun",
+        "TPT_Proxy": 0.43647234678624813,
+        "Total_Penganggur": 584,
+        "Angkatan_Kerja": 1338
+      },
+      {
+        "kode_kd": "35.23.19.2010",
+        "kecamatan": "Widang",
+        "kel_desa": "Banjar",
+        "TPT_Proxy": 0.42764578833693306,
+        "Total_Penganggur": 198,
+        "Angkatan_Kerja": 463
+      },
+      {
+        "kode_kd": "35.23.09.2008",
+        "kecamatan": "Parengan",
+        "kel_desa": "Wukirharjo",
+        "TPT_Proxy": 0.418622848200313,
+        "Total_Penganggur": 535,
+        "Angkatan_Kerja": 1278
+      },
+      {
+        "kode_kd": "35.23.11.2020",
+        "kecamatan": "Soko",
+        "kel_desa": "Sumurcinde",
+        "TPT_Proxy": 0.41562932226832644,
+        "Total_Penganggur": 601,
+        "Angkatan_Kerja": 1446
+      },
+      {
+        "kode_kd": "35.23.11.2024",
+        "kecamatan": "Soko",
+        "kel_desa": "Glagahsari",
+        "TPT_Proxy": 0.4103139013452915,
+        "Total_Penganggur": 366,
+        "Angkatan_Kerja": 892
+      },
+      {
+        "kode_kd": "35.23.09.2014",
+        "kecamatan": "Parengan",
+        "kel_desa": "Pacing",
+        "TPT_Proxy": 0.40726933830382106,
+        "Total_Penganggur": 437,
+        "Angkatan_Kerja": 1073
+      }
+    ]
+  },
+  "occupation_composition": {
+    "weighted_sector_shares": {
+      "Pertanian": 0.35543479977884845,
+      "Industri dan Konstruksi": 0.01390411499881526,
+      "Perdagangan dan Akomodasi": 0.4131458810520496,
+      "Jasa": 0.21751520417028672
+    },
+    "rate_stratified": [
+      {
+        "rate_group": "TPT rendah",
+        "desa": 164,
+        "total_penganggur": 57847,
+        "weighted_tpt_proxy": 0.2673670490575805,
+        "mean_sector_hhi": 0.42069448291105493,
+        "weighted_share_Pertanian": 0.4294843890960249,
+        "weighted_share_Industri dan Konstruksi": 0.012516481506015356,
+        "weighted_share_Perdagangan dan Akomodasi": 0.35661247484401715,
+        "weighted_share_Jasa": 0.20138665455394264
+      },
+      {
+        "rate_group": "TPT tinggi",
+        "desa": 164,
+        "total_penganggur": 84321,
+        "weighted_tpt_proxy": 0.34795221490911343,
+        "mean_sector_hhi": 0.41590671431465615,
+        "weighted_share_Pertanian": 0.28115230296049715,
+        "weighted_share_Industri dan Konstruksi": 0.015296113002645335,
+        "weighted_share_Perdagangan dan Akomodasi": 0.46985710126950775,
+        "weighted_share_Jasa": 0.23369448276734972
+      }
+    ]
+  },
+  "education": {
+    "overall_profile": [
+      {
+        "kategori": "Tidak punya ijazah SD",
+        "jumlah": 35813,
+        "persentase_penganggur": 0.2519061954870294
+      },
+      {
+        "kategori": "SD/SMP sederajat",
+        "jumlah": 57161,
+        "persentase_penganggur": 0.40206656912948063
+      },
+      {
+        "kategori": "SMA/sederajat",
+        "jumlah": 39560,
+        "persentase_penganggur": 0.278262337516178
+      },
+      {
+        "kategori": "D1 ke atas",
+        "jumlah": 9634,
+        "persentase_penganggur": 0.06776489786731191
+      }
+    ],
+    "raw_top_categories": [
+      {
+        "kategori": "Tidak Punya Ijazah SD",
+        "jumlah": 35813,
+        "persentase_penganggur": 0.2519061954870294
+      },
+      {
+        "kategori": "SD",
+        "jumlah": 30688,
+        "persentase_penganggur": 0.2158572955939452
+      },
+      {
+        "kategori": "SMA",
+        "jumlah": 24513,
+        "persentase_penganggur": 0.17242276743008272
+      },
+      {
+        "kategori": "SMP",
+        "jumlah": 19390,
+        "persentase_penganggur": 0.1363879354003714
+      },
+      {
+        "kategori": "SMK",
+        "jumlah": 9287,
+        "persentase_penganggur": 0.06532412357211187
+      },
+      {
+        "kategori": "D4/S1",
+        "jumlah": 7999,
+        "persentase_penganggur": 0.056264419559957236
+      },
+      {
+        "kategori": "MA",
+        "jumlah": 5346,
+        "persentase_penganggur": 0.037603398795790895
+      },
+      {
+        "kategori": "MTs",
+        "jumlah": 5094,
+        "persentase_penganggur": 0.03583084801080412
+      },
+      {
+        "kategori": "MI",
+        "jumlah": 1715,
+        "persentase_penganggur": 0.012063192842271116
+      },
+      {
+        "kategori": "D1/D2/D3",
+        "jumlah": 1324,
+        "persentase_penganggur": 0.009312925552867031
+      }
+    ],
+    "low_education_share_overall": 0.65397276461651,
+    "tertiary_share_overall": 0.06776489786731191,
+    "cutoffs": {
+      "low_share_median": 0.665929229345599,
+      "low_count_median": 252.5
+    },
+    "priority_quadrants": [
+      {
+        "education_priority_quadrant": "Pendidikan rendah tinggi + Beban rendah-ijazah besar",
+        "desa": 100,
+        "penganggur": 57137,
+        "pendidikan_rendah": 43103,
+        "pendidikan_tinggi": 2022,
+        "share_pendidikan_rendah": 0.754379823931953,
+        "share_pendidikan_tinggi": 0.035388627334301766,
+        "share_penganggur": 0.4018977547690057
+      },
+      {
+        "education_priority_quadrant": "Pendidikan rendah rendah + Beban rendah-ijazah besar",
+        "desa": 64,
+        "penganggur": 40722,
+        "pendidikan_rendah": 23453,
+        "pendidikan_tinggi": 3761,
+        "share_pendidikan_rendah": 0.575929473012131,
+        "share_pendidikan_tinggi": 0.09235793919748539,
+        "share_penganggur": 0.28643576613583926
+      },
+      {
+        "education_priority_quadrant": "Pendidikan rendah rendah + Beban rendah-ijazah kecil",
+        "desa": 100,
+        "penganggur": 29288,
+        "pendidikan_rendah": 15367,
+        "pendidikan_tinggi": 3280,
+        "share_pendidikan_rendah": 0.5246858781753619,
+        "share_pendidikan_tinggi": 0.11199125921879267,
+        "share_penganggur": 0.20600979123290755
+      },
+      {
+        "education_priority_quadrant": "Pendidikan rendah tinggi + Beban rendah-ijazah kecil",
+        "desa": 64,
+        "penganggur": 15021,
+        "pendidikan_rendah": 11051,
+        "pendidikan_tinggi": 571,
+        "share_pendidikan_rendah": 0.73570334864523,
+        "share_pendidikan_tinggi": 0.0380134478396911,
+        "share_penganggur": 0.10565668786224748
+      }
+    ],
+    "priority_villages": [
+      {
+        "kode_kd": "35.23.15.2003",
+        "kecamatan": "Semanding",
+        "kel_desa": "Prunggahan Kulon",
+        "Total_Penganggur": 1931,
+        "pendidikan_rendah": 1413,
+        "share_pendidikan_rendah": 0.7317452097358882,
+        "pendidikan_tinggi": 94
+      },
+      {
+        "kode_kd": "35.23.15.2009",
+        "kecamatan": "Semanding",
+        "kel_desa": "Bektiharjo",
+        "Total_Penganggur": 1289,
+        "pendidikan_rendah": 933,
+        "share_pendidikan_rendah": 0.7238169123351436,
+        "pendidikan_tinggi": 52
+      },
+      {
+        "kode_kd": "35.23.20.2003",
+        "kecamatan": "Grabagan",
+        "kel_desa": "Grabagan",
+        "Total_Penganggur": 1171,
+        "pendidikan_rendah": 883,
+        "share_pendidikan_rendah": 0.7540563620836892,
+        "pendidikan_tinggi": 25
+      },
+      {
+        "kode_kd": "35.23.15.2001",
+        "kecamatan": "Semanding",
+        "kel_desa": "Jadi",
+        "Total_Penganggur": 1064,
+        "pendidikan_rendah": 878,
+        "share_pendidikan_rendah": 0.825187969924812,
+        "pendidikan_tinggi": 14
+      },
+      {
+        "kode_kd": "35.23.07.2007",
+        "kecamatan": "Singgahan",
+        "kel_desa": "Mulyoagung",
+        "Total_Penganggur": 1093,
+        "pendidikan_rendah": 779,
+        "share_pendidikan_rendah": 0.7127172918572735,
+        "pendidikan_tinggi": 64
+      },
+      {
+        "kode_kd": "35.23.10.2012",
+        "kecamatan": "Montong",
+        "kel_desa": "Jetak",
+        "Total_Penganggur": 973,
+        "pendidikan_rendah": 730,
+        "share_pendidikan_rendah": 0.750256937307297,
+        "pendidikan_tinggi": 39
+      },
+      {
+        "kode_kd": "35.23.11.2014",
+        "kecamatan": "Soko",
+        "kel_desa": "Jegulo",
+        "Total_Penganggur": 842,
+        "pendidikan_rendah": 684,
+        "share_pendidikan_rendah": 0.8123515439429929,
+        "pendidikan_tinggi": 22
+      },
+      {
+        "kode_kd": "35.23.08.2006",
+        "kecamatan": "Kerek",
+        "kel_desa": "Gaji",
+        "Total_Penganggur": 771,
+        "pendidikan_rendah": 657,
+        "share_pendidikan_rendah": 0.8521400778210116,
+        "pendidikan_tinggi": 13
+      },
+      {
+        "kode_kd": "35.23.08.2004",
+        "kecamatan": "Kerek",
+        "kel_desa": "Wolutengah",
+        "Total_Penganggur": 761,
+        "pendidikan_rendah": 653,
+        "share_pendidikan_rendah": 0.8580814717477004,
+        "pendidikan_tinggi": 6
+      },
+      {
+        "kode_kd": "35.23.09.2012",
+        "kecamatan": "Parengan",
+        "kel_desa": "Dagangan",
+        "Total_Penganggur": 755,
+        "pendidikan_rendah": 606,
+        "share_pendidikan_rendah": 0.8026490066225166,
+        "pendidikan_tinggi": 20
+      }
+    ],
+    "district_highest_share": [
+      {
+        "kecamatan": "Grabagan",
+        "penganggur": 5014,
+        "pendidikan_rendah": 3955,
+        "share_pendidikan_rendah": 0.7887913841244515,
+        "share_pendidikan_tinggi": 0.022935779816513763
+      },
+      {
+        "kecamatan": "Kenduruan",
+        "penganggur": 3183,
+        "pendidikan_rendah": 2372,
+        "share_pendidikan_rendah": 0.7452089224002514,
+        "share_pendidikan_tinggi": 0.02827521206409048
+      },
+      {
+        "kecamatan": "Kerek",
+        "penganggur": 7213,
+        "pendidikan_rendah": 5369,
+        "share_pendidikan_rendah": 0.7443504783030639,
+        "share_pendidikan_tinggi": 0.039234715097740194
+      },
+      {
+        "kecamatan": "Montong",
+        "penganggur": 6318,
+        "pendidikan_rendah": 4695,
+        "share_pendidikan_rendah": 0.7431149097815765,
+        "share_pendidikan_tinggi": 0.03482114593225704
+      },
+      {
+        "kecamatan": "Bancar",
+        "penganggur": 6143,
+        "pendidikan_rendah": 4244,
+        "share_pendidikan_rendah": 0.690867654240599,
+        "share_pendidikan_tinggi": 0.051929024906397524
+      }
+    ],
+    "district_highest_count": [
+      {
+        "kecamatan": "Semanding",
+        "penganggur": 13017,
+        "pendidikan_rendah": 8080,
+        "share_pendidikan_rendah": 0.620726741952831
+      },
+      {
+        "kecamatan": "Soko",
+        "penganggur": 10474,
+        "pendidikan_rendah": 7058,
+        "share_pendidikan_rendah": 0.6738590796257399
+      },
+      {
+        "kecamatan": "Palang",
+        "penganggur": 10400,
+        "pendidikan_rendah": 6774,
+        "share_pendidikan_rendah": 0.6513461538461538
+      },
+      {
+        "kecamatan": "Plumpang",
+        "penganggur": 9643,
+        "pendidikan_rendah": 6340,
+        "share_pendidikan_rendah": 0.6574717411593902
+      },
+      {
+        "kecamatan": "Kerek",
+        "penganggur": 7213,
+        "pendidikan_rendah": 5369,
+        "share_pendidikan_rendah": 0.7443504783030639
+      }
+    ],
+    "top_decile_low_education_concentration": 0.23496891604104372,
+    "spatial_moran": {
+      "label": "Pendidikan rendah",
+      "moran_I": 0.4927948526301198,
+      "permutation_p_value": 0.001,
+      "expected_I": -0.0030581039755351682
+    },
+    "local_clusters": {
+      "label": "Pendidikan rendah",
+      "fdr_significant_villages": 54,
+      "High-High": 26,
+      "Low-Low": 26,
+      "High-Low": 2,
+      "Low-High": 0,
+      "Tidak signifikan": 274
+    },
+    "coverage_diagnostics": {
+      "min": 1.0,
+      "max": 1.0,
+      "rows_not_equal_one": 0,
+      "max_abs_gap": 0
+    },
+    "district_partition_max_abs_gap": 0
+  },
+  "disease": {
+    "overall_profile": [
+      {
+        "kategori": "Tidak Ada",
+        "jumlah": 136025,
+        "persentase_penganggur": 0.9567905576501041
+      },
+      {
+        "kategori": "Penyakit kronis (tercatat)",
+        "jumlah": 5651,
+        "persentase_penganggur": 0.039748747960159814
+      },
+      {
+        "kategori": "Unknown/Tidak diketahui",
+        "jumlah": 492,
+        "persentase_penganggur": 0.003460694389736087
+      }
+    ],
+    "top_recorded_conditions": [
+      {
+        "kategori": "Lainnya",
+        "jumlah": 1317,
+        "persentase_penganggur": 0.009263688031061843
+      },
+      {
+        "kategori": "Rematik",
+        "jumlah": 1198,
+        "persentase_penganggur": 0.008426650160373642
+      },
+      {
+        "kategori": "Hipertensi",
+        "jumlah": 799,
+        "persentase_penganggur": 0.005620111417477913
+      },
+      {
+        "kategori": "Diabetes",
+        "jumlah": 545,
+        "persentase_penganggur": 0.003833492769118226
+      },
+      {
+        "kategori": "Stroke",
+        "jumlah": 465,
+        "persentase_penganggur": 0.0032707782342017893
+      },
+      {
+        "kategori": "Asma",
+        "jumlah": 431,
+        "persentase_penganggur": 0.003031624556862304
+      },
+      {
+        "kategori": "Kolesterol",
+        "jumlah": 407,
+        "persentase_penganggur": 0.002862810196387373
+      },
+      {
+        "kategori": "Masalah Jantung",
+        "jumlah": 233,
+        "persentase_penganggur": 0.0016389060829441224
+      },
+      {
+        "kategori": "TBC",
+        "jumlah": 86,
+        "persentase_penganggur": 0.0006049181250351697
+      },
+      {
+        "kategori": "Kanker/Tumor Ganas",
+        "jumlah": 61,
+        "persentase_penganggur": 0.00042906983287378315
+      }
+    ],
+    "chronic_share_overall": 0.039748747960159814,
+    "unknown_share_overall": 0.003460694389736087,
+    "cutoffs": {
+      "chronic_share_median": 0.034497903207525785,
+      "chronic_count_median": 13.0
+    },
+    "priority_quadrants": [
+      {
+        "disease_priority_quadrant": "Proporsi kronis tinggi + Jumlah kasus tercatat besar",
+        "desa": 129,
+        "penganggur": 60458,
+        "penyakit_kronis": 3788,
+        "penyakit_unknown": 286,
+        "share_penyakit_kronis": 0.06265506632703695,
+        "share_penyakit_unknown": 0.004730556750140593,
+        "share_penganggur": 0.42525744189972425
+      },
+      {
+        "disease_priority_quadrant": "Proporsi kronis rendah + Jumlah kasus tercatat kecil",
+        "desa": 121,
+        "penganggur": 43191,
+        "penyakit_kronis": 754,
+        "penyakit_unknown": 134,
+        "share_penyakit_kronis": 0.017457340649672387,
+        "share_penyakit_unknown": 0.0031024982056446944,
+        "share_penganggur": 0.3038025434696978
+      },
+      {
+        "disease_priority_quadrant": "Proporsi kronis rendah + Jumlah kasus tercatat besar",
+        "desa": 43,
+        "penganggur": 32528,
+        "penyakit_kronis": 806,
+        "penyakit_unknown": 38,
+        "share_penyakit_kronis": 0.024778652238071814,
+        "share_penyakit_unknown": 0.0011682242990654205,
+        "share_penganggur": 0.22879972989702324
+      },
+      {
+        "disease_priority_quadrant": "Proporsi kronis tinggi + Jumlah kasus tercatat kecil",
+        "desa": 35,
+        "penganggur": 5991,
+        "penyakit_kronis": 303,
+        "penyakit_unknown": 34,
+        "share_penyakit_kronis": 0.05057586379569354,
+        "share_penyakit_unknown": 0.005675179435820397,
+        "share_penganggur": 0.04214028473355467
+      }
+    ],
+    "priority_villages": [
+      {
+        "kode_kd": "35.23.05.2011",
+        "kecamatan": "Senori",
+        "kel_desa": "Rayung",
+        "Total_Penganggur": 759,
+        "penyakit_kronis": 117,
+        "share_penyakit_kronis": 0.1541501976284585,
+        "penyakit_unknown": 0
+      },
+      {
+        "kode_kd": "35.23.17.2014",
+        "kecamatan": "Plumpang",
+        "kel_desa": "Klotok",
+        "Total_Penganggur": 840,
+        "penyakit_kronis": 82,
+        "share_penyakit_kronis": 0.09761904761904762,
+        "penyakit_unknown": 0
+      },
+      {
+        "kode_kd": "35.23.16.2002",
+        "kecamatan": "Tuban",
+        "kel_desa": "Sugiharjo",
+        "Total_Penganggur": 653,
+        "penyakit_kronis": 70,
+        "share_penyakit_kronis": 0.10719754977029096,
+        "penyakit_unknown": 0
+      },
+      {
+        "kode_kd": "35.23.16.1006",
+        "kecamatan": "Tuban",
+        "kel_desa": "Latsari",
+        "Total_Penganggur": 1038,
+        "penyakit_kronis": 66,
+        "share_penyakit_kronis": 0.06358381502890173,
+        "penyakit_unknown": 0
+      },
+      {
+        "kode_kd": "35.23.17.2013",
+        "kecamatan": "Plumpang",
+        "kel_desa": "Jatimulyo",
+        "Total_Penganggur": 593,
+        "penyakit_kronis": 62,
+        "share_penyakit_kronis": 0.1045531197301855,
+        "penyakit_unknown": 0
+      },
+      {
+        "kode_kd": "35.23.11.2007",
+        "kecamatan": "Soko",
+        "kel_desa": "Prambontergayang",
+        "Total_Penganggur": 878,
+        "penyakit_kronis": 59,
+        "share_penyakit_kronis": 0.06719817767653759,
+        "penyakit_unknown": 53
+      },
+      {
+        "kode_kd": "35.23.02.2011",
+        "kecamatan": "Jatirogo",
+        "kel_desa": "Ngepon",
+        "Total_Penganggur": 556,
+        "penyakit_kronis": 55,
+        "share_penyakit_kronis": 0.09892086330935251,
+        "penyakit_unknown": 0
+      },
+      {
+        "kode_kd": "35.23.16.2001",
+        "kecamatan": "Tuban",
+        "kel_desa": "Sumurgung",
+        "Total_Penganggur": 759,
+        "penyakit_kronis": 53,
+        "share_penyakit_kronis": 0.06982872200263504,
+        "penyakit_unknown": 0
+      },
+      {
+        "kode_kd": "35.23.04.2006",
+        "kecamatan": "Bancar",
+        "kel_desa": "Bulujowo",
+        "Total_Penganggur": 488,
+        "penyakit_kronis": 51,
+        "share_penyakit_kronis": 0.10450819672131148,
+        "penyakit_unknown": 0
+      },
+      {
+        "kode_kd": "35.23.12.2005",
+        "kecamatan": "Jenu",
+        "kel_desa": "Tasikharjo",
+        "Total_Penganggur": 399,
+        "penyakit_kronis": 50,
+        "share_penyakit_kronis": 0.12531328320802004,
+        "penyakit_unknown": 0
+      }
+    ],
+    "district_highest_share": [
+      {
+        "kecamatan": "Senori",
+        "penganggur": 4966,
+        "penyakit_kronis": 299,
+        "share_penyakit_kronis": 0.060209424083769635,
+        "share_penyakit_unknown": 0.0
+      },
+      {
+        "kecamatan": "Tuban",
+        "penganggur": 9509,
+        "penyakit_kronis": 554,
+        "share_penyakit_kronis": 0.05826059522557577,
+        "share_penyakit_unknown": 0.0
+      },
+      {
+        "kecamatan": "Plumpang",
+        "penganggur": 9643,
+        "penyakit_kronis": 555,
+        "share_penyakit_kronis": 0.05755470289329047,
+        "share_penyakit_unknown": 0.0
+      },
+      {
+        "kecamatan": "Rengel",
+        "penganggur": 7140,
+        "penyakit_kronis": 370,
+        "share_penyakit_kronis": 0.05182072829131653,
+        "share_penyakit_unknown": 0.0
+      },
+      {
+        "kecamatan": "Bancar",
+        "penganggur": 6143,
+        "penyakit_kronis": 313,
+        "share_penyakit_kronis": 0.05095230343480384,
+        "share_penyakit_unknown": 0.0
+      }
+    ],
+    "district_highest_count": [
+      {
+        "kecamatan": "Plumpang",
+        "penganggur": 9643,
+        "penyakit_kronis": 555,
+        "share_penyakit_kronis": 0.05755470289329047
+      },
+      {
+        "kecamatan": "Tuban",
+        "penganggur": 9509,
+        "penyakit_kronis": 554,
+        "share_penyakit_kronis": 0.05826059522557577
+      },
+      {
+        "kecamatan": "Soko",
+        "penganggur": 10474,
+        "penyakit_kronis": 431,
+        "share_penyakit_kronis": 0.04114951308000764
+      },
+      {
+        "kecamatan": "Rengel",
+        "penganggur": 7140,
+        "penyakit_kronis": 370,
+        "share_penyakit_kronis": 0.05182072829131653
+      },
+      {
+        "kecamatan": "Semanding",
+        "penganggur": 13017,
+        "penyakit_kronis": 355,
+        "share_penyakit_kronis": 0.027272028885303834
+      }
+    ],
+    "top_decile_chronic_concentration": 0.29127588037515484,
+    "spatial_moran": {
+      "label": "Penyakit kronis",
+      "moran_I": 0.060285883443775126,
+      "permutation_p_value": 0.016,
+      "expected_I": -0.0030581039755351682
+    },
+    "local_clusters": {
+      "label": "Penyakit kronis",
+      "fdr_significant_villages": 0,
+      "High-High": 0,
+      "Low-Low": 0,
+      "High-Low": 0,
+      "Low-High": 0,
+      "Tidak signifikan": 328
+    },
+    "local_cluster_caveat": "Tidak ada desa yang lolos FDR pada Local Moran; Moran global signifikan secara permutasi, sehingga pola lokal tidak boleh diklaim sebagai klaster signifikan.",
+    "coverage_diagnostics": {
+      "min": 1.0,
+      "max": 1.0,
+      "rows_not_equal_one": 0,
+      "max_abs_gap": 0
+    },
+    "district_partition_max_abs_gap": 0
+  },
+  "rate_stratified_profiles": [
+    {
+      "rate_group": "TPT rendah",
+      "desa": 164,
+      "penganggur": 57847,
+      "weighted_tpt_proxy": 0.2673670490575805,
+      "share_pendidikan_rendah": 0.6783930022300205,
+      "share_pendidikan_menengah": 0.26239908724739397,
+      "share_pendidikan_tinggi": 0.05920791052258544,
+      "share_penyakit_tidak_ada": 0.9575950351790067,
+      "share_penyakit_kronis": 0.04119487613877988,
+      "share_penyakit_unknown": 0.001210088682213425,
+      "dominant_sector": "Pertanian",
+      "share_penganggur": 0.4068918462663891
+    },
+    {
+      "rate_group": "TPT tinggi",
+      "desa": 164,
+      "penganggur": 84321,
+      "weighted_tpt_proxy": 0.34795221490911343,
+      "share_pendidikan_rendah": 0.6372196724422149,
+      "share_pendidikan_menengah": 0.28914505283381364,
+      "share_pendidikan_tinggi": 0.0736352747239715,
+      "share_penyakit_tidak_ada": 0.9562386594086882,
+      "share_penyakit_kronis": 0.038756656111763384,
+      "share_penyakit_unknown": 0.005004684479548393,
+      "dominant_sector": "Perdagangan dan Akomodasi",
+      "share_penganggur": 0.5931081537336109
+    }
+  ],
+  "dashboard_recommendations": [
+    "Tampilkan KPI TPT bersama profil pendidikan dan kesehatan, bukan TPT saja.",
+    "Gunakan bar chart empat kelompok pendidikan dengan denominator seluruh penganggur.",
+    "Sediakan scatterplot proporsi pendidikan rendah versus jumlah penganggur untuk prioritas desa.",
+    "Sediakan ranking kecamatan berdasarkan proporsi dan jumlah penganggur berpendidikan rendah secara terpisah.",
+    "Tampilkan kategori Tidak Ada, Penyakit kronis (tercatat), dan Unknown/Tidak diketahui secara terpisah.",
+    "Gunakan bar chart kondisi kronis tercatat terbanyak; jangan menyebutnya sebagai prevalensi seluruh penduduk.",
+    "Sediakan peta proporsi penyakit kronis serta tampilkan Moran global sebagai konteks eksploratif.",
+    "Gunakan Local Moran pendidikan dan TPT hanya sebagai asosiasi lokal FDR, bukan sebab-akibat.",
+    "Pertahankan catatan bahwa semua perbandingan non-regresi bersifat deskriptif.",
+    "Selalu tampilkan denominator Total_Penganggur dan coverage rekonsiliasi pada tabel pendidikan/penyakit."
+  ],
+  "figure_caveat": {
+    "education": "Deskriptif; bukan sebab-akibat dan bukan prediktor TPT.",
+    "disease": "Deskriptif; bukan sebab-akibat dan bukan prevalensi seluruh penduduk.",
+    "spatial_clusters": "Asosiasi spasial eksploratif dengan FDR; bukan sebab-akibat."
+  }
+}

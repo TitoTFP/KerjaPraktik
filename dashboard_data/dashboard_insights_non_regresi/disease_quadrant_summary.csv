@@ -1,0 +1,5 @@
+disease_priority_quadrant,desa,penganggur,penyakit_kronis,penyakit_unknown,share_penyakit_kronis,share_penyakit_unknown,share_penganggur
+Proporsi kronis tinggi + Jumlah kasus tercatat besar,129,60458,3788,286,0.06265506632703695,0.004730556750140593,0.42525744189972425
+Proporsi kronis rendah + Jumlah kasus tercatat kecil,121,43191,754,134,0.017457340649672387,0.0031024982056446944,0.3038025434696978
+Proporsi kronis rendah + Jumlah kasus tercatat besar,43,32528,806,38,0.024778652238071814,0.0011682242990654205,0.22879972989702324
+Proporsi kronis tinggi + Jumlah kasus tercatat kecil,35,5991,303,34,0.05057586379569354,0.005675179435820397,0.04214028473355467
