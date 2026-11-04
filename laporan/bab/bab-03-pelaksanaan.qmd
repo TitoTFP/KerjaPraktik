@@ -135,16 +135,17 @@ Pengelompokan dilakukan agar beberapa sektor dengan jumlah pekerja sangat kecil 
 Langkah dalam pembuatan dashboard analisis dan pemetaan spasial adalah berikut.
 
 1. *Exploratory data analysis* pada data pengangguran
-2. Analisis deskripsi data pada masing-masing variabel
-3. Pengecekan multikolinearitas data
-4. Analisis model regresi *Ordinary Least Square*
-5. Pengecekan diagnostik residual OLS: normalitas (Jarque--Bera), varians konstan (Breusch--Pagan), dan autokorelasi spasial (Moran's I)
-6. Pemilihan *bandwidth* yang optimum
-7. Analisis model *Generalized Weighted Regression*
-8. Pemilihan model berdasarkan nilai AICc
-9. Interpretasi model
-10. Pemetaan spasial variabel signifikan
-11. Pembuatan dashboard
+2. Analisis korelasi Spearman dan koreksi Holm antarvariabel
+3. Analisis deskripsi data pada masing-masing variabel
+4. Pengecekan multikolinearitas data
+5. Analisis model regresi *Ordinary Least Square*
+6. Pengecekan diagnostik residual OLS: normalitas (Jarque--Bera), varians konstan (Breusch--Pagan), dan autokorelasi spasial (Moran's I)
+7. Pemilihan *bandwidth* yang optimum
+8. Analisis model *Generalized Weighted Regression*
+9. Pemilihan model berdasarkan nilai AICc
+10. Interpretasi model
+11. Pemetaan spasial variabel signifikan
+12. Pembuatan dashboard
 
 ## Dasar Teori
 
@@ -199,6 +200,11 @@ Teori yang digunakan untuk penyelesaian tugas Kerja Praktik adalah sebagai berik
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --------
 
 > dengan $r_{x,y}$ adalah koefisien korelasi *x* dan *y* yang berjarak -1 hingga +1.
+
+> Untuk menguji hubungan monoton yang digunakan pada Bab IV, koefisien korelasi Spearman dihitung sebagai korelasi antara peringkat kedua variabel, $\rho_{s} = \operatorname{Corr}(R_{X},R_{Y})$, dengan $R_{X}$ dan $R_{Y}$ sebagai peringkat variabel (Spearman, 1904). Untuk setiap pasangan variabel, hipotesisnya adalah $H_{0}:\rho_{s}=0$ (tidak ada asosiasi monoton) dan $H_{1}:\rho_{s}\neq0$ (ada asosiasi monoton).
+>
+> Karena beberapa pasangan diuji dalam setiap kelompok gambar, *p-value* dikoreksi dengan prosedur langkah-turun Holm (Holm, 1979). Jika terdapat $m$ pengujian dan *p-value* diurutkan $p_{(1)} \le \ldots \le p_{(m)}$, hipotesis diuji berurutan dengan membandingkan $p_{(i)}$ terhadap $\alpha/(m-i+1)$; pengujian berhenti ketika suatu batas tidak terpenuhi. Koreksi diterapkan terpisah pada setiap kelompok gambar dengan $\alpha=0,05$.
+
 
 ### *Exploratory Data Analysis* (EDA)
 

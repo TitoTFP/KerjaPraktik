@@ -144,7 +144,7 @@ Adapun pemetaan variabel respon Tingkat Pengangguran Terbuka (TPT) untuk mengeta
 
 ## Korelasi Data
 
-Korelasi Spearman digunakan untuk menggambarkan hubungan monoton antara TPT dan jumlah orang pada kategori pendidikan, penyakit kronis, dan sektor pekerjaan di 328 desa/kelurahan. Nilai *p-value* disesuaikan dengan metode Holm secara terpisah untuk tiap kelompok gambar. Titik menunjukkan jumlah absolut, sehingga asosiasi juga dapat mencerminkan skala desa/kelurahan; garis hanya menunjukkan kecenderungan linear untuk membantu membaca pola. Korelasi ini bersifat deskriptif, bukan ukuran pengaruh atau bukti sebab-akibat. Khusus pendidikan dan penyakit, hitungannya merupakan bagian dari jumlah penganggur yang juga menjadi pembilang TPT.
+Korelasi Spearman digunakan untuk menggambarkan hubungan monoton antara TPT dan jumlah orang pada kategori pendidikan, penyakit kronis, dan sektor pekerjaan di 328 desa/kelurahan. Rumusan hipotesis untuk tiap pasangan dan prosedur koreksi Holm mengacu pada Bab III bagian 3.4.2; *p-value* disesuaikan dengan metode Holm secara terpisah untuk tiap kelompok gambar. Titik menunjukkan jumlah absolut, sehingga asosiasi juga dapat mencerminkan skala desa/kelurahan; garis hanya menunjukkan kecenderungan linear untuk membantu membaca pola. Korelasi ini bersifat deskriptif, bukan ukuran pengaruh atau bukti sebab-akibat. Khusus pendidikan dan penyakit, hitungannya merupakan bagian dari jumlah penganggur yang juga menjadi pembilang TPT.
 
 ![**Gambar 4.12** Korelasi TPT dengan Pendidikan Terakhir](../assets/bab-04/gambar-4-12-korelasi-pendidikan-tpt.png){width="6in"}
 
@@ -196,7 +196,7 @@ Bentuk model OLS yang digunakan dapat dituliskan sebagai berikut.
 
 $$TPT_{Proxy_{i}} = \beta_{0} + \beta_{1}X_{1i} + \beta_{2}X_{2i} + \beta_{3}X_{3i} + \beta_{4}X_{4i} + \beta_{5}X_{5i} + \beta_{6}X_{6i} + \varepsilon_{i} \ $$
 
-Karena prediktor berupa proporsi sektor pekerjaan, koefisien dibaca relatif terhadap share_pertanian. Sebelum melakukan pengujian parsial terhadap masing-masing koefisien, dilakukan uji *F* secara serentak. Hipotesis serentak yang diuji sebagai berikut.
+Karena prediktor berupa proporsi sektor pekerjaan, koefisien dibaca relatif terhadap share_pertanian. Sebelum melakukan pengujian parsial terhadap masing-masing koefisien, dilakukan uji *F* secara serentak. Rumusan hipotesis dan aturan keputusan uji *F* mengacu pada Bab III bagian 3.4.5. Hipotesis serentak yang diuji sebagai berikut.
 
 $H_{0}:\beta_{1} = \beta_{2} = \ldots = \beta_{6} = 0$
 
@@ -226,7 +226,7 @@ Hasil uji *F* diperoleh nilai statistik $F_{6,321} = 12,6777$ dengan nilai *p-va
 
   : **Tabel 4.3** Estimasi Parameter Model OLS
 
-Berdasarkan *p-value* OLS konvensional pada taraf signifikansi 5%, terdapat tiga prediktor yang menunjukkan hubungan signifikan dengan TPT Proxy, yaitu share_perdagangan ($X_{1}$), share_perikanan ($X_{4}$), dan share_sektor_lain_ref ($X_{6}$). Adapun share_lainnya ($X_{2}$), share_jasa_kemasyarakatan ($X_{3}$), dan share_jasa_pendidikan ($X_{5}$) tidak signifikan pada taraf 5%, sehingga belum terdapat cukup bukti berdasarkan model OLS global untuk menyatakan bahwa ketiga prediktor tersebut memiliki hubungan yang berbeda secara statistik terhadap TPT Proxy dibandingkan dengan kategori referensi, yaitu sektor pertanian. Pemeriksaan diagnostik dilakukan untuk menilai keterbatasan model global sebelum dilanjutkan ke analisis GWR.
+Pengujian koefisien parsial pada Tabel 4.3 menggunakan uji *t* dengan $H_{0}:\beta_{j}=0$ dan $H_{1}:\beta_{j}\neq0$, sesuai teori uji OLS pada Bab III bagian 3.4.5. Berdasarkan *p-value* OLS konvensional pada taraf signifikansi 5%, terdapat tiga prediktor yang menunjukkan hubungan signifikan dengan TPT Proxy, yaitu share_perdagangan ($X_{1}$), share_perikanan ($X_{4}$), dan share_sektor_lain_ref ($X_{6}$). Adapun share_lainnya ($X_{2}$), share_jasa_kemasyarakatan ($X_{3}$), dan share_jasa_pendidikan ($X_{5}$) tidak signifikan pada taraf 5%, sehingga belum terdapat cukup bukti berdasarkan model OLS global untuk menyatakan bahwa ketiga prediktor tersebut memiliki hubungan yang berbeda secara statistik terhadap TPT Proxy dibandingkan dengan kategori referensi, yaitu sektor pertanian. Pemeriksaan diagnostik dilakukan untuk menilai keterbatasan model global sebelum dilanjutkan ke analisis GWR.
 
 +----------------------+---------------+----------------------------------------------------------------+
 | > Diagnostik         | > Hasil       | > Interpretasi                                                 |
@@ -244,7 +244,7 @@ Berdasarkan *p-value* OLS konvensional pada taraf signifikansi 5%, terdapat tiga
 
 : **Tabel 4.4** Hasil Diagnostik Model OLS
 
-Uji normalitas residual dengan Jarque--Bera menghasilkan statistik 26,0907 dan *p-value* 2,16 × 10⁻⁶ (< 0,05), sehingga hipotesis nol normalitas ditolak. Nilai VIF seluruh prediktor berada pada rentang 1,142--1,747, sehingga tidak terdapat indikasi multikolinearitas global yang serius pada spesifikasi dengan share_pertanian sebagai kategori referensi. Uji Breusch--Pagan menghasilkan *p-value* sebesar 0,0029 pada versi LM yang menunjukkan adanya indikasi heteroskedastisitas. Selain itu, pengujian Moran's I menggunakan matriks bobot spasial *Queen contiguity* yang distandarisasi berdasarkan baris dan 999 permutasi menghasilkan nilai Moran's I residual OLS sebesar 0,2132 dengan *p-value* 0,001, sehingga menunjukkan adanya autokorelasi spasial positif yang signifikan pada residual OLS. Dengan demikian, asumsi IIDN tidak terpenuhi pada aspek yang diperiksa: residual tidak berdistribusi normal, variansnya tidak konstan, dan terdapat ketergantungan spasial. Moran's I khusus menguji autokorelasi spasial, bukan seluruh bentuk ketergantungan; uji Breusch--Pagan menguji varians konstan, bukan kesamaan seluruh distribusi residual. Karena itu, hasil signifikansi model perlu ditafsirkan hati-hati dan tidak diperlakukan sebagai bukti kausal maupun bukti final mengenai pola spasial. Berikut ringkasan hasil model OLS disajikan pada Tabel 4.5.
+Nilai VIF mengikuti dasar multikolinearitas pada Bab III bagian 3.4.2. Hipotesis dan prosedur diagnostik residual Jarque--Bera, Breusch--Pagan, dan Moran's I pada Tabel 4.4 mengikuti Bab III bagian 3.4.4. Uji normalitas residual dengan Jarque--Bera menghasilkan statistik 26,0907 dan *p-value* 2,16 × 10⁻⁶ (< 0,05), sehingga hipotesis nol normalitas ditolak. Nilai VIF seluruh prediktor berada pada rentang 1,142--1,747, sehingga tidak terdapat indikasi multikolinearitas global yang serius pada spesifikasi dengan share_pertanian sebagai kategori referensi. Uji Breusch--Pagan menghasilkan *p-value* sebesar 0,0029 pada versi LM yang menunjukkan adanya indikasi heteroskedastisitas. Selain itu, pengujian Moran's I menggunakan matriks bobot spasial *Queen contiguity* yang distandarisasi berdasarkan baris dan 999 permutasi menghasilkan nilai Moran's I residual OLS sebesar 0,2132 dengan *p-value* 0,001, sehingga menunjukkan adanya autokorelasi spasial positif yang signifikan pada residual OLS. Dengan demikian, asumsi IIDN tidak terpenuhi pada aspek yang diperiksa: residual tidak berdistribusi normal, variansnya tidak konstan, dan terdapat ketergantungan spasial. Moran's I khusus menguji autokorelasi spasial, bukan seluruh bentuk ketergantungan; uji Breusch--Pagan menguji varians konstan, bukan kesamaan seluruh distribusi residual. Karena itu, hasil signifikansi model perlu ditafsirkan hati-hati dan tidak diperlakukan sebagai bukti kausal maupun bukti final mengenai pola spasial. Berikut ringkasan hasil model OLS disajikan pada Tabel 4.5.
 
 **Tabel 4.5** Ringkasan Hasil Model OLS
 
@@ -268,7 +268,7 @@ Uji normalitas residual dengan Jarque--Bera menghasilkan statistik 26,0907 dan *
 | > p-value uji F                         | > 7,62 × 10⁻¹³ |
 +-----------------------------------------+----------------+
 
-Berdasarkan uji simultan, diperoleh p-value sebesar 7,62 × 10⁻¹³ yang lebih kecil dari taraf signifikansi 5%, sehingga hipotesis nol yang menyatakan bahwa seluruh koefisien prediktor sama dengan nol ditolak. Hasil ini menunjukkan bahwa secara simultan terdapat hubungan antara struktur sektor pekerjaan dan TPT Proxy. Nilai R² sebesar 0,1916 menunjukkan bahwa enam prediktor dalam model mampu menjelaskan sekitar 19,16% variasi TPT Proxy antarwilayah, sedangkan adjusted R² sebesar 0,1765 menunjukkan bahwa setelah mempertimbangkan jumlah prediktor, kemampuan penjelasan model menjadi sekitar 17,65%. Dengan demikian, struktur sektor pekerjaan belum mampu menjelaskan seluruh variasi TPT Proxy antar desa/kelurahan.
+Berdasarkan uji simultan dan hipotesis pada Bab III bagian 3.4.5, diperoleh *p-value* sebesar 7,62 × 10⁻¹³ yang lebih kecil dari taraf signifikansi 5%, sehingga hipotesis nol yang menyatakan bahwa seluruh koefisien prediktor sama dengan nol ditolak. Hasil ini menunjukkan bahwa secara simultan terdapat hubungan antara struktur sektor pekerjaan dan TPT Proxy. Nilai R² sebesar 0,1916 menunjukkan bahwa enam prediktor dalam model mampu menjelaskan sekitar 19,16% variasi TPT Proxy antarwilayah, sedangkan adjusted R² sebesar 0,1765 menunjukkan bahwa setelah mempertimbangkan jumlah prediktor, kemampuan penjelasan model menjadi sekitar 17,65%. Dengan demikian, struktur sektor pekerjaan belum mampu menjelaskan seluruh variasi TPT Proxy antar desa/kelurahan.
 
 Sementara itu, nilai RMSE sebesar 0,05099 menunjukkan besarnya akar rata-rata kuadrat residual pada 328 observasi yang digunakan dalam estimasi model secara in-sample, yang setara dengan sekitar 5,10 poin persentase karena TPT Proxy dinyatakan dalam skala proporsi. Adapun nilai AICc digunakan sebagai ukuran pembanding antara model OLS dan GWR pada tahap analisis berikutnya, sehingga tidak ditafsirkan secara terpisah.
 
@@ -293,7 +293,7 @@ Model GWR menggunakan 328 desa/kelurahan sebagai unit analisis. Diperlukan koord
 
 Berdasarkan Tabel 4.7, Kernel *Gaussian* dengan *bandwidth* adaptif 43 dipilih sebagai spesifikasi utama karena menghasilkan nilai AICc paling rendah. Meskipun kernel *exponential* menghasilkan R² yang lebih tinggi, yaitu 0,4360 dibandingkan 0,4062 pada kernel *Gaussian*, pemilihan model tidak didasarkan pada R² saja.
 
-Uji kesamaan model global dengan lokal digunakan untuk mengevaluasi apakah seluruh koefisien lokal GWR sama dengan koefisien global OLS. Hipotesis yang kesamaan model sebagai berikut.
+Uji kesamaan model global dengan lokal digunakan untuk mengevaluasi apakah seluruh koefisien lokal GWR sama dengan koefisien global OLS. Rumusan hipotesis dan statistik uji mengacu pada teori GWR di Bab III bagian 3.4.6.
 
 $$H_{0}:\beta_{j}\left( u_{i},v_{i} \right) = \beta_{j};j = 0,1,2,\ldots,6;\ i = 1,2,\ldots,328$$
 
@@ -301,7 +301,7 @@ $H_{1}:$ minimal ada satu $\beta_{j}\left( u_{i},v_{i} \right) \neq \beta_{j}$
 
 Pada spesifikasi GWR Gaussian dengan bandwidth adaptif 43, diperoleh statistik uji $F_{GWR}$ sebesar 1,2323 dengan $df_{1} = 321$, $df_{2} = 290,5357$, dan *p-value* sebesar 0,0347. Karena *p-value* lebih kecil daripada taraf signifikansi 5%, hipotesis $H_{0}$ ditolak. Hasil ini memberikan bukti pendukung bahwa paling sedikit satu parameter lokal GWR berbeda dari parameter global OLS.
 
-Diagnostik GWR digunakan untuk memeriksa apakah pemodelan lokal mengurangi struktur spasial residual. Berikut adalah hipotesis dan hasil statistik uji.
+Diagnostik GWR digunakan untuk memeriksa apakah pemodelan lokal mengurangi struktur spasial residual. Rumusan hipotesis Moran's I dan aturan keputusannya mengacu pada Bab III bagian 3.4.4.
 
 $H_{0}:I = 0$ (Residual tidak menunjukkan autokorelasi spasial)
 
@@ -337,7 +337,9 @@ Nilai R² sebesar 0,4062 menunjukkan bahwa model GWR menjelaskan sekitar 40,62% 
 
 ## Interpretasi Model GWR
 
-Ringkasan hasil estimasi koefisien model lokal menggunakan rentang nilai, jumlah lokasi yang signifikan setelah koreksi multiple testing, dan pola tanda koefisien. Seluruh koefisien merupakan kontras terhadap share_pertanian. Oleh karena itu, koefisien tidak dibaca sebagai perubahan absolut yang berdiri sendiri. Berikut adalah ringkasan yang disajikan pada Tabel 4.9.
+Pengujian koefisien lokal menggunakan uji *t* dengan hipotesis pada Bab III bagian 3.4.6. Tabel 4.9 merangkum rentang nilai, jumlah lokasi signifikan setelah koreksi *multiple testing*, dan pola tanda koefisien. Seluruh koefisien merupakan kontras terhadap share_pertanian, sehingga tidak dibaca sebagai perubahan absolut yang berdiri sendiri.
+
+Keluaran analisis mencatat ambang *t* terkoreksi sebesar 2,5107 untuk $df=327$, tetapi tidak mencatat metode maupun keluarga uji yang digunakan untuk koreksi tersebut. Oleh karena itu, jumlah lokasi signifikan setelah koreksi dilaporkan sesuai keluaran yang tersedia, tetapi prosedur koreksinya belum dapat direproduksi dari dokumentasi proyek.
 
 []{#_Toc240218744 .anchor}**Tabel 4.9** Ringkasan Koefisien Lokal Model GWR
 
@@ -392,7 +394,7 @@ Model GWR mengestimasi parameter yang dapat berbeda pada setiap lokasi, Tabel 4.
 | > lain_ref        |             |          |                 |             |                      |
 +-------------------+-------------+----------+-----------------+-------------+----------------------+
 
-Pada Tabel 4.10, koefisien share_sektor_lain_ref ($X_{6})$ bernilai $- 0,5556$ dan memiliki *p-value* sebesar 0,0271. Koefisien tersebut merupakan kontras relatif terhadap share_pertanian dan secara tak terkoreksi berasosiasi dengan nilai TPT Proxy yang lebih rendah ketika share_sektor_lain_ref lebih besar relatif terhadap share_pertanian, dengan prediktor lain dianggap tetap. Namun, nilai $T_{6,GWR}$ sebesar -2,2203 lebih kecil daripada nilai $t_{tabel} = 2,5107$. Oleh karena itu, tidak ada satu pun dari enam prediktor yang dinyatakan signifikan secara lokal di Gedongombo setelah koreksi multiple testing.
+Pada Tabel 4.10, koefisien share_sektor_lain_ref ($X_{6})$ bernilai $- 0,5556$ dan memiliki *p-value* sebesar 0,0271. Koefisien tersebut merupakan kontras relatif terhadap share_pertanian dan secara tak terkoreksi berasosiasi dengan nilai TPT Proxy yang lebih rendah ketika share_sektor_lain_ref lebih besar relatif terhadap share_pertanian, dengan prediktor lain dianggap tetap. Namun, nilai $|T_{6,GWR}| = 2,2203$ lebih kecil daripada nilai $t_{tabel} = 2,5107$. Oleh karena itu, tidak ada satu pun dari enam prediktor yang dinyatakan signifikan secara lokal di Gedongombo setelah koreksi multiple testing.
 
 ## Dashboard
 
