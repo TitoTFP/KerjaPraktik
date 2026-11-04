@@ -138,7 +138,7 @@ Langkah dalam pembuatan dashboard analisis dan pemetaan spasial adalah berikut.
 2. Analisis deskripsi data pada masing-masing variabel
 3. Pengecekan multikolinearitas data
 4. Analisis model regresi *Ordinary Least Square*
-5. Pengecekan autokorelasi spasial dengan Moran's I
+5. Pengecekan diagnostik residual OLS: normalitas (Jarque--Bera), varians konstan (Breusch--Pagan), dan autokorelasi spasial (Moran's I)
 6. Pemilihan *bandwidth* yang optimum
 7. Analisis model *Generalized Weighted Regression*
 8. Pemilihan model berdasarkan nilai AICc
@@ -206,7 +206,17 @@ Teori yang digunakan untuk penyelesaian tugas Kerja Praktik adalah sebagai berik
 >
 > Teknik dalam EDA menjadi non-grafis dan grafis, dan pilihan teknik disesuaikan dengan tipe data. Untuk mengungkap struktur data, dilakukan menggunakan metode seperti klasterisasi dan *Principal Component Analysis* (PCA) (Konopka dkk., 2018). Metode berbasis jarak sensitif terhadap skala data, sehingga normalisasi umumnya diperlukan. PCA juga berguna untuk visualisasi karena mengurangi jumlah dimensi tanpa banyak kehilangan informasi. Hal ini perlu untuk memilih kombinasi metode yang saling melengkapi.
 
-### Deteksi Efek Spasial
+### Diagnostik Residual OLS dan Efek Spasial
+
+> Normalitas residual model OLS diperiksa dengan uji Jarque--Bera (Jarque & Bera, 1987), yang menilai *skewness* ($S$) dan *kurtosis* ($K$) secara bersama.
+>
+> $H_{0}:$ residual mengikuti distribusi normal ($S = 0$ dan $K = 3$)
+>
+> $H_{1}:$ residual tidak mengikuti distribusi normal ($S \neq 0$ atau $K \neq 3$)
+>
+> Statistik uji $JB = \frac{n}{6}\left( S^{2} + \frac{\left( K - 3 \right)^{2}}{4} \right)$ mengikuti distribusi $\chi^{2}$ dengan 2 derajat bebas secara asimtotik di bawah $H_{0}$, dengan $n$ sebagai jumlah residual. $H_{0}$ ditolak jika *p-value* \< 0,05.
+>
+> Uji ini memeriksa normalitas residual saja; kesamaan varians dan autokorelasi spasial diperiksa terpisah dengan uji Breusch--Pagan dan Moran's I.
 
 > Analisis data yang terdapat wilayah tentunya berhubungan dengan data spasial, sehingga perlu dilakukan mendeteksi efek spasial tersebut. Efek spasial berkaitan dengan heterogenitas yang mana gambaran pengamatan peristiwa di suatu lokasi mengalami perbedaan distribusi, karakteristik, dan parameter dengan lokasi yang lain. Efek spasial dapat dideteksi pada model global dengan menggunakan statistik Moran's I yang dihipotesiskan sebagai berikut (Anselin, 1988).
 >
