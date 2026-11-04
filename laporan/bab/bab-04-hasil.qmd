@@ -158,6 +158,36 @@ Pada Gambar 4.13, korelasi positif terbesar terdapat pada jumlah penganggur yang
 
 Gambar 4.14 menyajikan enam kelompok pekerjaan pada Tabel 3.3: Perdagangan, Lainnya, Jasa Kemasyarakatan, Perikanan, Jasa Pendidikan, dan Sektor Gabungan. Sektor Gabungan pada gambar maupun `share_sektor_lain_ref` dalam model merupakan agregat sembilan kategori yang dijelaskan setelah Tabel 3.3; Pertanian Padi & Palawija tidak termasuk di dalamnya karena menjadi kategori referensi pada model. Hubungan TPT dengan jumlah pekerja Perdagangan positif (ρ=0,237; Holm *p*<0,001), sedangkan dengan jumlah pekerja Perikanan negatif (ρ=−0,184; Holm *p*=0,004). Korelasi Lainnya (ρ=0,082; Holm *p*=0,273), Jasa Kemasyarakatan (ρ=0,104; Holm *p*=0,182), Jasa Pendidikan (ρ=0,124; Holm *p*=0,101), dan Sektor Gabungan (ρ=0,049; Holm *p*=0,374) tidak signifikan setelah koreksi Holm. Grafik membandingkan jumlah absolut, bukan proporsi; pola ini bersifat asosiatif dan tidak menunjukkan sebab-akibat.
 
+## Deskripsi Data
+
+Sebelum melakukan analisis dengan metode GWR, perlu untuk mengetahui apa saja informasi yang didapatkan dari variabel data pengangguran. Analisis yang dilakukan dengan statistika deskriptif dari variabel prediktor dan respon. Statistika deskriptif disajikan pada Tabel 4.6.
+
+  ---------------------------------------------------------------------------
+  Variabel           *Mean*      StanDev          Min       Median       Maks
+  ------------ ------------ ------------ ------------ ------------ ----------
+  $$Y$$              30,717        5,679       16,029       30,628     48,911
+
+  $$X_{1}$$          41,082       13,791        8,391       41,137     72,596
+
+  $$X_{2}$$          13,924        9,090        1,123       12,020     42,460
+
+  $$X_{3}$$           4,426        3,001        0,697        3,741     20,750
+
+  $$X_{4}$$           2,550        9,221            0        0,136     66,759
+
+  $$X_{5}$$           1,595        1,000            0        1,450      5,433
+
+  $$X_{6}$$           2,861        2,215            0        2,263     16,398
+  ---------------------------------------------------------------------------
+
+  : []{#_Toc240218738 .anchor}**Tabel 4.6** Statistika Deskriptif Variabel Penelitian
+
+Berdasarkan Tabel 4.6, diketahui bahwa variabel $Y$ (Tingkat Pengangguran Terbuka) relatif homogen. Nilai *mean* (30,717) dan median (30,628) hampir sama, dan standar deviasinya kecil dibanding mean-nya. Ini menandakan sebaran data cenderung simetris/normal antar wilayah, tidak banyak outlier ekstrem.
+
+Pada variabel $X_{4}$ (Persentase Perikanan) adalah yang paling mencolok sangat skewed karena nilai *mean* (2,550), tapi median (0,136) yang jauh lebih kecil dan nilai StanDev (9,221) bahkan lebih besar dari *mean.* Dalam artian sebagian besar wilayah punya persentase sektor perikanan yang sangat kecil mendekati nol, tapi ada beberapa wilayah dengan nilai ekstrem sangat tinggi. Distribusinya menceng kanan (*right-skewed*) secara ekstrem. Pada variabel $X_{2}$ (Persentase Lainnya), $X_{3}$ (Persentase Jasa Kemasyarakatan), dan $X_{6}$ (Persentase Sektor Gabungan) juga menceng kanan, *mean* lebih besar dari median, dan standar deviasi cukup besar relatif terhadap *mean*-nya menunjukkan ada variasi antar wilayah yang cukup besar, dengan beberapa wilayah bernilai jauh di atas rata-rata.
+
+Pada variabel $X_{1}$ (Persentase Perdagangan) dan $X_{5}$ (Persentase Jasa Pendidikan) paling stabil. Variabel persentasi perdagangan dengan *mean* (41,082) dan median (41,137), serta variabel persentasai jasa pendidikan dengan *mean* (1,595) dan median (1,450). Persebaran kedua sektor cukup merata kontribusinya di berbagai wilayah, hanya membedakan sektor perdagangan lebih dominan di Kabupaten Tuban.
+
 ## Analisis Model OLS
 
 Variabel respons yang digunakan adalah TPT_Proxy, sedangkan variabel prediktornya adalah proporsi penduduk bekerja pada enam kelompok sektor pekerjaan, yaitu share_perdagangan, share_lainnya, share_jasa_kemasyarakatan, share_perikanan, share_jasa_pendidikan, dan share_sektor_lain_ref. Variabel share_pertanian digunakan sebagai kategori referensi dan tidak dimasukkan secara bersamaan ke dalam model karena seluruh proporsi sektor pekerjaan membentuk suatu komposisi.
@@ -240,35 +270,6 @@ Berdasarkan uji simultan, diperoleh p-value sebesar 7,62 × 10⁻¹³ yang lebih
 
 Sementara itu, nilai RMSE sebesar 0,05099 menunjukkan besarnya akar rata-rata kuadrat residual pada 328 observasi yang digunakan dalam estimasi model secara in-sample, yang setara dengan sekitar 5,10 poin persentase karena TPT Proxy dinyatakan dalam skala proporsi. Adapun nilai AICc digunakan sebagai ukuran pembanding antara model OLS dan GWR pada tahap analisis berikutnya, sehingga tidak ditafsirkan secara terpisah.
 
-## Deskripsi Data
-
-Sebelum melakukan analisis dengan metode GWR, perlu untuk mengetahui apa saja informasi yang didapatkan dari variabel data pengangguran. Analisis yang dilakukan dengan statistika deskriptif dari variabel prediktor dan respon. Statistika deskriptif disajikan pada Tabel 4.6.
-
-  ---------------------------------------------------------------------------
-  Variabel           *Mean*      StanDev          Min       Median       Maks
-  ------------ ------------ ------------ ------------ ------------ ----------
-  $$Y$$              30,717        5,679       16,029       30,628     48,911
-
-  $$X_{1}$$          41,082       13,791        8,391       41,137     72,596
-
-  $$X_{2}$$          13,924        9,090        1,123       12,020     42,460
-
-  $$X_{3}$$           4,426        3,001        0,697        3,741     20,750
-
-  $$X_{4}$$           2,550        9,221            0        0,136     66,759
-
-  $$X_{5}$$           1,595        1,000            0        1,450      5,433
-
-  $$X_{6}$$           2,861        2,215            0        2,263     16,398
-  ---------------------------------------------------------------------------
-
-  : []{#_Toc240218738 .anchor}**Tabel 4.6** Statistika Deskriptif Variabel Penelitian
-
-Berdasarkan Tabel 4.6, diketahui bahwa variabel $Y$ (Tingkat Pengangguran Terbuka) relatif homogen. Nilai *mean* (30,717) dan median (30,628) hampir sama, dan standar deviasinya kecil dibanding mean-nya. Ini menandakan sebaran data cenderung simetris/normal antar wilayah, tidak banyak outlier ekstrem.
-
-Pada variabel $X_{4}$ (Persentase Perikanan) adalah yang paling mencolok sangat skewed karena nilai *mean* (2,550), tapi median (0,136) yang jauh lebih kecil dan nilai StanDev (9,221) bahkan lebih besar dari *mean.* Dalam artian sebagian besar wilayah punya persentase sektor perikanan yang sangat kecil mendekati nol, tapi ada beberapa wilayah dengan nilai ekstrem sangat tinggi. Distribusinya menceng kanan (*right-skewed*) secara ekstrem. Pada variabel $X_{2}$ (Persentase Lainnya), $X_{3}$ (Persentase Jasa Kemasyarakatan), dan $X_{6}$ (Persentase Sektor Gabungan) juga menceng kanan, *mean* lebih besar dari median, dan standar deviasi cukup besar relatif terhadap *mean*-nya menunjukkan ada variasi antar wilayah yang cukup besar, dengan beberapa wilayah bernilai jauh di atas rata-rata.
-
-Pada variabel $X_{1}$ (Persentase Perdagangan) dan $X_{5}$ (Persentase Jasa Pendidikan) paling stabil. Variabel persentasi perdagangan dengan *mean* (41,082) dan median (41,137), serta variabel persentasai jasa pendidikan dengan *mean* (1,595) dan median (1,450). Persebaran kedua sektor cukup merata kontribusinya di berbagai wilayah, hanya membedakan sektor perdagangan lebih dominan di Kabupaten Tuban.
 
 ## Analisis Model GWR
 
