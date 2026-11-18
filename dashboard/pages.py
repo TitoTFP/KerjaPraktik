@@ -17,10 +17,8 @@ from dashboard.ui import (
     SECTOR_COLORS,
     choropleth,
     download_csv,
-    hero,
     horizontal_bar,
     metric_card,
-    note,
     num,
     page_header,
     pct,
@@ -172,75 +170,51 @@ def render_overview() -> None:
     total_labor = int(village["Angkatan_Kerja"].sum())
 
     page_header(
-        "TPT Desa/Kelurahan Kabupaten Tuban",
-        "TPT = penganggur ÷ (penganggur + penduduk bekerja). "
-        "Indikator berbasis data administratif, bukan TPT resmi BPS.",
+        "Ketenagakerjaan Tuban",
+        f"{num(len(village))} desa/kelurahan · data administratif, bukan TPT resmi BPS",
     )
     cards = [
         (
             "TPT tertimbang",
             pct(tpt["weighted_tpt_proxy"]),
-            "Rate kabupaten dari total penganggur ÷ total angkatan kerja.",
+            "Penganggur ÷ angkatan kerja",
         ),
         (
             "Median TPT desa",
             pct(tpt["median_village_tpt_proxy"]),
-            f"Titik tengah {num(len(village))} desa/kelurahan, bukan rate kabupaten.",
+            f"Titik tengah {num(len(village))} desa/kelurahan",
         ),
         (
             "Total penganggur",
             num(total_unemployed),
-            f"orang · dari {num(total_labor)} orang angkatan kerja.",
+            f"Dari {num(total_labor)} orang angkatan kerja",
         ),
         (
             "Kandidat prioritas",
             f"{num(priority['desa'])} desa",
-            f"Rate tinggi + skala besar; mencakup {pct(priority['share_penganggur'])} penganggur.",
+            "TPT dan angkatan kerja tinggi; "
+            f"{pct(priority['share_penganggur'])} dari total penganggur",
         ),
     ]
     for column, (label, value, detail) in zip(st.columns(4), cards, strict=True):
         with column:
             metric_card(label, value, detail)
 
-    hero(
-        "Rate tinggi tidak selalu berarti beban pengangguran terbesar",
-        f"TPT menunjukkan proporsi, sedangkan jumlah penganggur menunjukkan beban absolut. "
-        f"Korelasi Spearman TPT dengan ukuran angkatan kerja hanya "
-        f"{num(tpt['spearman_rate_vs_labor_force'], 3)}. "
-        "Baca keduanya bersama sebelum menentukan wilayah untuk ditelaah.",
-    )
-    nav1, nav2, nav3 = st.columns(3)
-    nav1.page_link(
-        st.Page(render_explorer, title="Peta & Wilayah"),
-        label="Jelajahi peta & profil desa",
-        icon=":material/map:",
-        width="stretch",
-    )
-    nav2.page_link(
-        st.Page(render_profiles, title="Profil & Prioritas"),
-        label="Telusuri pendidikan & kesehatan",
-        icon=":material/bar_chart:",
-        width="stretch",
-    )
-    nav3.page_link(
-        st.Page(render_spatial, title="Pola Spasial"),
-        label="Periksa prioritas & pola spasial",
-        icon=":material/hub:",
-        width="stretch",
+    st.caption(
+        "Bandingkan TPT dan jumlah penganggur: proporsi tinggi tidak selalu berarti jumlah terbesar"
     )
 
-    st.subheader("Gambaran wilayah")
-    left, right = st.columns([1.45, 1], gap="medium")
+    st.subheader("TPT menurut wilayah")
+    left, right = st.columns([1.8, 1], gap="medium")
     with left:
         st.plotly_chart(
-            choropleth(village, bundle["geojson"], "TPT_Proxy", "Sebaran TPT", percent_color=True),
+            choropleth(
+                village, bundle["geojson"], "TPT_Proxy", "TPT desa/kelurahan", percent_color=True
+            ),
             width="stretch",
             key="overview_tpt_map",
         )
-        st.caption(
-            "328 desa/kelurahan · 5 kelas interval sama · denominator: angkatan kerja. "
-            "Buka Peta & Wilayah untuk filter dan detail desa."
-        )
+        st.caption("5 kelas interval sama · basis: angkatan kerja")
         with st.expander("Data TPT desa/kelurahan"):
             map_table = village[
                 [
@@ -256,7 +230,7 @@ def render_overview() -> None:
             )
     with right:
         rank_by = st.segmented_control(
-            "Bandingkan kecamatan",
+            "Urutkan kecamatan menurut",
             ["TPT", "Jumlah penganggur"],
             default="TPT",
             required=True,
@@ -275,8 +249,7 @@ def render_overview() -> None:
             ),
             width="stretch",
         )
-        st.caption("TPT kecamatan dihitung dari total penganggur ÷ total angkatan kerja.")
-        with st.expander("Lihat data seluruh kecamatan"):
+        with st.expander("Data seluruh kecamatan"):
             district_table = kecamatan[
                 ["kecamatan", "weighted_tpt_proxy", "total_penganggur", "total_angkatan_kerja"]
             ].sort_values(rank_column, ascending=False)
@@ -293,8 +266,7 @@ def render_overview() -> None:
                 "overview_district_download",
             )
 
-    st.subheader("Siapa yang tercatat menganggur?")
-    st.caption("Pendidikan dan kesehatan adalah profil penganggur, bukan penyebab TPT.")
+    st.subheader("Profil ketenagakerjaan")
     low_education = education.loc[
         education["kategori"].isin(["Tidak punya ijazah SD", "SD/SMP sederajat"]),
         "persentase_penganggur",
@@ -309,21 +281,23 @@ def render_overview() -> None:
             (
                 "Pendidikan rendah",
                 pct(low_education),
-                "Tanpa ijazah SD atau lulusan SD/SMP sederajat.",
+                "Tanpa ijazah SD atau lulusan SD/SMP",
             ),
             (
                 "Kronis tercatat",
                 pct(chronic),
-                "Profil penyakit pada penganggur, bukan prevalensi penduduk.",
+                "Dari seluruh penganggur",
             ),
-            ("Kesehatan tidak diketahui", pct(unknown), "Tetap terpisah dari kategori Tidak Ada."),
+            ("Kesehatan tidak diketahui", pct(unknown), "Dari seluruh penganggur"),
         ],
         strict=True,
     ):
         with column:
             metric_card(*card)
 
-    education_tab, disease_tab, sector_tab = st.tabs(["Pendidikan", "Kesehatan", "Pekerjaan"])
+    education_tab, disease_tab, sector_tab = st.tabs(
+        ["Pendidikan", "Kesehatan", "Pekerjaan"], key="overview_profile", on_change="rerun"
+    )
     for tab, frame, x, y, title, denominator in (
         (
             education_tab,
@@ -350,12 +324,12 @@ def render_overview() -> None:
             "Seluruh penduduk bekerja kabupaten",
         ),
     ):
+        if not tab.open:
+            continue
         with tab:
-            chart_col, data_col = st.columns([1.3, 1])
-            with chart_col:
-                st.plotly_chart(horizontal_bar(frame, x, y, title, percent_x=True), width="stretch")
-            with data_col:
-                st.caption(f"Denominator: {denominator.lower()}.")
+            st.plotly_chart(horizontal_bar(frame, x, y, title, percent_x=True), width="stretch")
+            with st.expander("Data komposisi"):
+                st.caption(f"Basis: {denominator.lower()}.")
                 st.dataframe(
                     frame,
                     hide_index=True,
@@ -363,7 +337,9 @@ def render_overview() -> None:
                     column_config=table_columns(frame),
                 )
 
-    with st.expander("Mengapa rate dan skala perlu dibaca bersama?"):
+    scale_details = st.expander("TPT dan ukuran angkatan kerja", on_change="rerun")
+    if scale_details.open:
+        scale_details.caption(f"Korelasi Spearman: {num(tpt['spearman_rate_vs_labor_force'], 3)}")
         scatter = px.scatter(
             village,
             x="Angkatan_Kerja",
@@ -386,8 +362,8 @@ def render_overview() -> None:
             y=village["TPT_Proxy"].median(), line_dash="dash", line_color=COLORS["muted"]
         )
         scatter.update_yaxes(tickformat=".0%")
-        st.plotly_chart(style_figure(scatter, 480), width="stretch")
-        st.caption(
+        scale_details.plotly_chart(style_figure(scatter, 480), width="stretch")
+        scale_details.caption(
             f"Ukuran titik = jumlah penganggur. Garis putus-putus = median TPT "
             f"{pct(village['TPT_Proxy'].median())} dan angkatan kerja "
             f"{num(village['Angkatan_Kerja'].median())} orang. Cutoff eksploratif, bukan ambang "
@@ -403,7 +379,7 @@ def render_overview() -> None:
                 "rate_scale_quadrant",
             ]
         ]
-        st.dataframe(
+        scale_details.dataframe(
             scatter_table,
             hide_index=True,
             width="stretch",
@@ -415,9 +391,8 @@ def render_explorer() -> None:
     bundle = load_bundle()
     village = bundle["village"]
     page_header(
-        "Peta & Eksplorasi Wilayah",
-        "Pilih indikator, persempit wilayah, lalu bandingkan profil desa dengan "
-        "kecamatan dan kabupaten.",
+        "Peta & Wilayah",
+        "Bandingkan desa, kecamatan, dan kabupaten.",
     )
     indicator_config = {
         "TPT": ("TPT_Proxy", False, "YlOrRd", True),
@@ -441,7 +416,7 @@ def render_explorer() -> None:
         )
         search = f3.text_input(
             "Cari desa/kelurahan",
-            placeholder="Nama desa, misalnya Bancar",
+            placeholder="Misalnya Bancar",
             key="explorer_search",
         )
         q1, q2, q3 = st.columns([1.8, 1, 0.65], vertical_alignment="bottom")
@@ -477,30 +452,28 @@ def render_explorer() -> None:
         ]
     if quadrant != "Semua kuadran":
         filtered = filtered[filtered["rate_scale_quadrant"] == quadrant]
-    st.caption(
-        f"{num(len(filtered))} dari {num(len(village))} desa/kelurahan · {kecamatan} · {quadrant}"
-    )
+    st.caption(f"{num(len(filtered))} dari {num(len(village))} desa/kelurahan")
     if filtered.empty:
         st.info(
-            "Tidak ada wilayah yang cocok. Ubah kata pencarian atau gunakan Reset filter.",
+            "Tidak ada wilayah yang cocok. Ubah pencarian atau reset filter.",
             icon=":material/search_off:",
         )
         return
 
     color_column, categorical, scale, percent_color = indicator_config[indicator]
     if color_column == "TPT_Proxy":
-        denominator = "Denominator: angkatan kerja (penganggur + penduduk bekerja)."
+        denominator = "Basis TPT: angkatan kerja."
     elif color_column.startswith("share_"):
-        denominator = "Denominator: penganggur di setiap desa, bukan seluruh penduduk."
+        denominator = "Basis: penganggur di tiap desa."
     elif color_column == "sektor_dominan":
-        denominator = "Sektor dengan proporsi terbesar dari penduduk bekerja."
+        denominator = "Sektor terbesar menurut jumlah penduduk bekerja."
     elif color_column == "rate_scale_quadrant":
         denominator = (
-            f"Cutoff kabupaten: median TPT {pct(village['TPT_Proxy'].median())} "
+            f"Batas kuadran: median TPT {pct(village['TPT_Proxy'].median())} "
             f"dan angkatan kerja {num(village['Angkatan_Kerja'].median())} orang."
         )
     else:
-        denominator = "Satuan: orang. Jumlah absolut, bukan rate atau proporsi."
+        denominator = "Satuan: orang."
 
     labels = filtered.assign(
         _label=filtered["kel_desa"] + " — " + filtered["kecamatan"]
@@ -515,7 +488,7 @@ def render_explorer() -> None:
     map_col, profile_col = st.columns([1.65, 1], gap="medium")
 
     with map_col:
-        st.subheader("Wilayah dalam filter")
+        st.subheader("Ringkasan wilayah")
         labor = float(filtered["Angkatan_Kerja"].sum())
         unemployed = float(filtered["Total_Penganggur"].sum())
         profile_kpis(
@@ -554,7 +527,7 @@ def render_explorer() -> None:
                 selection_mode="single-row",
                 key=table_key,
             )
-            st.caption("Pilih satu baris untuk membuka profil desa/kelurahan.")
+            st.caption("Pilih baris untuk membuka profil.")
         else:
             discrete = (
                 QUADRANT_COLORS
@@ -582,11 +555,7 @@ def render_explorer() -> None:
                 selection_mode="points",
                 key=map_key,
             )
-            st.caption(
-                "Gunakan zoom untuk detail batas desa. Pilih desa pada peta atau "
-                "melalui daftar profil. "
-                "Kelas dan warna tetap mengacu pada seluruh kabupaten saat filter berubah."
-            )
+            st.caption("Pilih desa untuk membuka profil. Kelas warna tetap saat filter berubah.")
         download_csv(
             "Unduh data wilayah terfilter",
             filtered,
@@ -645,7 +614,7 @@ def render_explorer() -> None:
                 horizontal_bar(benchmark, "TPT", "wilayah", "Perbandingan TPT", percent_x=True),
                 width="stretch",
             )
-            st.caption("TPT kecamatan dan kabupaten memakai agregasi tertimbang.")
+            st.caption("TPT kecamatan dan kabupaten: total penganggur ÷ total angkatan kerja.")
             with st.expander("Pekerjaan, pendidikan & kesehatan"):
                 _profile_charts(row)
             with st.expander("Data profil desa"):
@@ -684,17 +653,13 @@ def render_profiles() -> None:
     village = bundle["village"]
     geojson = bundle["geojson"]
     page_header(
-        "Profil & Prioritas Deskriptif",
-        "Kenali pendidikan dan kesehatan penganggur serta struktur pekerjaan wilayah. "
-        "Bedakan proporsi dengan jumlah orang; profil ini tidak menjelaskan sebab-akibat.",
+        "Profil & Prioritas",
+        "Pendidikan dan kesehatan penganggur serta sektor penduduk bekerja.",
     )
     education_tab, disease_tab, work_tab = st.tabs(["Pendidikan", "Kesehatan", "Pekerjaan"])
 
     with education_tab:
-        note(
-            "Pendidikan rendah = tanpa ijazah SD atau SD/SMP sederajat. "
-            "Denominator: penganggur, bukan seluruh penduduk."
-        )
+        st.caption("Pendidikan rendah: penganggur tanpa ijazah SD atau lulusan SD/SMP.")
         overall = bundle["education_overall"]
         profile_kpis(
             [
@@ -744,11 +709,8 @@ def render_profiles() -> None:
             )
             scatter.update_yaxes(tickformat=".0%")
             st.plotly_chart(style_figure(scatter, 320), width="stretch")
-        st.caption(
-            "Ukuran titik = total penganggur desa. Proporsi tinggi tidak selalu "
-            "menunjukkan jumlah orang terbesar."
-        )
-        with st.expander("Data komposisi & grafik pendidikan"):
+        st.caption("Ukuran titik: jumlah penganggur per desa.")
+        with st.expander("Data pendidikan"):
             st.dataframe(
                 overall, hide_index=True, width="stretch", column_config=table_columns(overall)
             )
@@ -780,10 +742,7 @@ def render_profiles() -> None:
                 ),
                 width="stretch",
             )
-            st.caption(
-                "Denominator: penganggur di setiap desa. Nilai aktual tersedia pada "
-                "tooltip dan data komposisi di atas."
-            )
+            st.caption("Basis: penganggur di tiap desa.")
 
         st.subheader("Wilayah yang perlu ditelaah")
         r1, r2 = st.columns(2)
@@ -814,10 +773,7 @@ def render_profiles() -> None:
         ranking = source.sort_values(sort_column, ascending=False)[columns]
         if level == "Desa/kelurahan":
             ranking = ranking.head(25)
-        st.caption(
-            "Jumlah menyorot beban absolut; proporsi menyorot komposisi penganggur. "
-            "Desa ditampilkan 25 teratas."
-        )
+            st.caption("25 desa/kelurahan teratas")
         st.dataframe(
             ranking, hide_index=True, width="stretch", column_config=table_columns(ranking)
         )
@@ -829,9 +785,8 @@ def render_profiles() -> None:
         )
 
     with disease_tab:
-        note(
-            "Kondisi kronis yang tercatat pada penganggur, bukan prevalensi seluruh penduduk. "
-            "Tidak diketahui tetap terpisah dari Tidak Ada."
+        st.caption(
+            "Basis: penganggur. Status tidak diketahui dibedakan dari tidak ada kondisi tercatat.",
         )
         overall = _display_disease_labels(bundle["disease_overall"])
         disease_detail = _display_disease_labels(bundle["disease_detail"])
@@ -885,8 +840,7 @@ def render_profiles() -> None:
             scatter.update_yaxes(tickformat=".0%")
             st.plotly_chart(style_figure(scatter, 320), width="stretch")
         st.caption(
-            "Ukuran titik = total penganggur desa. Kategori Tidak Ada berarti tidak "
-            "ada kondisi kronis yang tercatat."
+            "Ukuran titik: jumlah penganggur per desa. “Tidak Ada”: tidak ada kondisi tercatat."
         )
         with st.expander("Rincian kondisi kronis tercatat"):
             st.plotly_chart(
@@ -931,10 +885,7 @@ def render_profiles() -> None:
                     "Total_Penganggur",
                 ]
             ].sort_values("share_penyakit_kronis", ascending=False)
-            st.caption(
-                "Denominator: penganggur di setiap desa. Kategori tidak diketahui "
-                "ditampilkan terpisah pada tabel."
-            )
+            st.caption("Basis: penganggur di tiap desa.")
             st.dataframe(
                 disease_data,
                 hide_index=True,
@@ -974,10 +925,7 @@ def render_profiles() -> None:
         ranking = source.sort_values(sort_column, ascending=False)[columns]
         if level == "Desa/kelurahan":
             ranking = ranking.head(25)
-        st.caption(
-            "Bandingkan jumlah dan proporsi; ketidaklengkapan pencatatan tetap "
-            "terlihat. Desa ditampilkan 25 teratas."
-        )
+            st.caption("25 desa/kelurahan teratas")
         st.dataframe(
             ranking, hide_index=True, width="stretch", column_config=table_columns(ranking)
         )
@@ -989,10 +937,7 @@ def render_profiles() -> None:
         )
 
     with work_tab:
-        note(
-            "Denominator: penduduk bekerja. Komposisi sektor adalah profil wilayah, "
-            "bukan bukti bahwa sektor tertentu menyebabkan TPT tinggi atau rendah."
-        )
+        st.caption("Basis: penduduk bekerja. Komposisi sektor tidak menunjukkan penyebab TPT.")
         sector_rate = rate_group_sector_profile(village)
         fig = px.bar(
             sector_rate,
@@ -1037,31 +982,27 @@ def render_spatial() -> None:
     village = bundle["village"]
     geojson = bundle["geojson"]
     page_header(
-        "Prioritas & Pola Spasial",
-        "Pilih indikator satu kali, lalu baca pola bertetangga dan perbandingan besarannya.",
+        "Pola Spasial",
+        "Lihat klaster desa dan bandingkan proporsi dengan jumlah.",
     )
     config = {
         "TPT": (
             "local_cluster_tpt_proxy",
             "TPT_Proxy",
             "YlOrRd",
-            "TPT = penganggur ÷ angkatan kerja. Skala pembandingnya adalah jumlah angkatan kerja.",
+            "TPT: penganggur ÷ angkatan kerja.",
         ),
         "Pendidikan rendah": (
             "local_cluster_pendidikan_rendah",
             "share_pendidikan_rendah",
             "YlOrBr",
-            "Pendidikan rendah = tanpa ijazah SD atau SD/SMP sederajat. "
-            "Proporsi dihitung dari penganggur; beban adalah jumlah penganggur "
-            "berpendidikan rendah.",
+            "Basis: penganggur. Pendidikan rendah: tanpa ijazah SD atau lulusan SD/SMP.",
         ),
         "Penyakit kronis": (
             "local_cluster_penyakit_kronis",
             "share_penyakit_kronis",
             "Purples",
-            "Proporsi kronis tercatat dihitung dari penganggur; beban adalah jumlah "
-            "kasus tercatat. "
-            "Bukan prevalensi seluruh penduduk; kategori tidak diketahui tetap terpisah.",
+            "Basis: penganggur. Status kesehatan tidak diketahui dihitung terpisah.",
         ),
     }
     layer = st.selectbox(
@@ -1075,10 +1016,6 @@ def render_spatial() -> None:
     local_tab, comparison_tab = st.tabs(["Pola spasial · Local Moran", "Besaran & prioritas"])
 
     with local_tab:
-        note(
-            "Apakah nilai tinggi atau rendah mengelompok dengan wilayah tetangganya? "
-            "Local Moran memakai hubungan ketetanggaan dan koreksi FDR, bukan jumlah kasus."
-        )
         summary = (
             bundle["cluster_summary"]
             .loc[bundle["cluster_summary"]["metric"] == continuous_col]
@@ -1094,9 +1031,7 @@ def render_spatial() -> None:
         )
         if layer == "Penyakit kronis" and significant == 0:
             st.info(
-                "Tidak ada desa dengan pola lokal penyakit kronis yang lolos FDR. "
-                "Yang ditampilkan adalah proporsi kronis tercatat, bukan peta hotspot "
-                "atau klaster penyakit."
+                "Tidak ada desa yang lolos FDR. Peta menunjukkan proporsi, bukan klaster.",
             )
             fig = choropleth(
                 village,
@@ -1116,11 +1051,8 @@ def render_spatial() -> None:
                 discrete_map=CLUSTER_COLORS,
             )
         st.plotly_chart(fig, width="stretch")
-        st.caption(
-            "KNN-8 · 999 permutasi · Benjamini–Hochberg FDR, α = 0,05. "
-            "Pola eksploratif, bukan bukti sebab-akibat."
-        )
-        with st.expander("Cara membaca kategori Local Moran"):
+        with st.expander("Kategori & metode Local Moran"):
+            st.caption("KNN-8 · 999 permutasi · koreksi Benjamini–Hochberg (α = 0,05).")
             st.markdown(
                 """
                 - **High-High:** nilai tinggi dikelilingi wilayah bernilai tinggi.
@@ -1162,17 +1094,11 @@ def render_spatial() -> None:
             download_csv("Unduh pola lokal", local_table, "tuban_pola_lokal.csv", "local_download")
 
     with comparison_tab:
-        note(
-            "Pembacaan ini tidak memakai hubungan ketetanggaan atau uji FDR. "
-            "Kuadran memakai median kabupaten, bukan ambang kebijakan resmi; "
-            "rate/proporsi tinggi + skala/beban besar bukan kategori High-High Local Moran."
+        st.caption(
+            "Kuadran memakai median kabupaten, bukan hasil Local Moran atau ambang kebijakan.",
         )
         if layer == "TPT":
             st.subheader("TPT · rate vs skala angkatan kerja")
-            st.caption(
-                "Cari desa dengan rate tinggi sekaligus angkatan kerja besar. "
-                "Jumlah penganggur ditunjukkan oleh ukuran titik, bukan sumbu horizontal."
-            )
             priority = village[
                 village["rate_scale_quadrant"] == "TPT tinggi + Angkatan kerja besar"
             ]
@@ -1256,12 +1182,7 @@ def render_spatial() -> None:
                 )
         else:
             profile = "Pendidikan rendah" if layer == "Pendidikan rendah" else "Kronis tercatat"
-            st.subheader(f"{profile} · proporsi vs beban")
-            st.caption(
-                "Bandingkan bagian penganggur yang memiliki karakteristik ini dengan "
-                "jumlah absolutnya. "
-                "Keduanya adalah profil penganggur, bukan penyebab TPT."
-            )
+            st.subheader(f"{profile} · proporsi vs jumlah")
             if layer == "Pendidikan rendah":
                 x, y, color = (
                     "pendidikan_rendah",
@@ -1322,14 +1243,9 @@ def render_gwr() -> None:
 
     page_header(
         "GWR & Metodologi",
-        "Halaman teknis untuk membandingkan model global dan lokal serta "
-        "memeriksa variasi koefisien GWR.",
+        "Bandingkan model OLS dan GWR, lalu jelajahi koefisien lokal.",
     )
-    st.warning(
-        "GWR bersifat asosiatif, bukan kausal. Moran's I residual GWR masih "
-        "0,0587 (p = 0,038), sehingga struktur spasial berkurang kuat tetapi "
-        "belum hilang sepenuhnya."
-    )
+    st.caption("Hasil menunjukkan hubungan, bukan sebab-akibat. Autokorelasi residual masih ada.")
 
     ols = comparison.loc[comparison["model"] == "OLS"].iloc[0]
     gwr = comparison.loc[comparison["model"].str.startswith("GWR")].iloc[0]
@@ -1381,18 +1297,13 @@ def render_gwr() -> None:
     label_positions[-1] = "bottom center"
     kernel_fig.update_traces(marker_size=12, textposition=label_positions)
     st.plotly_chart(style_figure(kernel_fig, 280), width="stretch")
-    st.caption(
-        "AICc lebih rendah lebih baik. Selisih AICc antarkernel kecil (<2 "
-        "antara model teratas), sehingga Gaussian dipakai sebagai model utama "
-        "berdasarkan AICc minimum yang tervalidasi, bukan sebagai bukti dominasi "
-        "mutlak kernel."
-    )
+    st.caption("AICc terendah: Gaussian. Selisih antarmodel teratas kurang dari 2.")
     with st.expander("Data sensitivitas kernel"):
         st.dataframe(
             kernels, hide_index=True, width="stretch", column_config=table_columns(kernels)
         )
 
-    st.subheader("Signifikansi koefisien lokal setelah koreksi")
+    st.subheader("Signifikansi lokal")
     variable_labels = {
         "share_perdagangan": "Perdagangan",
         "share_lainnya": "Lainnya",
@@ -1418,10 +1329,6 @@ def render_gwr() -> None:
         color_discrete_sequence=[COLORS["accent"]],
     )
     st.plotly_chart(style_figure(sig_fig, 380), width="stretch")
-    st.caption(
-        "Jumlah di atas memakai flag signifikansi lokal terkoreksi; p-value tak "
-        "terkoreksi tetap tersedia pada tabel parameter untuk audit."
-    )
     with st.expander("Data signifikansi koefisien"):
         st.dataframe(
             significance,
@@ -1475,8 +1382,8 @@ def render_gwr() -> None:
             0.0,
         ),
     }
-    st.subheader("Eksplorasi diagnostik & koefisien lokal")
-    selected_map = st.selectbox("Peta teknis", list(map_options))
+    st.subheader("Peta diagnostik & koefisien")
+    selected_map = st.selectbox("Indikator peta", list(map_options))
     map_kind, source_column, scale, midpoint = map_options[selected_map]
     if map_kind == "coefficient":
         local_map = params.loc[
@@ -1547,13 +1454,8 @@ def render_gwr() -> None:
             width="stretch",
         )
     if map_kind == "coefficient":
-        st.caption(
-            "Koefisien share pada peta dibaca relatif terhadap `share_pertanian` "
-            "sebagai reference category. Tooltip memuat coefficient, standard error, "
-            "t-value, status signifikansi terkoreksi, local R², dan local condition "
-            "number."
-        )
-    with st.expander("Tabel alternatif peta teknis"):
+        st.caption("Koefisien dibaca relatif terhadap sektor pertanian.")
+    with st.expander("Data peta"):
         if map_kind == "coefficient":
             map_table = map_df[
                 [
@@ -1625,12 +1527,9 @@ def render_gwr() -> None:
     m1.metric("Local R²", num(selected_village["gwr_local_r2"], 3))
     m2.metric("Local condition number", num(selected_village["gwr_local_condition_number"], 2))
     m3.metric("TPT", pct(selected_village["TPT_Proxy"]))
-    st.caption(
-        "P-value pada tabel adalah p-value lokal tak terkoreksi. Keputusan "
-        "signifikansi menggunakan critical t terkoreksi untuk multiple testing."
-    )
+    st.caption("P-value belum dikoreksi; status signifikansi memakai ambang t terkoreksi.")
 
-    with st.expander("Metodologi dan batas interpretasi", expanded=True):
+    with st.expander("Metodologi & batas interpretasi"):
         st.markdown(
             f"""
             - Unit analisis: **328 desa/kelurahan**; primary key `kode_kd`.

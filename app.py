@@ -37,29 +37,21 @@ pages = {
 navigation = st.navigation(pages)
 navigation.run()
 
-st.divider()
-with st.expander("Tentang data & cara membaca dashboard", icon=":material/info:"):
+st.caption("Data administratif · bukan TPT resmi BPS · bukan bukti sebab-akibat")
+with st.expander("Tentang data", icon=":material/info:"):
     st.markdown(
         """
-        - **Cakupan:** 328 desa/kelurahan Kabupaten Tuban, digabungkan melalui `kode_kd`.
-        - **TPT:** penganggur ÷ (penganggur + penduduk bekerja). Data administratif,
-          **bukan TPT resmi BPS**.
-        - **Agregasi wilayah:** TPT tertimbang dihitung dari total penganggur ÷ total
-          angkatan kerja, bukan rata-rata rate desa.
-        - **Profil pendidikan dan kesehatan:** proporsi dari penganggur; bukan
-          karakteristik seluruh penduduk atau bukti sebab-akibat. Kategori tidak
-          diketahui tetap terpisah dari tidak ada penyakit.
-        - **Kuadran prioritas:** median kabupaten sebagai cutoff eksploratif, bukan
-          ambang kebijakan resmi.
-        - **Sumber tampilan:** artefak pra-hitung di
-          `dashboard_data/dashboard_insights_non_regresi/`,
-          `dashboard_data/spatial_analysis/`, dan geometri di `Datasets/`.
-          Tidak ada pemodelan ulang saat dashboard dibuka.
+        - **Cakupan:** 328 desa/kelurahan Kabupaten Tuban, dipadankan lewat `kode_kd`.
+        - **TPT administratif:** penganggur ÷ angkatan kerja (penganggur + penduduk
+          bekerja), bukan TPT resmi BPS. TPT wilayah dihitung dari total,
+          bukan rata-rata TPT desa.
+        - **Profil:** pendidikan dan kesehatan menggambarkan penganggur, bukan
+          seluruh penduduk atau penyebab TPT. Status kesehatan tidak diketahui
+          dibedakan dari tidak adanya kondisi kronis tercatat.
+        - **Prioritas:** kuadran memakai median kabupaten, bukan ambang kebijakan.
+        - **Sumber:** hasil pra-hitung di `dashboard_data/` dan geometri di `Datasets/`.
         """
     )
-st.caption(
-    "Kabupaten Tuban · Analisis tingkat desa/kelurahan · Interpretasi deskriptif, bukan kausal"
-)
 st.caption(
     "**Dikembangkan oleh:** Daffa Dzaky Mumtaz dan Tito Fauzan Putra\\\n"
     "**Proyek Kerja Praktik di:** Pusat Studi Potensi Daerah dan Pemberdayaan "

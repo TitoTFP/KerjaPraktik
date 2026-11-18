@@ -1,10 +1,24 @@
 [theme]
 base = "light"
 primaryColor = "#0f766e"
-backgroundColor = "#f3f6f8"
-secondaryBackgroundColor = "#eaf0f3"
-textColor = "#173247"
+backgroundColor = "#f8fafb"
+secondaryBackgroundColor = "#eef3f5"
+textColor = "#182b3a"
 font = "sans-serif"
+headingFontSizes = ["32px", "24px", "20px"]
+headingFontWeights = 600
+baseRadius = "8px"
+borderColor = "#dce5ea"
+dataframeHeaderBackgroundColor = "#eef3f5"
+showSidebarBorder = true
+showWidgetBorder = true
+
+[theme.sidebar]
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#eef3f5"
+
+[client]
+toolbarMode = "minimal"
 
 [server]
 headless = true

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
-from html import escape
 from math import log, log2, pi, radians, tan
 
 import pandas as pd
@@ -12,14 +11,14 @@ from plotly.colors import sample_colorscale
 from shapely.geometry import shape
 
 COLORS = {
-    "ink": "#173247",
-    "muted": "#52697b",
+    "ink": "#182b3a",
+    "muted": "#536575",
     "accent": "#0f766e",
     "blue": "#327da8",
     "purple": "#8064a2",
     "green": "#39835e",
     "amber": "#c77b32",
-    "surface": "#f3f6f8",
+    "surface": "#f8fafb",
 }
 
 QUADRANT_COLORS = {
@@ -96,171 +95,43 @@ CLUSTER_COLORS = {
 
 
 def inject_css() -> None:
-    st.markdown(
+    st.html(
         """
         <style>
-        .block-container {
-            padding: 4rem 2.5rem 3rem;
-            max-width: 1540px;
+        /* Keep Plotly's toolbar legible on touch and out of the way on desktop. */
+        [data-testid="stPlotlyChart"]:has(.gtitle) .modebar {top: 44px !important;}
+        [data-testid="stPlotlyChart"] .modebar-group {
+            background: #fff !important;
         }
-        [data-testid="stAppViewContainer"] {background: #f3f6f8;}
-        [data-testid="stHeader"] {background: rgba(243,246,248,.95);}
-        [data-testid="stSidebar"] {
-            background: #edf2f5;
-            border-right: 1px solid #dce5eb;
+        [data-testid="stPlotlyChart"] .modebar-btn svg path {
+            fill: #536575 !important;
         }
-        [data-testid="stSidebarLogo"] {height: 46px; max-height: 46px; width: auto;}
-        [data-testid="stSidebarNavLink"] {
-            border-radius: 8px;
-            padding: .55rem .7rem;
-            margin: .15rem 0;
+        [data-testid="stPlotlyChart"] .modebar-btn:hover svg path,
+        [data-testid="stPlotlyChart"] .modebar-btn.active svg path {
+            fill: #0f766e !important;
         }
-        [data-testid="stSidebarNavLink"][aria-current="page"] {
-            background: #d8e9e7;
-            color: #0f605a;
-            font-weight: 650;
+        @media (hover: hover) and (pointer: fine) {
+            [data-testid="stPlotlyChart"]:not(:hover):not(:focus-within) .modebar {opacity: 0;}
         }
-        h1 {font-size: 2.1rem !important; letter-spacing: -.045em; line-height: 1.2;}
-        h2 {font-size: 1.4rem !important; letter-spacing: -.025em;}
-        h3 {font-size: 1.1rem !important;}
-        .page-eyebrow {
-            color: #0f766e;
-            font-size: .72rem;
-            font-weight: 700;
-            letter-spacing: .13em;
-            margin: .2rem 0 .35rem;
-        }
-        .page-description {color: #52697b; font-size: .94rem; line-height: 1.65;}
-        .sidebar-scope {
-            border-top: 1px solid #d5e0e7;
-            margin-top: 1.4rem;
-            padding-top: 1.1rem;
-            color: #52697b;
-            font-size: .8rem;
-            line-height: 1.8;
-        }
-        .sidebar-scope strong {color: #173247;}
-        .metric-card, [data-testid="stMetric"] {
-            background: #fff;
-            border: 1px solid #dce5eb;
-            border-radius: 12px;
-            padding: 1.05rem 1.15rem;
-        }
-        .metric-card {border-top: 3px solid #0f766e; min-height: 154px;}
-        [data-testid="stMarkdownContainer"]:has(.metric-card) {margin-bottom: 0;}
-        .metric-label {color: #52697b; font-size: .8rem; font-weight: 550;}
-        .metric-value {
-            color: #173247;
-            font-size: clamp(1.65rem, 2.4vw, 2.15rem);
-            font-weight: 720;
-            font-variant-numeric: tabular-nums;
-            letter-spacing: -.04em;
-            line-height: 1.4;
-        }
-        .metric-detail {color: #52697b; font-size: .75rem; line-height: 1.5;}
-        [data-testid="stMetricValue"], [data-testid="stMetricValue"] p {
-            font-size: clamp(1.3rem, 2vw, 1.75rem) !important;
-            font-variant-numeric: tabular-nums;
-            white-space: normal !important;
-        }
-        [data-testid="stMetricLabel"], [data-testid="stMetricLabel"] p {
-            white-space: normal !important;
-        }
-        .hero-box {
-            border: 1px solid #cce1de;
-            background: #eaf4f2;
-            border-radius: 12px;
-            padding: 1.1rem 1.35rem;
-            margin: .4rem 0 .3rem;
-            color: #355b60;
-            font-size: .88rem;
-            line-height: 1.65;
-        }
-        .hero-box strong {
-            display: block;
-            font-size: 1.16rem;
-            color: #164e49;
-            margin-bottom: .2rem;
-        }
-        .soft-note {
-            border-left: 3px solid #0f766e;
-            background: #eaf1f4;
-            padding: .8rem 1rem;
-            border-radius: 0 8px 8px 0;
-            color: #385569;
-            font-size: .86rem;
-            line-height: 1.6;
-        }
-        .profile-kpis {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: .5rem;
-            margin: .2rem 0 .8rem;
-        }
-        .profile-kpi {
-            min-width: 0;
-            background: #edf5f4;
-            border-radius: 8px;
-            padding: .75rem .65rem;
-        }
-        .profile-kpi-label {
-            color: #52697b;
-            font-size: .7rem;
-            line-height: 1.4;
-            min-height: 2rem;
-            overflow-wrap: anywhere;
-        }
-        .profile-kpi-value {
-            color: #173247;
-            font-size: 1.1rem;
-            font-weight: 700;
-            font-variant-numeric: tabular-nums;
-            line-height: 1.4;
-        }
-        [data-testid="stPlotlyChart"] {
-            background: #fff;
-            box-shadow: 0 0 0 1px #dce5eb;
-            border-radius: 12px;
-        }
-        [data-testid="stVerticalBlockBorderWrapper"] > div {
-            border-color: #dce5eb;
-            border-radius: 12px;
-        }
-        [data-testid="stDataFrame"] {border: 1px solid #dce5eb; border-radius: 10px;}
-        [data-testid="stExpander"] {background: #fff; border-radius: 10px;}
-        [data-testid="stCaptionContainer"] {color: #52697b;}
-        [data-testid="stPageLink"] a {font-weight: 600;}
-        @media (max-width: 1100px) {
-            [data-testid="stHorizontalBlock"]:has(.profile-kpis) {flex-wrap: wrap;}
-            [data-testid="stHorizontalBlock"]:has(.profile-kpis) > [data-testid="stColumn"] {
-                width: 100% !important;
-                min-width: 100% !important;
-                flex: 1 1 100%;
-            }
-        }
+        /* Keep fixed-grid metrics compact on phones. */
         @media (max-width: 640px) {
-            .block-container {padding: 4rem 1rem 2rem;}
-            h1 {font-size: 1.7rem !important;}
-            [data-testid="stHorizontalBlock"]:has(.metric-card) {
+            .block-container {padding-top: 4rem;}
+            [data-testid="stHorizontalBlock"]:has(
+                > [data-testid="stColumn"]:nth-child(3)
+            ):has([data-testid="stMetric"]) {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: .75rem;
+                gap: 12px;
             }
-            [data-testid="stHorizontalBlock"]:has(.metric-card) > [data-testid="stColumn"] {
-                width: auto !important;
-                min-width: 0 !important;
+            [data-testid="stHorizontalBlock"]:has(
+                > [data-testid="stColumn"]:nth-child(3)
+            ) > [data-testid="stColumn"]:has([data-testid="stMetric"]) {
+                width: auto;
+                min-width: 0;
             }
-            [data-testid="stHorizontalBlock"]:has(.metric-card)
-            > [data-testid="stColumn"]:nth-child(3):last-child {
-                grid-column: 1 / -1;
-            }
-            .metric-card {min-height: 168px;}
-            .metric-value {font-size: 1.9rem;}
-            .hero-box {padding: 1rem;}
         }
         </style>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
 
@@ -276,23 +147,11 @@ def render_sidebar() -> None:
         </svg>""",
         size="large",
     )
-    st.sidebar.markdown(
-        '<div class="sidebar-scope"><strong>Proyek Kerja Praktik · PDPM ITS</strong><br><br>'
-        "<strong>Cakupan analisis</strong><br>"
-        "328 desa/kelurahan<br>Data administratif, bukan TPT resmi BPS.<br><br>"
-        "Peta dan profil untuk eksplorasi deskriptif. "
-        "Pemodelan tersedia di bagian analisis teknis.</div>",
-        unsafe_allow_html=True,
-    )
+    st.sidebar.caption("Proyek Kerja Praktik · **PDPM ITS**")
 
 
 def metric_card(label: str, value: str, detail: str) -> None:
-    st.markdown(
-        f'<div class="metric-card"><div class="metric-label">{escape(label)}</div>'
-        f'<div class="metric-value">{escape(value)}</div>'
-        f'<div class="metric-detail">{escape(detail)}</div></div>',
-        unsafe_allow_html=True,
-    )
+    st.metric(label, value, help=detail)
 
 
 def table_columns(df: pd.DataFrame) -> dict:
@@ -325,36 +184,15 @@ def table_columns(df: pd.DataFrame) -> dict:
 
 
 def page_header(title: str, description: str | None = None) -> None:
-    st.markdown(
-        '<div class="page-eyebrow">ANALISIS PENGANGGURAN · KABUPATEN TUBAN</div>',
-        unsafe_allow_html=True,
-    )
-    st.title(title)
+    st.title(title, anchor=False)
     if description:
-        st.markdown(
-            f'<div class="page-description">{escape(description)}</div>',
-            unsafe_allow_html=True,
-        )
-
-
-def hero(text: str, detail: str) -> None:
-    st.markdown(
-        f'<div class="hero-box"><strong>{escape(text)}</strong><span>{escape(detail)}</span></div>',
-        unsafe_allow_html=True,
-    )
-
-
-def note(text: str) -> None:
-    st.markdown(f'<div class="soft-note">{escape(text)}</div>', unsafe_allow_html=True)
+        st.caption(description)
 
 
 def profile_kpis(items: list[tuple[str, str]]) -> None:
-    cards = "".join(
-        f'<div class="profile-kpi"><div class="profile-kpi-label">{escape(label)}</div>'
-        f'<div class="profile-kpi-value">{escape(value)}</div></div>'
-        for label, value in items
-    )
-    st.markdown(f'<div class="profile-kpis">{cards}</div>', unsafe_allow_html=True)
+    with st.container(horizontal=True, gap="medium"):
+        for label, value in items:
+            st.metric(label, value, width="content")
 
 
 def pct(value: float | int | None, decimals: int = 2) -> str:
@@ -374,11 +212,11 @@ def num(value: float | int | None, decimals: int = 0) -> str:
 
 def style_figure(fig: go.Figure, height: int | None = None) -> go.Figure:
     fig.update_layout(
-        margin=dict(l=18, r=30, t=58, b=25),
-        font=dict(family="Inter, system-ui, sans-serif", size=12, color=COLORS["ink"]),
+        margin=dict(l=16, r=24, t=72 if fig.layout.title.text else 32, b=24),
+        font=dict(family="Source Sans 3, system-ui, sans-serif", size=13, color=COLORS["ink"]),
         title=dict(
             text=fig.layout.title.text or "",
-            font=dict(size=15, color=COLORS["ink"]),
+            font=dict(size=16, color=COLORS["ink"]),
             x=0.03,
             xanchor="left",
         ),

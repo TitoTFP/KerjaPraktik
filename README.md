@@ -37,10 +37,18 @@ Generator menulis empat belas gambar analisis ke `laporan/assets/bab-04/`. Peta 
 
 Dashboard Streamlit memakai artefak pra-hitung di `dashboard_data/` dan GeoJSON di `Datasets/`; dashboard tidak menjalankan ulang analisis spasial atau model.
 
+Ringkasan menampilkan indikator utama terlebih dahulu. Tabel rinci dan catatan metode dapat
+dibuka sesuai kebutuhan; atribusi PDPM ITS dan kredit pengembang tersedia di semua halaman.
+
 ```bash
 uv sync --extra dashboard
 uv run --extra dashboard streamlit run app.py
 ```
+
+Untuk mengaktifkan skill Streamlit di lingkungan lokal, jalankan
+`uv run --extra dashboard streamlit skills --yes`. Skill ini mengikuti versi Streamlit
+proyek. Audit visual memakai [Unslop](https://github.com/heydamir/unslop) karya
+Damir Sokolovsky (CC BY 4.0), di `.agents/skills/unslop/`, dari revisi `620163e`.
 
 ## Deployment systemd
 
