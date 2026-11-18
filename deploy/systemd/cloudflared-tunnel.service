@@ -1,0 +1,26 @@
+[Unit]
+Description=Cloudflare Tunnel for Tuban dashboard
+After=network-online.target tuban-dashboard.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=cloudflared
+Group=cloudflared
+WorkingDirectory=/etc/cloudflared
+Environment=HOME=/var/lib/cloudflared
+ExecStart=/usr/bin/cloudflared --no-autoupdate tunnel run --token-file /etc/cloudflared/tunnel-token
+Restart=on-failure
+RestartSec=5s
+TimeoutStopSec=30s
+UMask=0027
+StateDirectory=cloudflared
+StateDirectoryMode=0750
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target

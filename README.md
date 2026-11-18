@@ -42,6 +42,24 @@ uv sync --extra dashboard
 uv run --extra dashboard streamlit run app.py
 ```
 
+## Deployment systemd
+
+Dua unit contoh ada di `deploy/systemd/`: `tuban-dashboard.service` menjalankan dashboard pada `127.0.0.1:8501` dan `cloudflared-tunnel.service` meneruskannya lewat Cloudflare Tunnel. Keduanya mengasumsikan aplikasi terpasang di `/opt/tuban-dashboard` serta user sistem `tuban-dashboard` dan `cloudflared` sudah dibuat.
+
+```bash
+sudo useradd --system --home /var/lib/tuban-dashboard --shell /usr/sbin/nologin tuban-dashboard
+sudo install -d -o tuban-dashboard -g tuban-dashboard /opt/tuban-dashboard
+# salin isi repositori ke /opt/tuban-dashboard/current, lalu bangun venv di lokasi unit
+# (shebang skrip venv mengunci path, jadi bangun langsung di tujuan, bukan dipindah):
+sudo UV_PROJECT_ENVIRONMENT=/opt/tuban-dashboard/.venv uv sync --locked --extra dashboard \
+  --project /opt/tuban-dashboard/current
+sudo chown -R tuban-dashboard:tuban-dashboard /opt/tuban-dashboard
+sudo cp deploy/systemd/*.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now tuban-dashboard.service cloudflared-tunnel.service
+```
+
+Token tunnel dibaca dari `/etc/cloudflared/tunnel-token` (tidak dilacak Git); buat berkas itu dengan izin baca hanya untuk user `cloudflared` sebelum unit dijalankan. `StateDirectory` membuat `/var/lib/tuban-dashboard` dan `/var/lib/cloudflared` otomatis dengan mode `0750`.
 
 ## Pemeriksaan lokal
 
@@ -61,6 +79,7 @@ quarto render laporan
 ├── Datasets/                 # CSV sumber dan batas wilayah GeoJSON
 ├── dashboard/                # halaman, loader data, dan UI Streamlit
 ├── dashboard_data/           # artefak pra-hitung yang dipakai dashboard
+├── deploy/systemd/           # unit systemd dashboard dan Cloudflare Tunnel
 ├── docs/                     # panduan referensi, kamus data, dan kerangka laporan
 ├── laporan/                  # Quarto Book
 ├── src/laporan_kerja_praktik/ # loader dan agregasi yang dapat digunakan ulang

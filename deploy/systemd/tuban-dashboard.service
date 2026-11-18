@@ -1,0 +1,27 @@
+[Unit]
+Description=Tuban unemployment dashboard (Streamlit)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=tuban-dashboard
+Group=tuban-dashboard
+WorkingDirectory=/opt/tuban-dashboard/current
+Environment=HOME=/var/lib/tuban-dashboard
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/tuban-dashboard/.venv/bin/streamlit run app.py --server.address=127.0.0.1 --server.port=8501 --server.headless=true
+Restart=on-failure
+RestartSec=5s
+TimeoutStopSec=20s
+UMask=0027
+StateDirectory=tuban-dashboard
+StateDirectoryMode=0750
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target
