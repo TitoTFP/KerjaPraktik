@@ -39,6 +39,9 @@ Dashboard Streamlit memakai artefak pra-hitung di `dashboard_data/` dan GeoJSON 
 
 Ringkasan menampilkan indikator utama terlebih dahulu. Tabel rinci dan catatan metode dapat
 dibuka sesuai kebutuhan; atribusi PDPM ITS dan kredit pengembang tersedia di semua halaman.
+Bagian atas sidebar menampilkan nama dashboard **Tuban · Data ketenagakerjaan** tanpa ikon.
+Logo resmi di sidebar bersumber dari halaman [Logo dan Lambang PDPM](https://www.its.ac.id/pdpm/logo-dan-lambang-pdpm/)
+dan disimpan lokal di `dashboard/assets/pdpm-its.jpg`.
 
 ```bash
 uv sync --extra dashboard

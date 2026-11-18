@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from math import log, log2, pi, radians, tan
+from pathlib import Path
 
 import pandas as pd
 import plotly.express as px
@@ -137,15 +138,17 @@ def inject_css() -> None:
 
 def render_sidebar() -> None:
     st.logo(
-        """<svg xmlns="http://www.w3.org/2000/svg" width="240" height="56" viewBox="0 0 240 56">
-        <rect x="0" y="5" width="42" height="42" rx="11" fill="#0f766e"/>
-        <path d="M10 34V23h5v11zm9 0V17h5v17zm9 0V12h5v22z" fill="#fff"/>
-        <text x="54" y="25" font-family="sans-serif" font-size="19"
-              font-weight="700" fill="#173247">TUBAN</text>
-        <text x="54" y="42" font-family="sans-serif" font-size="10"
-              letter-spacing="1" fill="#52697b">DATA KETENAGAKERJAAN</text>
+        """<svg xmlns="http://www.w3.org/2000/svg" width="152" height="34" viewBox="0 0 152 34"
+             font-family="system-ui, sans-serif">
+        <text x="0" y="16" font-size="18" font-weight="600" fill="#182b3a">Tuban</text>
+        <text x="0" y="31" font-size="12" fill="#536575">Data ketenagakerjaan</text>
         </svg>""",
         size="large",
+    )
+    st.sidebar.image(
+        Path(__file__).with_name("assets") / "pdpm-its.jpg",
+        width=80,
+        link="https://www.its.ac.id/pdpm/logo-dan-lambang-pdpm/",
     )
     st.sidebar.caption("Proyek Kerja Praktik · **PDPM ITS**")
 
