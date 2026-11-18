@@ -277,7 +277,8 @@ def render_sidebar() -> None:
         size="large",
     )
     st.sidebar.markdown(
-        '<div class="sidebar-scope"><strong>Cakupan analisis</strong><br>'
+        '<div class="sidebar-scope"><strong>Proyek Kerja Praktik · PDPM ITS</strong><br><br>'
+        "<strong>Cakupan analisis</strong><br>"
         "328 desa/kelurahan<br>Data administratif, bukan TPT resmi BPS.<br><br>"
         "Peta dan profil untuk eksplorasi deskriptif. "
         "Pemodelan tersedia di bagian analisis teknis.</div>",

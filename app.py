@@ -60,3 +60,8 @@ with st.expander("Tentang data & cara membaca dashboard", icon=":material/info:"
 st.caption(
     "Kabupaten Tuban · Analisis tingkat desa/kelurahan · Interpretasi deskriptif, bukan kausal"
 )
+st.caption(
+    "**Dikembangkan oleh:** Daffa Dzaky Mumtaz dan Tito Fauzan Putra\\\n"
+    "**Proyek Kerja Praktik di:** Pusat Studi Potensi Daerah dan Pemberdayaan "
+    "Masyarakat (PDPM ITS), 2026"
+)
