@@ -12,7 +12,7 @@ from dashboard.pages import (
 from dashboard.ui import inject_css, render_sidebar
 
 st.set_page_config(
-    page_title="TPT Kabupaten Tuban",
+    page_title="Pengangguran Kabupaten Tuban 2026",
     page_icon=":material/analytics:",
     layout="wide",
     initial_sidebar_state="auto",

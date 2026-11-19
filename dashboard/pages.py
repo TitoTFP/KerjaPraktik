@@ -170,7 +170,7 @@ def render_overview() -> None:
     total_labor = int(village["Angkatan_Kerja"].sum())
 
     page_header(
-        "Ketenagakerjaan Tuban",
+        "Analisis Pengangguran Kabupaten Tuban 2026",
         f"{num(len(village))} desa/kelurahan · data administratif, bukan TPT resmi BPS",
     )
     cards = [
@@ -266,7 +266,7 @@ def render_overview() -> None:
                 "overview_district_download",
             )
 
-    st.subheader("Profil ketenagakerjaan")
+    st.subheader("Profil penganggur dan sektor pekerjaan")
     low_education = education.loc[
         education["kategori"].isin(["Tidak punya ijazah SD", "SD/SMP sederajat"]),
         "persentase_penganggur",
