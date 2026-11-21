@@ -2,19 +2,25 @@
 
 ## Alur kerja
 
-1. Buat branch terpisah untuk perubahan analisis atau dokumentasi.
-2. Jangan mengubah atau menimpa CSV sumber; tulis transformasi di kode dan jelaskan aturan pembersihannya.
-3. Perbarui dokumentasi bila definisi indikator, sumber, atau metode berubah.
-4. Jalankan pemeriksaan sebelum membuka pull request:
+1. Untuk perubahan besar pada data, metode, atau indikator, diskusikan usulan melalui [GitHub Issues](https://github.com/TitoTFP/KerjaPraktik/issues).
+2. Buat branch dari `main`. Jika tidak memiliki akses tulis, buat fork terlebih dahulu.
+3. Jangan menimpa CSV sumber. Tulis transformasi di kode dan perbarui dokumentasi bila definisi indikator, sumber, atau metode berubah.
+4. Jalankan pemeriksaan yang sama dengan [GitHub Actions](.github/workflows/quality.yml) dari root repositori:
 
    ```bash
-   uv sync
-   uv run pytest
+   uv sync --locked
    uv run ruff check src tests
+   uv run pytest
    ```
 
-   Jika Quarto terpasang, verifikasi render laporan dengan `quarto render laporan`.
-5. Pada pull request, jelaskan pertanyaan analisis, metode, perubahan visualisasi, serta keterbatasan data.
+   Untuk perubahan laporan, jalankan juga `quarto render laporan`. Untuk perubahan dashboard, [jalankan aplikasi secara lokal](README.md#jalankan-dashboard) dan periksa halaman yang terdampak.
+5. Buka pull request ke `main`. Ringkas perubahan dan cara memverifikasinya. Jika analisis berubah, jelaskan metode, dampak pada hasil, dan keterbatasan data.
+   Jika melaporkan bug, sertakan langkah reproduksi serta hasil yang diharapkan dan diamati.
+
+## Alat bantu pengembangan dashboard
+
+- Skill Streamlit yang mengikuti versi proyek dapat dipasang secara lokal dengan `uv run --locked --extra dashboard streamlit skills --yes`.
+- Audit visual menggunakan [Unslop](https://github.com/heydamir/unslop) karya Damir Sokolovsky (CC BY 4.0), disertakan di [`.agents/skills/unslop/`](.agents/skills/unslop/) dari revisi `620163e`.
 
 ## Analisis data
 

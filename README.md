@@ -1,114 +1,61 @@
-# Laporan Kerja Praktik: Data Pengangguran Kabupaten Tuban
+# Pengangguran Kabupaten Tuban 2026
 
-Repositori untuk analisis deskriptif dan penyusunan laporan kerja praktik menggunakan data pengangguran Kabupaten Tuban.
-CSV sumber yang dipakai loader dan berkas batas wilayah GeoJSON disertakan di `Datasets/`: `Data_Pengangguran_Clean_Audited_8_Sep_2026.csv` dan `Kabupaten Tuban-KEL_DESA.geojson`. Unit tests tidak memerlukan CSV.
+[![Quality checks](https://github.com/TitoTFP/KerjaPraktik/actions/workflows/quality.yml/badge.svg)](https://github.com/TitoTFP/KerjaPraktik/actions/workflows/quality.yml)
+
+Proyek kerja praktik di **PDPM ITS** yang memetakan pengangguran di Kabupaten Tuban. Dashboard interaktif membantu membandingkan tingkat dan jumlah pengangguran antardesa dan antarkecamatan. Laporan menjelaskan data, metode, dan hasil analisis.
+
+![Tangkapan layar dashboard dari laporan: peta tingkat pengangguran desa dan peringkat kecamatan](laporan/docx-media/media/image13.png)
+
+*Cuplikan halaman Ringkasan Kabupaten dari laporan kerja praktik.*
 
 ## Mulai cepat
+
+### Jalankan dashboard
 
 Prasyarat: Python 3.12 atau lebih baru dan [uv](https://docs.astral.sh/uv/getting-started/installation/).
 
 ```bash
-uv sync
+git clone https://github.com/TitoTFP/KerjaPraktik.git
+cd KerjaPraktik
+uv sync --locked --extra dashboard
+uv run --locked --extra dashboard streamlit run app.py
 ```
 
-## Menulis laporan
+Buka [localhost:8501](http://localhost:8501). Dashboard memakai hasil analisis yang sudah dihitung di [`dashboard_data/`](dashboard_data/) dan geometri dari [`Datasets/`](Datasets/); tidak perlu menjalankan ulang analisis spasial atau pemodelan.
 
-Laporan kerja praktik disusun sebagai Quarto Book dengan `laporan/index.qmd` sebagai halaman awal (wajib untuk buku Quarto) dan Bab I–V di `laporan/bab/`, dari `bab-01-pendahuluan.qmd` sampai `bab-05-penutup.qmd`. Berkas hanya mencakup Bab I–V; bagian halaman awal, daftar pustaka, dan lampiran dari DOCX sumber tidak disertakan. Quarto merender HTML dan Word; DOCX gabungan tersimpan di `laporan/_output/laporan.docx`. Quarto menyertakan Pandoc untuk konversi dan sitasi. Siapkan Zotero serta Better BibTeX untuk ekspor referensi ke `laporan/references.bib`.
+### Render laporan
+
+Pasang [Quarto](https://quarto.org/docs/get-started/), lalu jalankan dari root repositori:
 
 ```bash
-quarto check
 quarto render laporan
 ```
 
-Lihat [panduan Quarto, Pandoc, dan Zotero](docs/panduan-referensi.md) untuk instalasi, ekspor otomatis, gaya sitasi, dan format kutipan.
+Hasilnya adalah `laporan/_output/index.html` dan `laporan/_output/laporan.docx`. Sumber [Quarto Book](laporan/index.qmd) mencakup Bab I–V. Gambar analisis sudah disertakan, jadi render tidak perlu menjalankan generator Python.
 
-## Reproduksi aset Bab IV
+## Data dan interpretasi
 
-Empat belas gambar analisis Bab IV (Gambar 4.1–4.14) dibuat ulang dari CSV pengangguran dan GeoJSON batas desa di `Datasets/`, termasuk peta Gambar 4.3–4.5, 4.9, dan 4.11 serta tiga plot korelasi Spearman Gambar 4.12–4.14. Pada Gambar 4.14, enam kategori mengikuti nama di Tabel 3.3; X6 ditampilkan sebagai “Sektor Gabungan”. Lima tangkapan layar bagian 4.7 Dashboard tetap menggunakan `laporan/docx-media/media/image13.png`–`image17.png` dan tidak dibuat ulang oleh generator.
+- [CSV pengangguran yang telah diaudit](Datasets/Data_Pengangguran_Clean_Audited_8_Sep_2026.csv) memuat hitungan agregat serta profil pendidikan, kesehatan, dan lapangan pekerjaan.
+- [GeoJSON batas desa/kelurahan](Datasets/Kabupaten%20Tuban-KEL_DESA.geojson) menyediakan geometri untuk peta.
+- Tingkat Pengangguran Terbuka (TPT) dalam proyek ini dihitung dari data administratif dengan rumus `penganggur / (penganggur + penduduk bekerja) × 100%`. **Angka ini bukan TPT resmi BPS.** Hasil deskriptif tidak menunjukkan hubungan sebab-akibat.
 
-```bash
-uv run python scripts/generate_bab4_assets.py
-quarto render laporan
-```
+## Dokumentasi
 
-Generator menulis empat belas gambar analisis ke `laporan/assets/bab-04/`. Peta 4.3, 4.5, 4.9, dan 4.11 memakai kelas *Natural Breaks* dan label desa dari kolom `fid` CSV; peta 4.4 memakai label nama kecamatan dan TPT agregat berbobot angkatan kerja. Peta 4.5 berupa satu peta Kabupaten Tuban: enam kecamatan dengan TPT agregat tertinggi diwarnai menurut TPT desa/kelurahan, dibagi menurut batas desa, dan diberi label fid numerik; 14 kecamatan lain ditampilkan abu-abu. Batas kelas warna TPT desa dihitung dari seluruh dataset agar konsisten dengan peta 4.3. Gambar 4.12–4.14 menampilkan korelasi Spearman TPT dengan jumlah penganggur menurut pendidikan dan kesehatan; Gambar 4.14 menampilkan enam kelompok pekerjaan, dengan X6/Sektor Gabungan sebagai agregat sembilan kategori yang juga digunakan dalam model. Pertanian Padi & Palawija menjadi kategori referensi. *P-value* dikoreksi Holm per gambar. Batas kecamatan digabung dari geometri desa pada GeoJSON yang disediakan. Tangkapan layar Dashboard tetap bersumber dari `laporan/docx-media/`.
+| Kebutuhan | Panduan |
+| --- | --- |
+| Memahami kolom dan batas interpretasi | [Kamus data](docs/kamus-data.md) |
+| Menelusuri susunan laporan | [Kerangka laporan](docs/kerangka-laporan.md) |
+| Menghasilkan ulang grafik dan peta Bab IV | [Reproduksi aset Bab IV](docs/reproduksi-bab-iv.md) |
+| Mengelola sitasi dan merender laporan | [Panduan Quarto, Pandoc, dan Zotero](docs/panduan-referensi.md) |
+| Menjalankan dashboard di server | [Deployment systemd dan Cloudflare Tunnel](deploy/systemd/README.md) |
+| Menjalankan pemeriksaan dan mengirim perubahan | [Panduan kontribusi](CONTRIBUTING.md) |
 
-## Streamlit dashboard
+## Kontribusi dan bantuan
 
-Dashboard Streamlit memakai artefak pra-hitung di `dashboard_data/` dan GeoJSON di `Datasets/`; dashboard tidak menjalankan ulang analisis spasial atau model.
+Laporkan masalah atau ajukan usulan melalui [GitHub Issues](https://github.com/TitoTFP/KerjaPraktik/issues). Sebelum membuka pull request, ikuti [panduan kontribusi](CONTRIBUTING.md) untuk alur kerja dan pemeriksaan lokal.
 
-Ringkasan menampilkan indikator utama terlebih dahulu. Tabel rinci dan catatan metode dapat
-dibuka sesuai kebutuhan; atribusi PDPM ITS dan kredit pengembang tersedia di semua halaman.
-Bagian atas sidebar menampilkan nama dashboard **Tuban · Data Pengangguran** tanpa ikon.
-Logo resmi di sidebar bersumber dari halaman [Logo dan Lambang PDPM](https://www.its.ac.id/pdpm/logo-dan-lambang-pdpm/)
-dan disimpan lokal di `dashboard/assets/pdpm-its.jpg`.
+## Kredit dan lisensi
 
-```bash
-uv sync --extra dashboard
-uv run --extra dashboard streamlit run app.py
-```
+Dashboard dikembangkan oleh **Daffa Dzaky Mumtaz** dan **Tito Fauzan Putra** sebagai proyek kerja praktik di **Pusat Studi Potensi Daerah dan Pemberdayaan Masyarakat (PDPM ITS)**. Logo dashboard bersumber dari [Logo dan Lambang PDPM ITS](https://www.its.ac.id/pdpm/logo-dan-lambang-pdpm/).
 
-Untuk mengaktifkan skill Streamlit di lingkungan lokal, jalankan
-`uv run --extra dashboard streamlit skills --yes`. Skill ini mengikuti versi Streamlit
-proyek. Audit visual memakai [Unslop](https://github.com/heydamir/unslop) karya
-Damir Sokolovsky (CC BY 4.0), di `.agents/skills/unslop/`, dari revisi `620163e`.
-
-## Deployment systemd
-
-Dua unit contoh ada di `deploy/systemd/`: `tuban-dashboard.service` menjalankan dashboard pada `127.0.0.1:8501` dan `cloudflared-tunnel.service` meneruskannya lewat Cloudflare Tunnel. Keduanya mengasumsikan aplikasi terpasang di `/opt/tuban-dashboard` serta user sistem `tuban-dashboard` dan `cloudflared` sudah dibuat.
-
-```bash
-sudo useradd --system --home /var/lib/tuban-dashboard --shell /usr/sbin/nologin tuban-dashboard
-sudo install -d -o tuban-dashboard -g tuban-dashboard /opt/tuban-dashboard
-# salin isi repositori ke /opt/tuban-dashboard/current, lalu bangun venv di lokasi unit
-# (shebang skrip venv mengunci path, jadi bangun langsung di tujuan, bukan dipindah):
-sudo UV_PROJECT_ENVIRONMENT=/opt/tuban-dashboard/.venv uv sync --locked --extra dashboard \
-  --project /opt/tuban-dashboard/current
-sudo chown -R tuban-dashboard:tuban-dashboard /opt/tuban-dashboard
-sudo cp deploy/systemd/*.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable --now tuban-dashboard.service cloudflared-tunnel.service
-```
-
-Token tunnel dibaca dari `/etc/cloudflared/tunnel-token` (tidak dilacak Git); buat berkas itu dengan izin baca hanya untuk user `cloudflared` sebelum unit dijalankan. `StateDirectory` membuat `/var/lib/tuban-dashboard` dan `/var/lib/cloudflared` otomatis dengan mode `0750`.
-
-## Pemeriksaan lokal
-
-```bash
-uv run pytest
-uv run ruff check src tests scripts
-# Opsional; memerlukan Quarto
-quarto render laporan
-```
-
-## Struktur
-
-```text
-.
-├── .github/                  # workflow CI dan templat GitHub
-├── .streamlit/               # konfigurasi tampilan Streamlit
-├── Datasets/                 # CSV sumber dan batas wilayah GeoJSON
-├── dashboard/                # halaman, loader data, dan UI Streamlit
-├── dashboard_data/           # artefak pra-hitung yang dipakai dashboard
-├── deploy/systemd/           # unit systemd dashboard dan Cloudflare Tunnel
-├── docs/                     # panduan referensi, kamus data, dan kerangka laporan
-├── laporan/                  # Quarto Book
-├── src/laporan_kerja_praktik/ # loader dan agregasi yang dapat digunakan ulang
-├── tests/                    # uji perilaku loader dan agregasi
-├── app.py                    # entry point dashboard
-├── pyproject.toml            # metadata, dependensi, dan konfigurasi Python
-└── uv.lock                   # lockfile dependensi
-```
-
-Data analisis berada di `Datasets/`. Jangan menimpa berkas sumber saat membersihkan atau menganalisis data; simpan perubahan analisis di kode proyek.
-
-## Git dan GitHub
-
-Direktori kerja ini sudah merupakan repositori Git lokal. Berkas `.gitignore`, `.gitattributes`, workflow, dan templat GitHub disediakan. Untuk publikasi, buat repositori GitHub kosong, tambahkan URL remote yang diberikan GitHub, lalu push branch kerja. Sebelum repositori dibuat publik, pastikan izin distribusi dan atribusi data telah dipenuhi. Belum ada lisensi proyek karena pemegang hak belum ditetapkan.
-
-## Dokumentasi laporan
-
-- [Kerangka laporan kerja praktik](docs/kerangka-laporan.md)
-- [Kamus data dan catatan interpretasi](docs/kamus-data.md)
-- [Panduan Quarto, Pandoc, dan Zotero](docs/panduan-referensi.md)
-- [Panduan kontribusi](CONTRIBUTING.md)
+Repositori ini belum memiliki lisensi proyek. Akses publik bukan izin untuk menggunakan ulang atau mendistribusikan kode, laporan, data, atau logo. Periksa izin dan ketentuan atribusi dari pemegang hak masing-masing.
